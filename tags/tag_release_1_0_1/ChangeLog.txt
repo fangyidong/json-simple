@@ -1,0 +1,11 @@
+ChangeLog
+
+Version 1.01 (2008/08/26)
+* License changed to a more commerce friendly and clear one, Apache License 2.0
+* Use JFlex to generate a faster Yylex.java
+* Added Rope.java to get faster string operations
+* Separate test codes from source codes
+* Added ant build file build.xml
+
+Version 1.0 (2006/04/15)
+* Initial version
