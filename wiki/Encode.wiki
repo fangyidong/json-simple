@@ -1,4 +1,3 @@
-====Encode====
  * Encode a JSON object
    {{{
   //import org.json.simple.JSONObject;
