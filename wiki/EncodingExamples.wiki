@@ -126,7 +126,8 @@
   System.out.println(users);
   }}}
   Result: [{userName:"foo1",ID:123},{userName:"foo2",ID:124},{userName:"\"foo2\"",ID:125}]
-  User.toString() can be simpler:
+
+  User.toString() seems to be a bit complicated. The purpose is to demonstrate the usage of JSONObject.escape(). It can be simpler:
   {{{
   public String toString(){
     JSONObject obj = new JSONObject();
