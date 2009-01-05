@@ -125,3 +125,4 @@
   users.add(new User(124,"\"foo2\"", "secret2"));
   System.out.println(users);
   }}}
+  Result: [{userName:"foo1",ID:123},{userName:"foo2",ID:124},{userName:"\"foo2\"",ID:124}]
