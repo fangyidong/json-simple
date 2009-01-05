@@ -122,7 +122,17 @@
   JSONArray users = new JSONArray();
   users.add(new User(123,"foo1", "secret1"));
   users.add(new User(124,"foo2", "secret2"));
-  users.add(new User(124,"\"foo2\"", "secret2"));
+  users.add(new User(125,"\"foo2\"", "secret2"));
   System.out.println(users);
   }}}
-  Result: [{userName:"foo1",ID:123},{userName:"foo2",ID:124},{userName:"\"foo2\"",ID:124}]
+  Result: [{userName:"foo1",ID:123},{userName:"foo2",ID:124},{userName:"\"foo2\"",ID:125}]
+
+  User.toString() can be simpler:
+  {{{
+  public String toString(){
+    JSONObject obj = new JSONObject();
+    obj.put("userName", name);
+    obj.put("ID", new Integer(id));
+    return obj.toString();
+  }
+  }}}
