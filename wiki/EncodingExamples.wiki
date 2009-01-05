@@ -136,3 +136,4 @@
     return obj.toString();
   }
   }}}
+  Please refer [MappingBetweenJSONAndJavaEntities Mapping Between JSON and Java Entities] for more information.
