@@ -84,3 +84,38 @@
   System.out.println(obj);
    }}}
   Result: {"balance":1000.21,"list2":[true,null],"num":100,"list1":["foo",100,1000.21],"nickname":null,"is_vip":true,"name":"foo"}
+
+ * Example 6 - Customize JSON outputs
+  {{{
+/*class User{
+	private int id;
+	private String name;
+	private String password;
+	
+	public User(int id, String name, String password){
+		this.id = id;
+		this.name = name;
+		this.password = password;
+	}
+	
+	public String toString(){
+		StringBuffer sb = new StringBuffer();
+		
+		sb.append("{");
+		
+		sb.append(JSONObject.escape("userName"));
+		sb.append(":");
+		sb.append("\"" + JSONObject.escape(name) + "\"");
+		
+		sb.append(",");
+		
+		sb.append(JSONObject.escape("ID"));
+		sb.append(":");
+		sb.append(id);
+		
+		sb.append("}");
+		
+		return sb.toString();
+	}
+}*/
+  }}}
