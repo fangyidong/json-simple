@@ -58,7 +58,7 @@
    }}}
   Result: [true,null,"foo",100,1000.21], the order of which is different from the one of Example 2.
 
- * Example 5 - Cominition of JSON primitives, JSON object and JSON arrays
+ * Example 5 - Combination of JSON primitives, JSON object and JSON arrays
    {{{
   JSONArray list1 = new JSONArray();
   list1.add("foo");
