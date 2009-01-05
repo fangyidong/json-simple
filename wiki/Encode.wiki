@@ -41,7 +41,7 @@
   obj2.putAll(obj1);
   System.out.print(obj2);
    }}} 
-  Result: {"balance":1000.21,"num":100,"nickname":null,"is_vip":true,"name":"foo"}, the same as Example 1.
+  Result: {"balance":1000.21,"num":100,"nickname":null,"is_vip":true,"name":"foo"}, the same as the one of Example 1.
 
  * Example 4 - Merge two JSON arrays
    {{{
@@ -56,4 +56,4 @@
   list2.addAll(list1);
   System.out.print(list2);
    }}}
-  Result: [true,null,"foo",100,1000.21], the order of which is different from Example 2.
+  Result: [true,null,"foo",100,1000.21], the order of which is different from the one of Example 2.
