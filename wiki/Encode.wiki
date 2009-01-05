@@ -1,4 +1,4 @@
- * Encode a JSON object
+ # Encode a JSON object
    {{{
   //import org.json.simple.JSONObject;
   
@@ -12,7 +12,7 @@
    }}} 
   Result: {"balance":1000.21,"num":100,"nickname":null,"is_vip":true,"name":"foo"}
 
- * Encode a JSON array
+ # Encode a JSON array
    {{{
   //import org.json.simple.JSONArray;
   
@@ -26,7 +26,7 @@
    }}} 
   Result: ["foo",100,1000.21,true,null]
 
- * Merge two JSON objects
+ # Merge two JSON objects
    {{{
   //import org.json.simple.JSONObject;
   
@@ -41,7 +41,19 @@
   obj2.putAll(obj1);
   System.out.print(obj2);
    }}} 
-  Result: {"balance":1000.21,"num":100,"nickname":null,"is_vip":true,"name":"foo"}
+  Result: {"balance":1000.21,"num":100,"nickname":null,"is_vip":true,"name":"foo"}, the same as example 1.
 
- * Merge two JSON arrays
-   Similar as above with List.addAll().
+ # Merge two JSON arrays
+   {{{
+  JSONArray list1 = new JSONArray();
+  list1.add("foo");
+  list1.add(new Integer(100));
+  list1.add(new Double(1000.21));
+  
+  JSONArray list2 = new JSONArray();
+  list2.add(new Boolean(true));
+  list2.add(null);
+  list2.addAll(list1);
+  System.out.print(list2);
+   }}}
+  Result: [true,null,"foo",100,1000.21], the order of which is different from example 2.
