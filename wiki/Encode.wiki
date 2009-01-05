@@ -1,0 +1,48 @@
+====Encode====
+ * Encode a JSON object
+   {{{
+  //import org.json.simple.JSONObject;
+  
+  JSONObject obj=new JSONObject();
+  obj.put("name","foo");
+  obj.put("num",new Integer(100));
+  obj.put("balance",new Double(1000.21));
+  obj.put("is_vip",new Boolean(true));
+  obj.put("nickname",null);
+  System.out.print(obj);
+   }}} 
+  Result: {"balance":1000.21,"num":100,"nickname":null,"is_vip":true,"name":"foo"}
+
+ * Encode a JSON array
+   {{{
+  //import org.json.simple.JSONArray;
+  
+  JSONArray list = new JSONArray();
+  list.add("foo");
+  list.add(new Integer(100));
+  list.add(new Double(1000.21));
+  list.add(new Boolean(true));
+  list.add(null);
+  System.out.print(list);
+   }}} 
+  Result: ["foo",100,1000.21,true,null]
+
+ * Merge two JSON objects
+   {{{
+  //import org.json.simple.JSONObject;
+  
+  JSONObject obj1 = new JSONObject();
+  obj1.put("name","foo");
+  obj1.put("num",new Integer(100));
+  obj1.put("balance",new Double(1000.21));
+  		
+  JSONObject obj2 = new JSONObject();
+  obj2.put("is_vip",new Boolean(true));
+  obj2.put("nickname",null);
+  obj2.putAll(obj1);
+  System.out.print(obj2);
+   }}} 
+  Result: {"balance":1000.21,"num":100,"nickname":null,"is_vip":true,"name":"foo"}
+
+ * Merge two JSON arrays
+   Similar as above with List.addAll().
