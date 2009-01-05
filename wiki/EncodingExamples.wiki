@@ -118,4 +118,10 @@
 		return sb.toString();
 	}
 }*/
+
+  JSONArray users = new JSONArray();
+  users.add(new User(123,"foo1", "secret1"));
+  users.add(new User(124,"foo2", "secret2"));
+  users.add(new User(124,"\"foo2\"", "secret2"));
+  System.out.println(users);
   }}}
