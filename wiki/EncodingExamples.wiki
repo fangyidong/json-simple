@@ -1,5 +1,6 @@
 #summary Examples of JSON encoding
 #sidebar TableOfContents
+
  * Example 1 - Encode a JSON object
    {{{
   //import org.json.simple.JSONObject;
