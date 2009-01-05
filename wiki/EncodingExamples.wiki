@@ -126,7 +126,6 @@
   System.out.println(users);
   }}}
   Result: [{userName:"foo1",ID:123},{userName:"foo2",ID:124},{userName:"\"foo2\"",ID:125}]
-
   User.toString() can be simpler:
   {{{
   public String toString(){
