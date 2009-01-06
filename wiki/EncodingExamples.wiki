@@ -1,5 +1,7 @@
 #summary Examples of JSON encoding
 
+<wiki:toc max_depth="1" />
+
  ===Example 1 - Encode a JSON object===
    {{{
   //import org.json.simple.JSONObject;
@@ -85,7 +87,7 @@
    }}}
   Result: {"balance":1000.21,"list2":[true,null],"num":100,"list1":["foo",100,1000.21],"nickname":null,"is_vip":true,"name":"foo"}
 
- * Example 6 - Customize JSON outputs
+ ===Example 6 - Customize JSON outputs===
   {{{
 /*class User{
 	private int id;
