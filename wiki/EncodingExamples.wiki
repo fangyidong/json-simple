@@ -1,6 +1,5 @@
 #summary Examples of JSON encoding
-
- <wiki:toc/>
+<wiki:toc/>
 
  ====Example 1 - Encode a JSON object====
    {{{
