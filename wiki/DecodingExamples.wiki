@@ -29,4 +29,4 @@
   System.out.println(obj);
 }}}
 
-Please note that JSON strings like [5,,,2] are accepted by the parser and are treated as [5,2]. This doesn't violated the [http://www.ietf.org/rfc/rfc4627.txt JSON specification].
+Please note that JSON strings like [5,,,2] are accepted by the parser and are treated as [5,2]. This doesn't violated the [http://www.ietf.org/rfc/rfc4627.txt JSON specification], but increase the input error toleration of the parser. But it does confuse some JSON grammer checker who need a 'strict' mode. Considering adding this feature. Please refer [MappingBetweenJSONAndJavaEntities Mapping Between JSON and Java Entities] for more information on entity mapping while parsing.
