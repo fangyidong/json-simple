@@ -1,6 +1,6 @@
 #summary Examples of escaping strings with special characters
 
-===Escaping strings with special characters===
+====Escaping strings with special characters====
 {{{
   String s = "\"foo\" is not \"bar\". specials: \b\r\n\f\t\\/";
 
