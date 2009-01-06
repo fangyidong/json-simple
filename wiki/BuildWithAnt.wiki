@@ -1,6 +1,6 @@
 #summary Build JSON.simple with Ant
 
-The default target of build.xml is for compiling Java files and packaging classes into the final jar file in directory lib:
+The default target of build.xml is to compile Java files and package classes into the final jar file in directory lib:
 
 {{{
 ant 
