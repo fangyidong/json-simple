@@ -1,6 +1,6 @@
 #summary Examples of JSON encoding
 
-<wiki:toc max_depth="1" />
+ <wiki:toc max_depth="1" />
 
  ===Example 1 - Encode a JSON object===
    {{{
