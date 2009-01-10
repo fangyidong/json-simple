@@ -1,5 +1,4 @@
 #labels Featured,Phase-Implementation,Phase-Design
- 
  * Version 1.02 (2009/01/10)
   * Updated json.lex to improve performance of the lexer
   * Removed Rope.java and related junit test
