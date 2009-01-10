@@ -22,6 +22,12 @@ public class JSONParser {
 	public static final int S_PASSED_PAIR_KEY=4;
 	public static final int S_IN_ERROR=-1;
 	
+	private LinkedList statusStack = new LinkedList();
+	private LinkedList valueStack = new LinkedList();
+	private Yylex lexer = new Yylex((Reader)null);
+	private Yytoken token = null;
+	private int status = S_INIT;
+	
 	private int peekStatus(LinkedList statusStack){
 		if(statusStack.size()==0)
 			return -1;
@@ -29,13 +35,17 @@ public class JSONParser {
 		return status.intValue();
 	}
 	
+	private void reset(Reader in) throws Exception{
+		statusStack.clear();
+		valueStack.clear();
+		lexer.yyreset(in);
+		token = null;
+		status = S_INIT;
+	}
+	
 	public Object parse(Reader in) throws Exception{
-		LinkedList statusStack=new LinkedList();
-		LinkedList valueStack=new LinkedList();
-		Yylex lexer=new Yylex(in);
-		Yytoken token=null;
-		int status=S_INIT;
-		
+		reset(in);
+			
 		try{
 			do{
 				token=lexer.yylex();

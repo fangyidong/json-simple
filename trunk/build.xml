@@ -1,5 +1,5 @@
 <project name="json-simple" default="main" basedir=".">
-	<property name="current-version" value="1.0.1"/>
+	<property name="current-version" value="1.0.2"/>
 	<property name="jar-name" value="json_simple-${current-version}.jar"/>
 	
 	<target name="main" depends="mkdir,compile,jar">
