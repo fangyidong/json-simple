@@ -43,7 +43,6 @@
 			<formatter type="plain"/>
 			<test name="org.json.simple.Test"/>
 			<test name="org.json.simple.parser.YylexTest"/>
-			<test name="org.json.simple.rope.RopeTest"/>
 		</junit>
 	</target>
 </project>

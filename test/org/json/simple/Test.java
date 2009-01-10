@@ -4,6 +4,8 @@
  */
 package org.json.simple;
 
+import java.util.List;
+
 import junit.framework.TestCase;
 
 
@@ -39,6 +41,11 @@ public class Test extends TestCase{
 		s="[5,,2]";
 		obj=JSONValue.parse(s);
 		assertEquals("[5,2]",obj.toString());
+		
+		s="[\"hello\\bworld\\\"abc\\tdef\\\\ghi\\rjkl\\n123\\u4e2d\"]";
+		obj=JSONValue.parse(s);
+		assertEquals("hello\bworld\"abc\tdef\\ghi\rjkl\n123中",((List)obj).get(0).toString());
+		
 	}
 	
 	public void testEncode() throws Exception{

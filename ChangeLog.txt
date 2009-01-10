@@ -1,5 +1,9 @@
 ChangeLog
 
+Version 1.02 (2009/01/10)
+* Updated json.lex to improve performance of the lexer
+* Removed Rope.java and related junit test
+
 Version 1.01 (2008/08/26)
 * License changed to a more commerce friendly and clear one, Apache License 2.0
 * Use JFlex to generate a faster Yylex.java
