@@ -1,6 +1,5 @@
 #summary Examples of JSON decoding
 <wiki:toc/>
-
 ====Convenient way: Use JSONValue=====
 {{{
   System.out.println("=======decode=======");
