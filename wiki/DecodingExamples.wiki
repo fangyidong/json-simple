@@ -1,6 +1,6 @@
 #summary Examples of JSON decoding
 
-====Simple decoding example=====
+====Convenient way: Use JSONValue=====
 {{{
   System.out.println("=======decode=======");
 		
@@ -29,4 +29,35 @@
   System.out.println(obj);
 }}}
 
-Please note that JSON string such as [5,,,2] is accepted by the parser and is treated as [5,2]. This doesn't violate the [http://www.ietf.org/rfc/rfc4627.txt JSON specification], and it increases the error toleration of the input data. But it does confuse some JSON grammar checker which need a 'strict' mode. Considering adding this feature. Please refer [MappingBetweenJSONAndJavaEntities Mapping Between JSON and Java Entities] for more information on entity mapping while parsing.
+====Faster way: Reuse instance of JSONParser=====
+{{{
+  JSONParser parser=new JSONParser();
+
+  System.out.println("=======decode=======");
+		
+  String s="[0,{\"1\":{\"2\":{\"3\":{\"4\":[5,{\"6\":7}]}}}}]";
+  Object obj=parser.parse(s);
+  JSONArray array=(JSONArray)obj;
+  System.out.println("======the 2nd element of array======");
+  System.out.println(array.get(1));
+  System.out.println();
+		
+  JSONObject obj2=(JSONObject)array.get(1);
+  System.out.println("======field \"1\"==========");
+  System.out.println(obj2.get("1"));	
+
+		
+  s="{}";
+  obj=parser.parse(s);
+  System.out.println(obj);
+		
+  s="[5,]";
+  obj=parser.parse(s);
+  System.out.println(obj);
+		
+  s="[5,,2]";
+  obj=parser.parse(s);
+  System.out.println(obj);
+}}}
+
+JSONParser is NOT thread-safe. And please note that JSON string such as [5,,,2] is accepted by the parser and is treated as [5,2]. This doesn't violate the [http://www.ietf.org/rfc/rfc4627.txt JSON specification], and it increases the error toleration of the input data. But it does confuse some JSON grammar checker which need a 'strict' mode. Considering adding this feature. Please refer [MappingBetweenJSONAndJavaEntities Mapping Between JSON and Java Entities] for more information on entity mapping while parsing.
