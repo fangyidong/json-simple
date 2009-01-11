@@ -1,4 +1,5 @@
 #summary Examples of JSON decoding
+<wiki:toc/>
 
 ====Convenient way: Use JSONValue=====
 {{{
