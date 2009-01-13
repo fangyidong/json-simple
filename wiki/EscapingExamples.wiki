@@ -1,6 +1,6 @@
 #summary Examples of escaping strings with special characters
 
-====Escaping strings with special characters====
+====Escaping text that contains special characters====
 JSONObject.escape() escapes quotes,\, /, \r, \n, \b, \f, \t and other control characters. It can be used to escape !JavaScript codes.
  
 {{{
