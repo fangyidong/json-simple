@@ -14,37 +14,47 @@ import java.util.Map;
 public class JSONObject extends HashMap{
 	
 	public String toString(){
-		ItemList list=new ItemList();
 		Iterator iter=entrySet().iterator();
-		
+
+        boolean first = true;
+        StringBuffer sb = new StringBuffer();
+        sb.append('{');
 		while(iter.hasNext()){
+            if (first) {
+                first = false;
+            } else {
+                sb.append(',');
+            }
 			Map.Entry entry=(Map.Entry)iter.next();
-			list.add(toString(entry.getKey().toString(),entry.getValue()));
+			toString(entry.getKey().toString(), entry.getValue(), sb);
 		}
-		return "{"+list.toString()+"}";
+        sb.append('}');
+        return sb.toString();
 	}
 	
-	public static String toString(String key,Object value){
-		StringBuffer sb=new StringBuffer();
-		
-		sb.append("\"");
-		sb.append(escape(key));
+	public static String toString(String key, Object value){
+        return toString(key, value, new StringBuffer()).toString();
+    }
+
+    private static StringBuffer toString(String key, Object value, StringBuffer sb){
+        sb.append('\"');
+        escape(key, sb);
 		sb.append("\":");
-		if(value==null){
-			sb.append("null");
-			return sb.toString();
-		}
-		
-		if(value instanceof String){
-			sb.append("\"");
-			sb.append(escape((String)value));
-			sb.append("\"");
-		}
-		else
-			sb.append(value);
-		return sb.toString();
+        escapeValue(value, sb);
+        return sb;
 	}
-	
+
+    // Package-protected for JSONArray
+    static void escapeValue(Object value, StringBuffer sb) {
+		if (value instanceof String){
+			sb.append('\"');
+			escape((String) value, sb);
+			sb.append('\"');
+		} else {
+            sb.append(String.valueOf(value));
+        }
+    }
+
 	/**
 	 * " => \" , \ => \\
 	 * @param s
@@ -53,7 +63,13 @@ public class JSONObject extends HashMap{
 	public static String escape(String s){
 		if(s==null)
 			return null;
-		StringBuffer sb=new StringBuffer();
+        StringBuffer sb = new StringBuffer();
+        escape(s, sb);
+        return sb.toString();
+    }
+
+    // Package-protected for JSONArray
+    static void escape(String s, StringBuffer sb) {
 		for(int i=0;i<s.length();i++){
 			char ch=s.charAt(i);
 			switch(ch){
@@ -104,6 +120,5 @@ public class JSONObject extends HashMap{
 				}
 			}
 		}//for
-		return sb.toString();
 	}
 }
