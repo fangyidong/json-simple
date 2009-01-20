@@ -13,19 +13,21 @@ import java.util.Iterator;
  */
 public class JSONArray extends ArrayList {
 	public String toString(){
-		ItemList list=new ItemList();
-		
 		Iterator iter=iterator();
-		
+
+        boolean first = true;
+        StringBuffer sb = new StringBuffer();
+        sb.append('[');
 		while(iter.hasNext()){
-			Object value=iter.next();				
-			if(value instanceof String){
-				list.add("\""+JSONObject.escape((String)value)+"\"");
-			}
-			else
-				list.add(String.valueOf(value));
+            if (first) {
+                first = false;
+            } else {
+                sb.append(',');
+            }
+            JSONObject.escapeValue(iter.next(), sb);
 		}
-		return "["+list.toString()+"]";
+        sb.append(']');
+        return sb.toString();
 	}
 		
 }
