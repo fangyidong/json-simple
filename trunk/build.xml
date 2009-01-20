@@ -14,6 +14,7 @@
 	
 	<target name="mkdir">
 	    <mkdir dir="build/main"/>
+	    <mkdir dir="build/test"/>
 	</target>
 	
 	<target name="compile" depends="mkdir">
@@ -23,6 +24,30 @@
 				target="1.2"
 				source="1.2"/>
 	</target>
+
+	<target name="compile-test" depends="compile">
+		<javac 	srcdir="test" 
+				destdir="build/test"
+				includes="**/*.java"
+				target="1.2"
+				source="1.2">
+                    <classpath>
+                        <pathelement location="build/main"/>
+                    </classpath>
+                </javac>
+	</target>
+
+        <target name="test" depends="compile-test">
+            <junit haltonfailure="yes" printsummary="yes">
+                <classpath>
+                    <pathelement location="build/main"/>
+                    <pathelement location="build/test"/>
+                </classpath>
+                <batchtest>
+                    <fileset dir="test" includes="**/*Test.java,**/Test.java"/>
+                </batchtest>
+            </junit>
+        </target>
 	
 	<target name="jar" depends="compile">
 		<jar	destfile="lib/${jar-name}"
