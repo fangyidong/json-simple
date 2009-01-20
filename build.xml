@@ -2,7 +2,7 @@
 	<property name="current-version" value="1.0.2"/>
 	<property name="jar-name" value="json_simple-${current-version}.jar"/>
 	
-	<target name="main" depends="mkdir,compile,jar">
+	<target name="main" depends="jar">
 	</target>
 	
 	<target name="clean">
@@ -16,7 +16,7 @@
 	    <mkdir dir="build/main"/>
 	</target>
 	
-	<target name="compile">
+	<target name="compile" depends="mkdir">
 		<javac 	srcdir="src" 
 				destdir="build/main"
 				includes="**/*.java"
@@ -24,7 +24,7 @@
 				source="1.2"/>
 	</target>
 	
-	<target name="jar">
+	<target name="jar" depends="compile">
 		<jar	destfile="lib/${jar-name}"
 				basedir="build/main"
 				includes="**/*.class"/>
