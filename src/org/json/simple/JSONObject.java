@@ -81,6 +81,15 @@ public class JSONObject extends HashMap{
 			case '/':
 				sb.append("\\/");
 				break;
+            case '\u0085': // Next Line
+                sb.append("\\u0085");
+                break;
+            case '\u2028': // Line Separator
+                sb.append("\\u2028");
+                break;
+            case '\u2029': // Paragraph Separator
+                sb.append("\\u2029");
+                break;
 			default:
 				if(ch>='\u0000' && ch<='\u001F'){
 					String ss=Integer.toHexString(ch);
