@@ -1,5 +1,6 @@
 package org.json.simple.parser;
 
+import java.io.IOException;
 import java.io.StringReader;
 
 import junit.framework.TestCase;
@@ -38,13 +39,40 @@ public class YylexTest extends TestCase {
 		System.out.println(s);
 		in = new StringReader(s);
 		lexer=new Yylex(in);
-		Error err=null;
+		ParseException err=null;
 		try{
 			token=lexer.yylex();
 		}
-		catch(Error e){
+		catch(ParseException e){
 			err=e;
 			System.out.println("error:"+err);
+			assertEquals(ParseException.ERROR_UNEXPECTED_CHAR, e.getErrorType());
+			assertEquals(0,e.getPosition());
+			assertEquals(new Character('\b'),e.getUnexpectedObject());
+		}
+		catch(IOException ie){
+			throw ie;
+		}
+		assertTrue(err!=null);
+		
+		s="{a : b}";
+		System.out.println(s);
+		in = new StringReader(s);
+		lexer=new Yylex(in);
+		err=null;
+		try{
+			lexer.yylex();
+			token=lexer.yylex();
+		}
+		catch(ParseException e){
+			err=e;
+			System.out.println("error:"+err);
+			assertEquals(ParseException.ERROR_UNEXPECTED_CHAR, e.getErrorType());
+			assertEquals(new Character('a'),e.getUnexpectedObject());
+			assertEquals(1,e.getPosition());
+		}
+		catch(IOException ie){
+			throw ie;
 		}
 		assertTrue(err!=null);
 	}

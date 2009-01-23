@@ -26,6 +26,33 @@ public class Yytoken {
 	}
 	
 	public String toString(){
-		return String.valueOf(type+"=>|"+value+"|");
+		StringBuffer sb = new StringBuffer();
+		switch(type){
+		case TYPE_VALUE:
+			sb.append("VALUE(").append(value).append(")");
+			break;
+		case TYPE_LEFT_BRACE:
+			sb.append("LEFT BRACE({)");
+			break;
+		case TYPE_RIGHT_BRACE:
+			sb.append("RIGHT BRACE(})");
+			break;
+		case TYPE_LEFT_SQUARE:
+			sb.append("LEFT SQUARE([)");
+			break;
+		case TYPE_RIGHT_SQUARE:
+			sb.append("RIGHT SQUARE(])");
+			break;
+		case TYPE_COMMA:
+			sb.append("COMMA(,)");
+			break;
+		case TYPE_COLON:
+			sb.append("COLON(:)");
+			break;
+		case TYPE_EOF:
+			sb.append("END OF FILE");
+			break;
+		}
+		return sb.toString();
 	}
 }
