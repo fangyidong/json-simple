@@ -6,24 +6,23 @@ import java.io.IOException;
  * A simplified and stoppable SAX-like content handler for stream processing of JSON text. 
  * 
  * @see org.xml.sax.ContentHandler
+ * @see org.json.simple.parser.JSONParser#parse(java.io.Reader, ContentHandler, boolean)
  * 
  * @author FangYidong<fangyidong@yahoo.com.cn>
  */
 public interface ContentHandler {
 	/**
 	 * Receive notification of the beginning of JSON processing.
-	 * 
-	 * User can throw a ParseException with errorType ParseException.INFO_USER_STOP to let the parser stop.
-	 * 
+	 * The parser will invoke this method only once.
+     * 
 	 * @throws ParseException 
-	 * 			JSONParser will stop and throw the same exception to the caller when receiving this exception.
+	 * 			- JSONParser will stop and throw the same exception to the caller when receiving this exception.
 	 */
 	void startJSON() throws ParseException, IOException;
 	
 	/**
 	 * Receive notification of the end of JSON processing.
 	 * 
-	 * @return false if the handler wants to stop parsing after return.
 	 * @throws ParseException
 	 */
 	void endJSON() throws ParseException, IOException;
@@ -33,6 +32,8 @@ public interface ContentHandler {
 	 * 
 	 * @return false if the handler wants to stop parsing after return.
 	 * @throws ParseException
+     *          - JSONParser will stop and throw the same exception to the caller when receiving this exception.
+     * @see #endJSON
 	 */
 	boolean startObject() throws ParseException, IOException;
 	
@@ -41,16 +42,20 @@ public interface ContentHandler {
 	 * 
 	 * @return false if the handler wants to stop parsing after return.
 	 * @throws ParseException
+     * 
+     * @see #startObject
 	 */
 	boolean endObject() throws ParseException, IOException;
 	
 	/**
-	 * Receive notification of the beginning of a JSON object key value pair.
+	 * Receive notification of the beginning of a JSON object entry.
 	 * 
-	 * @param key - Key of a JSON object key value pair. 
+	 * @param key - Key of a JSON object entry. 
 	 * 
 	 * @return false if the handler wants to stop parsing after return.
 	 * @throws ParseException
+     * 
+     * @see #endObjectEntry
 	 */
 	boolean startObjectEntry(String key) throws ParseException, IOException;
 	
@@ -59,6 +64,8 @@ public interface ContentHandler {
 	 * 
 	 * @return false if the handler wants to stop parsing after return.
 	 * @throws ParseException
+     * 
+     * @see #startObjectEntry
 	 */
 	boolean endObjectEntry() throws ParseException, IOException;
 	
@@ -67,6 +74,8 @@ public interface ContentHandler {
 	 * 
 	 * @return false if the handler wants to stop parsing after return.
 	 * @throws ParseException
+     * 
+     * @see #endArray
 	 */
 	boolean startArray() throws ParseException, IOException;
 	
@@ -75,6 +84,8 @@ public interface ContentHandler {
 	 * 
 	 * @return false if the handler wants to stop parsing after return.
 	 * @throws ParseException
+     * 
+     * @see #startArray
 	 */
 	boolean endArray() throws ParseException, IOException;
 	
