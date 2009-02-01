@@ -124,7 +124,7 @@ Result:
 }}}
 
 ====Example 5 - Stoppable SAX-like content handler===
-JSON.simple introduces a simplified and stoppable SAX-like content handler to process JSON text stream. The user can pause at any point of the logical input stream, processing other logic, then resume parsing if needed, or abort parsing if he gets the desired result, without have to wait for the whole input stream to finish. Then we have a very fast parser without sacrificing the flexibility. Here's an example of finding values of any object entry that matches a desired key:
+JSON.simple introduces a simplified and stoppable SAX-like content handler to process JSON text stream. The user can pause at any point of the logical input stream, processing other logic, then resume parsing if needed, or abort parsing if he gets the desired result, without having to wait for the whole input stream to finish. Then we have a very fast parser without sacrificing the flexibility. Here's an example of finding values of any object entry that matches a desired key:
 
 !KeyFinder.java:
 {{{
