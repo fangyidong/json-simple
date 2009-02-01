@@ -164,7 +164,7 @@
    }}}
   Result: [true,null,"foo",100,1000.21], the order of which is different from the one of Example 2.
 
-====Example 5 - Combination of JSON primitives, JSON object and JSON arrays====
+====Example 5-1 - Combination of JSON primitives, JSON object and JSON arrays====
    {{{
   JSONArray list1 = new JSONArray();
   list1.add("foo");
@@ -188,6 +188,27 @@
   System.out.println(obj);
    }}}
   Result: {"balance":1000.21,"list2":[true,null],"num":100,"list1":["foo",100,1000.21],"nickname":null,"is_vip":true,"name":"foo"}
+
+====Example 5-2 - Combination of JSON primitives, Map and List====
+   {{{
+  Map m1 = new LinkedHashMap();
+  Map m2 = new HashMap();
+  List  l1 = new LinkedList();
+
+  m1.put("k11","v11");
+  m1.put("k12","v12");
+  m1.put("k13", "v13");
+  m2.put("k21","v21");
+  m2.put("k22","v22");
+  m2.put("k23","v23");
+  l1.add(m1);
+  l1.add(m2);
+
+  String jsonString = JSONValue.toJSONString(l1);
+		
+  System.out.println(jsonString);
+   }}}
+  Result: [{"k11":"v11","k12":"v12","k13":"v13"},{"k22":"v22","k21":"v21","k23":"v23"}]
 
 ====Example 6-1 - Customize JSON outputs====
   {{{
