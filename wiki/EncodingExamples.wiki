@@ -14,7 +14,24 @@
    }}} 
   Result: {"balance":1000.21,"num":100,"nickname":null,"is_vip":true,"name":"foo"}
 
-====Example 1-2 - Encode a JSON object - Using Map====
+====Example 1-2 - Encode a JSON object - Streaming====
+   {{{
+  //import org.json.simple.JSONObject;
+  
+  JSONObject obj=new JSONObject();
+  obj.put("name","foo");
+  obj.put("num",new Integer(100));
+  obj.put("balance",new Double(1000.21));
+  obj.put("is_vip",new Boolean(true));
+  obj.put("nickname",null);
+  StringWriter out = new StringWriter();
+  obj.writeJSONString(out);
+  String jsonText = out.toString();
+  System.out.print(jsonText);
+   }}} 
+  Result: {"balance":1000.21,"num":100,"nickname":null,"is_vip":true,"name":"foo"}
+
+====Example 1-3 - Encode a JSON object - Using Map====
    {{{
   //import java.util.LinkedHashMap;
   //import java.util.Map;
@@ -32,6 +49,25 @@
   Result: {"name":"foo","num":100,"balance":1000.21,"is_vip":true,"nickname":null}
 
   Now the order of the object entries is preserved, which is different from example 1-1.
+
+====Example 1-4 - Encode a JSON object - Using Map and streaming====
+   {{{
+  //import java.util.LinkedHashMap;
+  //import java.util.Map;
+  //import org.json.simple.JSONValue;
+  
+   Map obj=new LinkedHashMap();
+   obj.put("name","foo");
+   obj.put("num",new Integer(100));
+   obj.put("balance",new Double(1000.21));
+   obj.put("is_vip",new Boolean(true));
+   obj.put("nickname",null);
+   StringWriter out = new StringWriter();
+   JSONValue.writeJSONString(obj, out);
+   String jsonText = out.toString();
+   System.out.print(jsonText);
+   }}} 
+  Result: {"name":"foo","num":100,"balance":1000.21,"is_vip":true,"nickname":null}
 
 ====Example 2 - Encode a JSON array====
    {{{
