@@ -1,6 +1,6 @@
 #summary Examples of JSON decoding
 <wiki:toc/>
-====Convenient way: Use JSONValue=====
+====Example 1 - Convenient way: Use JSONValue=====
 {{{
   System.out.println("=======decode=======");
 		
@@ -29,7 +29,7 @@
   System.out.println(obj);
 }}}
 
-====Faster way: Reuse instance of JSONParser=====
+====Example 2 - Faster way: Reuse instance of JSONParser=====
 {{{
   JSONParser parser=new JSONParser();
 
@@ -59,5 +59,12 @@
   obj=parser.parse(s);
   System.out.println(obj);
 }}}
+
+
+====Example 3 - Exception handling=====
+
+====Example 4 - Container factory=====
+
+====Example 5 - Stoppable SAX-like content handler===
 
 JSONParser is NOT thread-safe. And please note that JSON string such as [5,,,2] is accepted by the parser and is treated as [5,2]. This doesn't violate the [http://www.ietf.org/rfc/rfc4627.txt JSON specification], and it increases the error toleration of the input data. But it does confuse some JSON grammar checker which need a 'strict' mode. Considering adding this feature. Please refer [MappingBetweenJSONAndJavaEntities Mapping Between JSON and Java Entities] for more information on entity mapping while parsing.
