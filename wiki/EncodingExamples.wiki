@@ -1,6 +1,6 @@
 #summary Examples of JSON encoding
 <wiki:toc/>
-====Example 1 - Encode a JSON object====
+====Example 1-1 - Encode a JSON object====
    {{{
   //import org.json.simple.JSONObject;
   
@@ -13,6 +13,25 @@
   System.out.print(obj);
    }}} 
   Result: {"balance":1000.21,"num":100,"nickname":null,"is_vip":true,"name":"foo"}
+
+====Example 1-2 - Encode a JSON object - Using Map====
+   {{{
+  //import java.util.LinkedHashMap;
+  //import java.util.Map;
+  //import org.json.simple.JSONValue;
+  
+  Map obj=new LinkedHashMap();
+  obj.put("name","foo");
+  obj.put("num",new Integer(100));
+  obj.put("balance",new Double(1000.21));
+  obj.put("is_vip",new Boolean(true));
+  obj.put("nickname",null);
+  String jsonText = JSONValue.toJSONString(obj);
+  System.out.print(jsonText);
+   }}} 
+  Result: {"name":"foo","num":100,"balance":1000.21,"is_vip":true,"nickname":null}
+
+  Now the order of the object entries is preserved, which is different from example 1-1.
 
 ====Example 2 - Encode a JSON array====
    {{{
