@@ -87,7 +87,7 @@
 
 ====Example 6 - Customize JSON outputs====
   {{{
-/*class User{
+/*class User implements JSONAware{
 	private int id;
 	private String name;
 	private String password;
@@ -98,7 +98,7 @@
 		this.password = password;
 	}
 	
-	public String toString(){
+	public String toJSONString(){
 		StringBuffer sb = new StringBuffer();
 		
 		sb.append("{");
@@ -127,9 +127,9 @@
   }}}
   Result: [{userName:"foo1",ID:123},{userName:"foo2",ID:124},{userName:"\"foo2\"",ID:125}]
 
-  User.toString() seems to be a bit complicated. The purpose is to demonstrate the usage of JSONObject.escape(). It can be simpler:
+  User.toJSONString() seems to be a bit complicated. The purpose is to demonstrate the usage of JSONObject.escape(). It can be simpler:
   {{{
-  public String toString(){
+  public String toJSONString(){
     JSONObject obj = new JSONObject();
     obj.put("userName", name);
     obj.put("ID", new Integer(id));
