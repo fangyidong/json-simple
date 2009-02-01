@@ -85,7 +85,7 @@
    }}}
   Result: {"balance":1000.21,"list2":[true,null],"num":100,"list1":["foo",100,1000.21],"nickname":null,"is_vip":true,"name":"foo"}
 
-====Example 6 - Customize JSON outputs====
+====Example 6-1 - Customize JSON outputs====
   {{{
 /*class User implements JSONAware{
 	private int id;
@@ -138,7 +138,7 @@
   }}}
   Please refer [MappingBetweenJSONAndJavaEntities Mapping Between JSON and Java Entities] for more information.
 
-====Example 7 - Customize JSON outputs - Streaming====
+====Example 6-2 - Customize JSON outputs - Streaming====
   {{{
 /*class User implements JSONStreamAware{
 	private int id;
