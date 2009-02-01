@@ -100,6 +100,38 @@
    }}} 
   Result: ["foo",100,1000.21,true,null]
 
+====Example 2-3 - Encode a JSON array - Using List====
+   {{{
+  //import org.json.simple.JSONValue;
+  
+  LinkedList list = new LinkedList();
+  list.add("foo");
+  list.add(new Integer(100));
+  list.add(new Double(1000.21));
+  list.add(new Boolean(true));
+  list.add(null);
+  String jsonText = JSONValue.toJSONString(list);
+  System.out.print(jsonText);
+   }}} 
+  Result: ["foo",100,1000.21,true,null]
+
+====Example 2-4 - Encode a JSON array - Using List and streaming====
+   {{{
+  //import org.json.simple.JSONValue;
+
+  LinkedList list = new LinkedList();
+  list.add("foo");
+  list.add(new Integer(100));
+  list.add(new Double(1000.21));
+  list.add(new Boolean(true));
+  list.add(null);
+  StringWriter out = new StringWriter();
+  JSONValue.writeJSONString(list, out);
+  String jsonText = out.toString();
+  System.out.print(jsonText);
+   }}} 
+  Result: ["foo",100,1000.21,true,null]
+
 ====Example 3 - Merge two JSON objects====
    {{{
   //import org.json.simple.JSONObject;
