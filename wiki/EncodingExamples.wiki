@@ -232,9 +232,11 @@
   System.out.println(jsonString);
    }}}
   Result: 
-    jsonString:
-    {"k3":["lv1","lv2"],"k1":"v1","k2":{"mk1":"mv1","mk2":["lv1","lv2"]}}
-    {"k3":["lv1","lv2"],"k1":"v1","k2":{"mk1":"mv1","mk2":["lv1","lv2"]}}
+  {{{
+  jsonString:
+  {"k3":["lv1","lv2"],"k1":"v1","k2":{"mk1":"mv1","mk2":["lv1","lv2"]}}
+  {"k3":["lv1","lv2"],"k1":"v1","k2":{"mk1":"mv1","mk2":["lv1","lv2"]}}
+  }}}
 
 ====Example 6-1 - Customize JSON outputs====
   {{{
