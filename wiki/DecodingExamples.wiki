@@ -62,6 +62,24 @@
 
 
 ====Example 3 - Exception handling=====
+{{{
+  String jsonText = "[[null, 123.45, \"a\\tb c\"]}, true";
+  JSONParser parser = new JSONParser();
+		
+  try{
+    parser.parse(jsonText);
+  }
+  catch(ParseException pe){
+    System.out.println("position: " + pe.getPosition());
+    System.out.println(pe);
+  }
+}}}
+Result:
+{{{
+  position: 25
+  Unexpected token RIGHT BRACE(}) at position 25.
+}}}
+Please refer [http://code.google.com/p/json-simple/source/browse/trunk/src/org/json/simple/parser/ParseException.java ParseException.java] for more information. 
 
 ====Example 4 - Container factory=====
 
