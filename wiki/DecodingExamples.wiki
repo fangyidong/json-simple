@@ -82,6 +82,37 @@ Result:
 Please refer [http://code.google.com/p/json-simple/source/browse/trunk/src/org/json/simple/parser/ParseException.java ParseException.java] for more information. 
 
 ====Example 4 - Container factory=====
+You can use [http://code.google.com/p/json-simple/source/browse/trunk/src/org/json/simple/parser/ContainerFactory.java ContainerFactory] to create containers for parsed JSON objects and JSON arrays:
+{{{
+  String jsonText = "{\"first\": 123, \"second\": [4, 5, 6], \"third\": 789}";
+  JSONParser parser = new JSONParser();
+  ContainerFactory containerFactory = new ContainerFactory(){
+    public List creatArrayContainer() {
+      return new LinkedList();
+    }
+
+    public Map createObjectContainer() {
+      return new LinkedHashMap();
+    }
+			
+  };
+		
+  try{
+    Map json = (Map)parser.parse(jsonText, containerFactory);
+    Iterator iter = json.entrySet().iterator();
+    System.out.println("==iterate result==");
+    while(iter.hasNext()){
+      Map.Entry entry = (Map.Entry)iter.next();
+      System.out.println(entry.getKey() + "=>" + entry.getValue());
+    }
+			
+    System.out.println("==toJSONString()==");
+    System.out.println(JSONValue.toJSONString(json));
+  }
+  catch(ParseException pe){
+    System.out.println(pe);
+  }
+}}}
 
 ====Example 5 - Stoppable SAX-like content handler===
 
