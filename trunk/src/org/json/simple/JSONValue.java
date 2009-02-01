@@ -252,17 +252,9 @@ public class JSONValue {
 			case '/':
 				sb.append("\\/");
 				break;
-            case '\u0085': // Next Line
-                sb.append("\\u0085");
-                break;
-            case '\u2028': // Line Separator
-                sb.append("\\u2028");
-                break;
-            case '\u2029': // Paragraph Separator
-                sb.append("\\u2029");
-                break;
 			default:
-				if(ch>='\u0000' && ch<='\u001F'){
+                //Reference: http://www.unicode.org/versions/Unicode5.1.0/
+				if((ch>='\u0000' && ch<='\u001F') || (ch>='\u007F' && ch<='\u009F') || (ch>='\u2000' && ch<='\u20FF')){
 					String ss=Integer.toHexString(ch);
 					sb.append("\\u");
 					for(int k=0;k<4-ss.length();k++){
