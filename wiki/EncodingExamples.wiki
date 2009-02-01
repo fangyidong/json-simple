@@ -31,6 +31,8 @@
    }}} 
   Result: {"balance":1000.21,"num":100,"nickname":null,"is_vip":true,"name":"foo"}
 
+  Please refer [MappingBetweenJSONAndJavaEntities Mapping Between JSON and Java Entities] for more information.
+
 ====Example 1-3 - Encode a JSON object - Using Map====
    {{{
   //import java.util.LinkedHashMap;
@@ -49,6 +51,7 @@
   Result: {"name":"foo","num":100,"balance":1000.21,"is_vip":true,"nickname":null}
 
   Now the order of the object entries is preserved, which is different from example 1-1.
+  Please refer [MappingBetweenJSONAndJavaEntities Mapping Between JSON and Java Entities] for more information.
 
 ====Example 1-4 - Encode a JSON object - Using Map and streaming====
    {{{
@@ -68,6 +71,8 @@
    System.out.print(jsonText);
    }}} 
   Result: {"name":"foo","num":100,"balance":1000.21,"is_vip":true,"nickname":null}
+
+  Please refer [MappingBetweenJSONAndJavaEntities Mapping Between JSON and Java Entities] for more information.
 
 ====Example 2-1 - Encode a JSON array====
    {{{
@@ -100,6 +105,8 @@
    }}} 
   Result: ["foo",100,1000.21,true,null]
 
+  Please refer [MappingBetweenJSONAndJavaEntities Mapping Between JSON and Java Entities] for more information.
+
 ====Example 2-3 - Encode a JSON array - Using List====
    {{{
   //import org.json.simple.JSONValue;
@@ -114,6 +121,8 @@
   System.out.print(jsonText);
    }}} 
   Result: ["foo",100,1000.21,true,null]
+
+  Please refer [MappingBetweenJSONAndJavaEntities Mapping Between JSON and Java Entities] for more information.
 
 ====Example 2-4 - Encode a JSON array - Using List and streaming====
    {{{
@@ -131,6 +140,8 @@
   System.out.print(jsonText);
    }}} 
   Result: ["foo",100,1000.21,true,null]
+
+  Please refer [MappingBetweenJSONAndJavaEntities Mapping Between JSON and Java Entities] for more information.
 
 ====Example 3 - Merge two JSON objects====
    {{{
