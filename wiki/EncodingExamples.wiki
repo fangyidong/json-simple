@@ -138,7 +138,7 @@
   }}}
   Please refer [MappingBetweenJSONAndJavaEntities Mapping Between JSON and Java Entities] for more information.
 
-====Example 7 - Customize JSON outputs - Stream processing====
+====Example 7 - Customize JSON outputs - Streaming====
   {{{
 /*class User implements JSONStreamAware{
 	private int id;
