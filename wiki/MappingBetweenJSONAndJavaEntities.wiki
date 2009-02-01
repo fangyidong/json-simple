@@ -5,7 +5,7 @@
 || number || java.lang.Number ||
 || true|false || java.lang.Boolean ||
 || null || null ||
-|| array || org.json.simple.JSONArray ||
-|| object || org.json.simple.JSONObject ||
+|| array || java.util.List ||
+|| object || java.util.Map ||
 
-JSON.simple will map entities from the left side to the right side while decoding or parsing, and map entities from the right to the left while encoding. We may encounter objects which are not listed on the right side of the table while encoding. In such cases, JSON.simple will call Object.toString() to determine the resulting JSON literal. Thus users can override Object.toString() to customize the JSON outputs of their objects. 
+JSON.simple will map entities from the left side to the right side while decoding or parsing, and map entities from the right to the left while encoding. We may encounter objects which are not listed on the right side of the table while encoding. In such cases, JSON.simple will call JSONAware.toJSONString() or JSONStreamAware.writeJSONString() to determine the resulting JSON text. Thus users can implement JSONAware or JSONStreamAware to customize the JSON outputs of their objects. 
