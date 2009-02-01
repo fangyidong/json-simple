@@ -137,3 +137,36 @@
   }
   }}}
   Please refer [MappingBetweenJSONAndJavaEntities Mapping Between JSON and Java Entities] for more information.
+
+====Example 7 - Customize JSON outputs - Stream processing====
+  {{{
+/*class User implements JSONStreamAware{
+	private int id;
+	private String name;
+	private String password;
+	
+	public User(int id, String name, String password){
+		this.id = id;
+		this.name = name;
+		this.password = password;
+	}
+	
+       public void writeJSONString (Writer out) throws IOException{
+                LinkedHashMap obj = new LinkedHashMap();
+                obj.put("userName", name);
+                obj.put("ID", new Integer(id));
+                JSONValue.writeJSONString(obj, out);
+       }
+}*/
+
+  JSONArray users = new JSONArray();
+  users.add(new User(123,"foo1", "secret1"));
+  users.add(new User(124,"foo2", "secret2"));
+  users.add(new User(125,"\"foo2\"", "secret2"));
+  StringWriter out = new StringWriter();
+  users.writeJSONString(out);
+  System.out.println(out.toString());
+  }}}
+  Result: [{"userName":"foo1","ID":123},{"userName":"foo2","ID":124},{"userName":"\"foo2\"","ID":125}]
+
+  Please refer [MappingBetweenJSONAndJavaEntities Mapping Between JSON and Java Entities] for more information.
