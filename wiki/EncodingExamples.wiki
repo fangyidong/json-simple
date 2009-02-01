@@ -69,7 +69,7 @@
    }}} 
   Result: {"name":"foo","num":100,"balance":1000.21,"is_vip":true,"nickname":null}
 
-====Example 2 - Encode a JSON array====
+====Example 2-1 - Encode a JSON array====
    {{{
   //import org.json.simple.JSONArray;
   
@@ -80,6 +80,23 @@
   list.add(new Boolean(true));
   list.add(null);
   System.out.print(list);
+   }}} 
+  Result: ["foo",100,1000.21,true,null]
+
+====Example 2-2 - Encode a JSON array - Streaming====
+   {{{
+  //import org.json.simple.JSONArray;
+  
+        JSONArray list = new JSONArray();
+        list.add("foo");
+        list.add(new Integer(100));
+        list.add(new Double(1000.21));
+        list.add(new Boolean(true));
+        list.add(null);
+        StringWriter out = new StringWriter();
+        list.writeJSONString(out);
+        String jsonText = out.toString();
+        System.out.print(jsonText);
    }}} 
   Result: ["foo",100,1000.21,true,null]
 
