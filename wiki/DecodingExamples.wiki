@@ -245,7 +245,7 @@ class Transformer implements ContentHandler{
         private Stack valueStack;
         
         public Object getResult(){
-            if(valueStack.size() == 0)
+            if(valueStack == null || valueStack.size() == 0)
                 return null;
             return valueStack.peek();
         }
