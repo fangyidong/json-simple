@@ -337,7 +337,7 @@ Main logic:
     value = transformer.getResult();
 }}}
 
-The result is similar to the one return from the code:
+The result is similar to one return from the following code:
 {{{
     String jsonString = <Input JSON text>;
     Object value = null;
