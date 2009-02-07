@@ -1,7 +1,7 @@
 #summary Performance tesing results
 
 ==== Introduction ====
-JSON.simple uses [http://code.google.com/p/json-test-suite/ json-test-suite] to do compliance testing. This is a simple performance testing for a very simple scenario. It does not cover all aspects of applications in the real world. Its purpose is to provide a reference point.
+JSON.simple uses [http://code.google.com/p/json-test-suite/ json-test-suite] to do compliance testing. This is a simple performance testing against the reference implementation of JSON.org in a very simple scenario. It does not cover all aspects of applications in the real world. Its purpose is to provide a reference point to the user.
 
 ==== Steps ====
  # Download the [http://code.google.com/p/json-test-suite/downloads/list latest json-test-suite package] from the home page of json-test-suite
@@ -15,7 +15,8 @@ JSON.simple uses [http://code.google.com/p/json-test-suite/ json-test-suite] to 
    }}}
 
 ==== Results ====
-
+The following result is a randomly selected result of the above command. The result of each parser is in milliseconds and is measured by the time needed by parsing and retrieving the desired value. The length of the [http://json-test-suite.googlecode.com/files/sample.zip sample data] is about 620K characters (more precisely, UTF-16 code units) and the value '6.908319653520691E8' is a randomly generated value used for validating of the parsing result.
+ 
 {{{
 ==sample==
 len:621807
