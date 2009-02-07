@@ -11,13 +11,18 @@ JSON.simple uses [http://code.google.com/p/json-test-suite/ json-test-suite] to 
    {{{
    ant -f test.xml compliance
    }}}
- * Check the results from the following files:
+ * You may need to wait for a few minutes and then check the results from the following files:
    {{{
    TEST-org.json.simple.compliance.EncoderTest.txt
    TEST-org.json.simple.compliance.DecoderTest.txt
    }}}
 
 ==== Results ====
-
+  Both of the encoder and decoder have passed tens of thousands randomly generated samples. No errors found so far. And please note that JSON.simple has been used in quite a few projects for 2+ years.
+|| Module || Result ||
+|| Encoder || 100,000+ samples passed, no errors found. ||
+|| Streaming Encoder || 100,000+ samples passed, no errors found. ||
+|| Decoder || 100,000+ samples passed, no errors found. ||
+|| Decoder with SAX-like content handler || 100,000+ samples passed, no errors found. ||
 
 ==== How does it work? ====
