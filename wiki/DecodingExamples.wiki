@@ -238,4 +238,112 @@ Result:
 
 Please refer [http://code.google.com/p/json-simple/source/browse/trunk/src/org/json/simple/parser/ContentHandler.java ContentHandler.java] for more information.
 
+====Example 6 - Build whole object graph on top of SAX-like content handler====
+!Transformer.java:
+{{{
+class Transformer implements ContentHandler{
+        private Stack valueStack;
+        
+        public Object getResult(){
+            if(valueStack.size() == 0)
+                return null;
+            return valueStack.peek();
+        }
+        
+        public boolean endArray () throws ParseException, IOException {
+            trackBack();
+            return true;
+        }
+
+        public void endJSON () throws ParseException, IOException {}
+
+        public boolean endObject () throws ParseException, IOException {
+            trackBack();
+            return true;
+        }
+
+        public boolean endObjectEntry () throws ParseException, IOException {
+            Object value = valueStack.pop();
+            Object key = valueStack.pop();
+            Map parent = (Map)valueStack.peek();
+            parent.put(key, value);
+            return true;
+        }
+
+        private void trackBack(){
+            if(valueStack.size() > 1){
+                Object value = valueStack.pop();
+                Object prev = valueStack.peek();
+                if(prev instanceof String){
+                    valueStack.push(value);
+                }
+            }
+        }
+        
+        private void consumeValue(Object value){
+            if(valueStack.size() == 0)
+                valueStack.push(value);
+            else{
+                Object prev = valueStack.peek();
+                if(prev instanceof List){
+                    List array = (List)prev;
+                    array.add(value);
+                }
+                else{
+                    valueStack.push(value);
+                }
+            }
+        }
+        
+        public boolean primitive (Object value) throws ParseException, IOException {
+            consumeValue(value);
+            return true;
+        }
+
+        public boolean startArray () throws ParseException, IOException {
+            List array = new JSONArray();
+            consumeValue(array);
+            valueStack.push(array);
+            return true;
+        }
+
+        public void startJSON () throws ParseException, IOException {
+            valueStack = new Stack();
+        }
+
+        public boolean startObject () throws ParseException, IOException {
+            Map object = new JSONObject();
+            consumeValue(object);
+            valueStack.push(object);
+            return true;
+        }
+
+        public boolean startObjectEntry (String key) throws ParseException, IOException {
+            valueStack.push(key);
+            return true;
+        }
+        
+    }
+}}}
+
+Main logic:
+{{{
+    String jsonString = <Input JSON text>;
+    Object value = null;
+    JSONParser parser = new JSONParser();
+    Transformer transformer = new Transformer();
+        
+    parser.parse(jsonString, transformer);
+    value = transformer.getResult();
+}}}
+
+The result is similar to the one return from the code:
+{{{
+    String jsonString = <Input JSON text>;
+    Object value = null;
+    JSONParser parser = new JSONParser();
+    value = parser.parse(jsonString);
+}}}
+
+====Notes - Multithreading and extensions====
 JSONParser is NOT thread-safe. And please note that JSON string such as [5,,,2] is accepted by the parser and is treated as [5,2]. This doesn't violate the [http://www.ietf.org/rfc/rfc4627.txt JSON specification], and it increases the error toleration of the input data. But it does confuse some JSON grammar checker which need a 'strict' mode. Considering adding this feature. Please refer [MappingBetweenJSONAndJavaEntities Mapping Between JSON and Java Entities] for more information on entity mapping while parsing.
