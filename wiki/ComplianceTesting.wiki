@@ -6,12 +6,12 @@ JSON.simple uses [http://code.google.com/p/json-test-suite/ json-test-suite] to 
 
 
 ==== Steps ====
- * Download the [http://code.google.com/p/json-test-suite/downloads/list latest json-test-suite package] from the home page of json-test-suite
- * Unzip and run the following command in the directory of the package:
+ # Download the [http://code.google.com/p/json-test-suite/downloads/list latest json-test-suite package] from the home page of json-test-suite
+ # Unzip and run the following command in the directory of the package:
    {{{
    ant -f test.xml compliance
    }}}
- * You may need to wait for a few minutes and then check the results from the following files:
+ # You may need to wait for a few minutes and then check the results from the following files:
    {{{
    TEST-org.json.simple.compliance.EncoderTest.txt
    TEST-org.json.simple.compliance.DecoderTest.txt
