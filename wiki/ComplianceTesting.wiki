@@ -1,4 +1,4 @@
-#Compliance with JSON specification
+# Compliance with JSON specification
 
 === Introduction ===
 
