@@ -2,7 +2,7 @@
 
 ==== Introduction ====
 
-JSON.simple uses [http://code.google.com/p/json-test-suite/ json-test-suite] to do compliance testing.
+JSON.simple uses [http://code.google.com/p/json-test-suite/ json-test-suite] to do compliance testing. 
 
 
 ==== Steps ====
@@ -18,7 +18,8 @@ JSON.simple uses [http://code.google.com/p/json-test-suite/ json-test-suite] to 
    }}}
 
 ==== Results ====
-Both of the encoder and decoder have passed tens of thousands randomly generated samples. No errors found so far. And please note that JSON.simple has been used in quite a few projects for 2+ years.
+Both of the encoder and decoder have passed tens of thousands randomly generated samples. No errors found so far. In real world applications, JSON.simple has been used in quite a few projects for 2+ years. 
+
 || *Module* || *Result* ||
 || Encoder || 100,000+ samples passed, no errors found. ||
 || Streaming Encoder || 100,000+ samples passed, no errors found. ||
