@@ -1,7 +1,7 @@
 #summary Performance tesing results
 
 ==== Introduction ====
-JSON.simple uses [http://code.google.com/p/json-test-suite/ json-test-suite] to do compliance testing. This is a simple performance testing against the reference implementation of JSON.org in a very simple scenario. It does not cover all aspects of applications in the real world. Its purpose is to provide a reference point to the user.
+JSON.simple uses [http://code.google.com/p/json-test-suite/ json-test-suite] to do performance testing. This is a simple performance testing against the reference implementation of JSON.org in a very simple scenario. It does not cover all aspects of applications in the real world. Its purpose is to provide a reference point to the user.
 
 ==== Steps ====
  # Download the [http://code.google.com/p/json-test-suite/downloads/list latest json-test-suite package] from the home page of json-test-suite
