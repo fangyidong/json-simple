@@ -1,0 +1,28 @@
+#summary Performance tesing results
+
+==== Introduction ====
+JSON.simple uses [http://code.google.com/p/json-test-suite/ json-test-suite] to do compliance testing. This is a simple performance testing for a very simple scenario. It does not cover all aspects of applications in the real world. Its purpose is to provide a reference point.
+
+==== Steps ====
+ # Download the [http://code.google.com/p/json-test-suite/downloads/list latest json-test-suite package] from the home page of json-test-suite
+ # Unzip and run the following command in the directory of the package:
+   {{{
+   ant -f test.xml perf
+   }}}
+ # You may need to wait for a few minutes and then check the results from the following files:
+   {{{
+   TEST-org.json.test.perf.SimpleTest.txt
+   }}}
+
+==== Results ====
+
+{{{
+==sample==
+len:621807
+org.json.JSONObject :: 103.1 ms		6.908319653520691E8
+org.json.simple.JSONParser :: 14.1 ms		6.908319653520691E8
+org.json.simple.JSONParser with ContentHandler :: 5.5 ms		6.908319653520691E8
+}}}
+
+==== How does it work? ====
+Please refer [http://code.google.com/p/json-test-suite/source/browse/trunk/src_perf/org/json/test/perf/SimpleTest.java SimpleTest.java] form details. You can also test JSON.simple against other libraries by removing the comment tags of SimpleTest.java. You may need to put their jar files and dependencies in directory 'lib' before running the command above.
