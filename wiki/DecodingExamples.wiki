@@ -1,6 +1,6 @@
 #summary Examples of JSON decoding
 <wiki:toc/>
-====Example 1 - Convenient way: Use JSONValue=====
+====Example 1 - Convenient way: Use JSONValue====
 {{{
   System.out.println("=======decode=======");
 		
@@ -29,7 +29,7 @@
   System.out.println(obj);
 }}}
 
-====Example 2 - Faster way: Reuse instance of JSONParser=====
+====Example 2 - Faster way: Reuse instance of JSONParser====
 {{{
   JSONParser parser=new JSONParser();
 
@@ -61,7 +61,7 @@
 }}}
 
 
-====Example 3 - Exception handling=====
+====Example 3 - Exception handling====
 {{{
   String jsonText = "[[null, 123.45, \"a\\tb c\"]}, true";
   JSONParser parser = new JSONParser();
@@ -81,7 +81,7 @@ Result:
 }}}
 Please refer [http://code.google.com/p/json-simple/source/browse/trunk/src/org/json/simple/parser/ParseException.java ParseException.java] for more information. 
 
-====Example 4 - Container factory=====
+====Example 4 - Container factory====
 You can use [http://code.google.com/p/json-simple/source/browse/trunk/src/org/json/simple/parser/ContainerFactory.java ContainerFactory] to create containers for parsed JSON objects and JSON arrays:
 {{{
   String jsonText = "{\"first\": 123, \"second\": [4, 5, 6], \"third\": 789}";
@@ -123,7 +123,7 @@ Result:
   {"first":123,"second":[4,5,6],"third":789}
 }}}
 
-====Example 5 - Stoppable SAX-like content handler===
+====Example 5 - Stoppable SAX-like content handler====
 JSON.simple introduces a simplified and stoppable SAX-like content handler to process JSON text stream. The user can pause at any point of the logical input stream, processing other logic, then resume parsing if needed, or abort parsing if he gets the desired result, without having to wait for the whole input stream to finish. Then we have a very fast parser without sacrificing the flexibility. Here's an example of finding values of any object entry that matches a desired key:
 
 !KeyFinder.java:
