@@ -1,13 +1,13 @@
 #summary Compliance tesing results
 
-=== Introduction ===
+==== Introduction ====
 
 JSON.simple uses [http://code.google.com/p/json-test-suite/ json-test-suite] to do compliance testing.
 
 
-=== Steps ===
+==== Steps ====
 
-=== Results ===
+==== Results ====
 
 
-=== How does it work? ===
+==== How does it work? ====
