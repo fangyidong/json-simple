@@ -239,7 +239,7 @@ Result:
 Please refer [http://code.google.com/p/json-simple/source/browse/trunk/src/org/json/simple/parser/ContentHandler.java ContentHandler.java] for more information.
 
 ====Example 6 - Build whole object graph on top of SAX-like content handler====
-!Transformer.java:
+Transformer.java:
 {{{
 class Transformer implements ContentHandler{
         private Stack valueStack;
