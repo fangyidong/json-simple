@@ -25,4 +25,4 @@ org.json.simple.JSONParser with ContentHandler :: 5.5 ms		6.908319653520691E8
 }}}
 
 ==== How does it work? ====
-Please refer [http://code.google.com/p/json-test-suite/source/browse/trunk/src_perf/org/json/test/perf/SimpleTest.java SimpleTest.java] form details. You can also test JSON.simple against other libraries by removing the comment tags of SimpleTest.java. You may need to put their jar files and dependencies in directory 'lib' before running the command above.
+Please refer [http://code.google.com/p/json-test-suite/source/browse/trunk/src_perf/org/json/test/perf/SimpleTest.java SimpleTest.java] form details. You can also test JSON.simple against other libraries by removing the comment tags of !SimpleTest.java. You may need to put their jar files and dependencies in directory 'lib' before running the command above.
