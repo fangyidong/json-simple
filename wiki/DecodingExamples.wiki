@@ -240,8 +240,9 @@ Please refer [http://code.google.com/p/json-simple/source/browse/trunk/src/org/j
 
 ====Example 6 - Build whole object graph on top of SAX-like content handler====
 
-*Please note that JSON.simple has provided the build in functionality to do the same work. Please refer above examples for more information. Here is just an example to show how to use the SAX-like interface in a slightly more complex scenario.*
-   
+Please note that JSON.simple has provided the build in functionality to do the same work. Please refer above examples for more information. Here is just an example to show how to use the SAX-like interface in a slightly more complex scenario.
+
+ 
 Transformer.java:
 {{{
 class Transformer implements ContentHandler{
