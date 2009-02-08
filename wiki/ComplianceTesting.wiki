@@ -26,3 +26,4 @@ Both of the encoder and decoder have passed tens of thousands randomly generated
 || Decoder with SAX-like content handler || 100,000+ samples passed, no errors found. ||
 
 ==== How does it work? ====
+TBD
