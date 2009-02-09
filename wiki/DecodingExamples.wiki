@@ -29,6 +29,8 @@
   System.out.println(obj);
 }}}
 
+Please refer [MappingBetweenJSONAndJavaEntities Mapping Between JSON and Java Entities] for more information on entity mapping while parsing.
+
 ====Example 2 - Faster way: Reuse instance of JSONParser====
 {{{
   JSONParser parser=new JSONParser();
@@ -60,6 +62,7 @@
   System.out.println(obj);
 }}}
 
+Please refer [MappingBetweenJSONAndJavaEntities Mapping Between JSON and Java Entities] for more information on entity mapping while parsing.
 
 ====Example 3 - Exception handling====
 {{{
@@ -122,6 +125,8 @@ Result:
   ==toJSONString()==
   {"first":123,"second":[4,5,6],"third":789}
 }}}
+
+Please refer [MappingBetweenJSONAndJavaEntities Mapping Between JSON and Java Entities] for more information on entity mapping while parsing.
 
 ====Example 5 - Stoppable SAX-like content handler====
 JSON.simple introduces a simplified and stoppable SAX-like content handler to process JSON text stream. The user can pause at any point of the logical input stream, processing other logic, then resume parsing if needed, or abort parsing if he gets the desired result, without having to wait for the whole input stream to finish. Then we have a very fast parser without sacrificing the flexibility. Here's an example of finding values of any object entry that matches a desired key:
@@ -350,4 +355,4 @@ The result is similar to one return from the following code:
 }}}
 
 ====Notes - Multithreading and extensions====
-JSONParser is NOT thread-safe. And please note that JSON string such as [5,,,2] is accepted by the parser and is treated as [5,2]. This doesn't violate the [http://www.ietf.org/rfc/rfc4627.txt JSON specification], and it increases the error toleration of the input data. But it does confuse some JSON grammar checker which need a 'strict' mode. Considering adding this feature. Please refer [MappingBetweenJSONAndJavaEntities Mapping Between JSON and Java Entities] for more information on entity mapping while parsing.
+JSONParser is NOT thread-safe. And please note that JSON string such as [5,,,2] is accepted by the parser and is treated as [5,2]. This doesn't violate the [http://www.ietf.org/rfc/rfc4627.txt JSON specification], and it increases the error toleration of the input data. Some JSON grammar checker may need a 'strict' mode. Considering adding this feature.
