@@ -65,4 +65,4 @@ function show(){
 </html>
 }}}
 
-Place client.html and service.jsp (see [http://code.google.com/p/json-simple/wiki/JSPAndAJAXExamples#Example_1_-_Server_side_JSP_encoding Example 1]) in the same directory and then open client.html in IE or Firefox, click the link and you'll get result.
+Please place client.html and service.jsp (see [http://code.google.com/p/json-simple/wiki/JSPAndAJAXExamples#Example_1_-_Server_side_JSP_encoding Example 1]) in the same directory and then open client.html in IE or Firefox, click the link and you'll get result.
