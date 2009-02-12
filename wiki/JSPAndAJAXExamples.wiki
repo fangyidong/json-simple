@@ -18,7 +18,7 @@ service.jsp:
   %>
 }}}
 
-Then the client side will get the resulting JSON text.
+Please note that you need to place json_simple-1.1.jar in WEB-INF/lib before running the JSP. Then the client side will get the resulting JSON text.
 
 ====Example 2 - Client side XMLHttpRequest ====
 client.html:
