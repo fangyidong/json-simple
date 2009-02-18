@@ -29,8 +29,8 @@
   System.out.println(obj);
 }}}
 
-JSONObject is a java.util.Map and JSONArray is a java.util.List, so you can access it
-with standard operations of Map or List. Please refer [MappingBetweenJSONAndJavaEntities Mapping Between JSON and Java Entities] for more information on entity mapping while parsing.
+JSONObject is a java.util.Map and JSONArray is a java.util.List, so you can access them
+ with standard operations of Map or List. Please refer [MappingBetweenJSONAndJavaEntities Mapping Between JSON and Java Entities] for more information on entity mapping while parsing.
 
 ====Example 2 - Faster way: Reuse instance of JSONParser====
 {{{
@@ -63,7 +63,7 @@ with standard operations of Map or List. Please refer [MappingBetweenJSONAndJava
   System.out.println(obj);
 }}}
 
-JSONObject is a java.util.Map and JSONArray is a java.util.List, so you can access it
+JSONObject is a java.util.Map and JSONArray is a java.util.List, so you can access them 
 with standard operations of Map or List. Please refer [MappingBetweenJSONAndJavaEntities Mapping Between JSON and Java Entities] for more information on entity mapping while parsing.
 
 ====Example 3 - Exception handling====
