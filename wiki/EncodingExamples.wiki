@@ -14,6 +14,8 @@
    }}} 
   Result: {"balance":1000.21,"num":100,"nickname":null,"is_vip":true,"name":"foo"}
 
+  Please refer [MappingBetweenJSONAndJavaEntities Mapping Between JSON and Java Entities] for more information.
+
 ====Example 1-2 - Encode a JSON object - Streaming====
    {{{
   //import org.json.simple.JSONObject;
