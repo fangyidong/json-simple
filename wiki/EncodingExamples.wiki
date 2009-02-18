@@ -302,7 +302,7 @@
     return obj.toString();
   }
   }}}
-  Please refer [MappingBetweenJSONAndJavaEntities Mapping Between JSON and Java Entities] for more information.
+  Please refer [MappingBetweenJSONAndJavaEntities Mapping Between JSON and Java Entities] for more information. (Note: If you are using version 1.0.2 or earlier, you need to override Object.toString() of your bean to get customized output.)
 
 ====Example 6-2 - Customize JSON outputs - Streaming====
   {{{
@@ -335,4 +335,4 @@
   }}}
   Result: [{"userName":"foo1","ID":123},{"userName":"foo2","ID":124},{"userName":"\"foo2\"","ID":125}]
 
-  Please refer [MappingBetweenJSONAndJavaEntities Mapping Between JSON and Java Entities] for more information.
+  Please note that you don't have to implement JSONStreamAware to support streaming output of your bean, you can implement JSONAware instead of JSONStreamAware, and in the latter case, JSONAware.toString() is called and the result is written to the output stream. You can use JSONStreamAware if you need better performance. If a class implements both JSONStreamAware and JSONAware, JSONStreamAware is given precedence. Please refer [MappingBetweenJSONAndJavaEntities Mapping Between JSON and Java Entities] for more information.
