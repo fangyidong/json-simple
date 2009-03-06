@@ -16,7 +16,24 @@ import java.util.Map;
  * @author FangYidong<fangyidong@yahoo.com.cn>
  */
 public class JSONObject extends HashMap implements Map, JSONAware, JSONStreamAware{
+	
 	private static final long serialVersionUID = -503443796854799292L;
+	
+	
+	public JSONObject() {
+		super();
+	}
+
+	/**
+	 * Allows creation of a JSONObject from a Map. After that, both the
+	 * generated JSONObject and the Map can be modified independently.
+	 * 
+	 * @param map
+	 */
+	public JSONObject(Map map) {
+		super(map);
+	}
+
 
     /**
      * Encode a map into JSON text and write it to out.
