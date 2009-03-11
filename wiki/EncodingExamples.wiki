@@ -1,5 +1,6 @@
 #summary Examples of JSON encoding
-<wiki:toc/>
+<wiki:toc max_depth="4"/>
+
 ====Example 1-1 - Encode a JSON object====
    {{{
   //import org.json.simple.JSONObject;
