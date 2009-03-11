@@ -1,5 +1,5 @@
 #summary Examples of JSP and AJAX
-<wiki:toc/>
+<wiki:toc max_depth="4"/>
 
 ====Example 1 - Server side JSP encoding ====
 service.jsp:
