@@ -361,7 +361,7 @@ The result is similar to one return from the following code:
 JSONParser is NOT thread-safe. And please note that JSON string such as [5,,,2] is accepted by the parser and is treated as [5,2]. This doesn't violate the [http://www.ietf.org/rfc/rfc4627.txt JSON specification], and it increases the error toleration of the input data. Some JSON grammar checker may need a 'strict' mode. Considering adding this feature.
 
 Since it's a bit controversial on the extension of the parser (see comments of this wiki page), I'd like to make a clarification on this top here.
-
+{{{
 Some users may concern about exchanging important data, say medical information or financial data, between applications. I think you need the make sure the following things in such scenarios:
 
 1. You need to make sure you are using a reliable and full compliant encoder on the side of the source;
@@ -379,3 +379,4 @@ The reason of accepting something like [5,,2] is that:
 I know some users may be FUD in front of a liberal parser, but as I mentioned above, it's harmless and is allowed in RFC4627 (actually the author of RFC4627 adopts this feature in the reference implementation).
 
 Please feel free to leave a comment or post in the discussion group if you have further concerns. Thanks. 
+}}}
