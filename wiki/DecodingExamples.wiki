@@ -358,18 +358,18 @@ The result is similar to one return from the following code:
 }}}
 
 ====Notes - Multithreading and extensions====
-JSONParser is NOT thread-safe. And please note that JSON string such as ![5,,,2] is accepted by the parser and is treated as ![5,2]. This doesn't violate the [http://www.ietf.org/rfc/rfc4627.txt JSON specification], and it increases the error toleration of the input data. Some JSON grammar checker may need a 'strict' mode. Considering adding this feature.
+JSONParser is NOT thread-safe. And please note that JSON string such as `[5,,,2]` is accepted by the parser and is treated as `[5,2]`. This doesn't violate the [http://www.ietf.org/rfc/rfc4627.txt JSON specification], and it increases the error toleration of the input data. Some JSON grammar checker may need a 'strict' mode. Considering adding this feature.
 
 Since it's a bit controversial on the extension of the parser (see comments of this wiki page), I'd like to make a clarification on this top here.
 
 Some users may concern about exchanging important data, say medical information or financial data, between applications. I think you need the make sure the following things in such scenarios:
 
  # You need to make sure you are using a reliable and full compliant encoder on the side of the source;
- # Or if you also accept data from a non-trusted source, even a 'strict' decoder is inadequate. You need extra validation rules to verify the source. For example, a user may send totally compliant ![5,2] even though you expect ![5,0,2].
+ # Or if you also accept data from a non-trusted source, even a 'strict' decoder is inadequate. You need extra validation rules to verify the source. For example, a user may send totally compliant `[5,2]` even though you expect `[5,0,2]`.
 
 In both cases, a liberal parser will do nothing harmful to your application.
 
-The reason of accepting something like ![5,,2] is that:
+The reason of accepting something like `[5,,2]` is that:
 
  # A careless user or an encoder may repeat a comma (such as by pressing the key too long :-), which is harmless;
  # The comma is actually redundant syntactically, if two adjacent entities are recognized.
