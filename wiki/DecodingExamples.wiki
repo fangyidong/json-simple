@@ -360,7 +360,7 @@ The result is similar to one return from the following code:
 ====Notes - Multithreading and extensions====
 JSONParser is NOT thread-safe. And please note that JSON string such as `[5,,,2]` is accepted by the parser and is treated as `[5,2]`. This doesn't violate the [http://www.ietf.org/rfc/rfc4627.txt JSON specification], and it increases the error toleration of the input data. Some JSON grammar checker may need a 'strict' mode. Considering adding this feature.
 
-Since it's a bit controversial on the extension of the parser (see comments of this wiki page), I'd like to make a clarification on this top here.
+Since it's a bit controversial on the extension of the parser (see comments of this wiki page), I'd like to make some clarifications on this topic here.
 
 Some users may concern about exchanging important data, say medical information or financial data, between applications. I think you need to make sure the following things in such scenarios:
 
