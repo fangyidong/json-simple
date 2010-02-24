@@ -2,7 +2,7 @@
 
 ==== Introduction ====
 
-JSON.simple uses [http://code.google.com/p/json-test-suite/ json-test-suite] to do compliance testing. Please following [MappingBetweenJSONAndJavaEntities The mapping between JSON and Java] to get the result compliant to JSON spec. Please note that interface JSONAware and JSONStreamAware is to provide the flexibility and freedom to the user so that he can render the result in any way and make any extensions (such as comments that are not supported by JSON spec), so the user should know what he's doing when he implements these interfaces.
+JSON.simple uses [http://code.google.com/p/json-test-suite/ json-test-suite] to do compliance testing. Please follow [MappingBetweenJSONAndJavaEntities The mapping between JSON and Java] to get the result compliant to JSON spec. Please note that interface JSONAware and JSONStreamAware is to provide the flexibility and freedom to the user so that he can render the result in any way and make any extensions (such as comments that are not supported by JSON spec), so the user should know what he's doing when he implements these interfaces.
 
 
 ==== Steps ====
