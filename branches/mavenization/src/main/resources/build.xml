@@ -1,26 +1,26 @@
 <project name="${project.artifactId}" default="main" basedir=".">
 	<property name="current-version" value="${project.version}"/>
 	<property name="jar-name" value="json-simple-${current-version}.jar"/>
-	<property name="classes-target" value="target/classes"/>
-	<property name="jar-target" value="target/${jar-name}"/>
-	
-	<target name="main" depends="jar">
-	</target>
+	<property name="targetDir" value="${project.build.directory}"/>
+	<property name="jar-target" value="${targetDir}/${jar-name}"/>
+	<property name="javaSourceDir" value="${project.build.sourceDirectory}"/>
+	<property name="javaTargetDir" value="${project.build.outputDirectory}"/>
+
+	<target name="main" depends="jar"></target>
 	
 	<target name="clean">
 		<delete includeemptydirs="true">
-			<fileset dir="target" includes="**/*"/>
-		 </delete>
-		<delete file="${jar-target}"/>
+			<fileset dir="${targetDir}" includes="**/*"/>
+		</delete>
 	</target>
 	
 	<target name="mkdir">
-	    <mkdir dir="${classes-target}"/>
+	    <mkdir dir="${javaTargetDir}"/>
 	</target>
 	
 	<target name="compile" depends="mkdir">
-		<javac 	srcdir="src/main/java" 
-				destdir="${classes-target}"
+		<javac 	srcdir="${javaSourceDir}" 
+				destdir="${javaTargetDir}"
 				includes="**/*.java"
 				target="1.2"
 				source="1.2"/>
@@ -28,7 +28,7 @@
 	
 	<target name="jar" depends="compile">
 		<jar	destfile="${jar-target}"
-				basedir="${classes-target}"
-				includes="**/*.class"/>
+				basedir="${javaTargetDir}"
+				excludes="build.xml"/>
 	</target>
 </project>
