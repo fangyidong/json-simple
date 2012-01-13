@@ -1,8 +1,6 @@
 <project name="json-simple" default="main" basedir=".">
 	<property name="current-version" value="1.1.1"/>
-	<property name="jar-name" value="json-simple-${current-version}.jar"/>
 	<property name="targetDir" value="target"/>
-	<property name="jar-target" value="${targetDir}/${jar-name}"/>
 	<property name="javaSourceDir" value="src/main/java"/>
 	<property name="javaTargetDir" value="target/classes"/>
 
@@ -27,8 +25,17 @@
 	</target>
 	
 	<target name="jar" depends="compile">
-		<jar	destfile="${jar-target}"
+		<jar	destfile="${targetDir}/json-simple-${current-version}.jar"
 				basedir="${javaTargetDir}"
-				excludes="build.xml"/>
+				includes="**/*.class">
+			<manifest>
+				<attribute name="Bundle-Name" value="JSON.simple"/>
+				<attribute name="Bundle-SymbolicName" value="com.googlecode.json-simple.json-simple"/>
+				<attribute name="Bundle-Version" value="${current-version}"/>
+				<attribute name="Bundle-License" value="http://www.apache.org/licenses/LICENSE-2.0.txt"/>
+				<attribute name="Bundle-Description" value="A simple Java toolkit for JSON"/>
+				<attribute name="Export-Package" value="org.json.simple, org.json.simple.parser"/>
+			</manifest>
+		</jar>
 	</target>
 </project>
