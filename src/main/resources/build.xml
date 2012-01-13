@@ -1,8 +1,6 @@
 <project name="${project.artifactId}" default="main" basedir=".">
 	<property name="current-version" value="${project.version}"/>
-	<property name="jar-name" value="json-simple-${current-version}.jar"/>
 	<property name="targetDir" value="${project.build.directory}"/>
-	<property name="jar-target" value="${targetDir}/${jar-name}"/>
 	<property name="javaSourceDir" value="${project.build.sourceDirectory}"/>
 	<property name="javaTargetDir" value="${project.build.outputDirectory}"/>
 
@@ -27,8 +25,17 @@
 	</target>
 	
 	<target name="jar" depends="compile">
-		<jar	destfile="${jar-target}"
+		<jar	destfile="${targetDir}/json-simple-${current-version}.jar"
 				basedir="${javaTargetDir}"
-				excludes="build.xml"/>
+				includes="**/*.class">
+			<manifest>
+				<attribute name="Bundle-Name" value="${project.name}"/>
+				<attribute name="Bundle-SymbolicName" value="${project.groupId}.${project.artifactId}"/>
+				<attribute name="Bundle-Version" value="${current-version}"/>
+				<attribute name="Bundle-License" value="${pom.licenses}"/>
+				<attribute name="Bundle-Description" value="${project.description}"/>
+				<attribute name="Export-Package" value="org.json.simple, org.json.simple.parser"/>
+			</manifest>
+		</jar>
 	</target>
 </project>
