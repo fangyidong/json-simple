@@ -1,5 +1,9 @@
 ChangeLog
 
+Version 1.1.1 (2012/01/29)
+* Supports OSGi
+* Accepts a java.util.Map parameter in constructor of JSONObject
+
 Version 1.1  (2009/01/23)
 * Supports stoppable SAX-like content handler for streaming of JSON text
 * Added JSONStreamAware to support streaming JSON text
