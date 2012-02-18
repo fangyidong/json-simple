@@ -50,6 +50,15 @@
                 <version>2.3.6</version>
                 <extensions>true</extensions>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>2.3.2</version>
+                <configuration>
+                  <source>1.2</source>
+                  <target>1.2</target>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 </project>
