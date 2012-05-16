@@ -575,7 +575,7 @@ int getPosition(){
           }
         case 25: break;
         case 4: 
-          { sb.delete(0, sb.length());yybegin(STRING_BEGIN);
+          { sb = null; sb = new StringBuffer(); yybegin(STRING_BEGIN);
           }
         case 26: break;
         case 16: 

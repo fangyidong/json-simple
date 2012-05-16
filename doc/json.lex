@@ -46,7 +46,7 @@ FALLBACK_CH = .
 												}
 <STRING_BEGIN> \\				{sb.append('\\');}
 												
-<YYINITIAL> \" 					{ sb.delete(0, sb.length());yybegin(STRING_BEGIN);}
+<YYINITIAL> \" 					{ sb = null; sb = new StringBuffer(); yybegin(STRING_BEGIN);}
 <YYINITIAL> {INT}				{ Long val=Long.valueOf(yytext()); return new Yytoken(Yytoken.TYPE_VALUE, val);}
 <YYINITIAL> {DOUBLE}			{ Double val=Double.valueOf(yytext()); return new Yytoken(Yytoken.TYPE_VALUE, val);}
 <YYINITIAL> "true"|"false"		{ Boolean val=Boolean.valueOf(yytext()); return new Yytoken(Yytoken.TYPE_VALUE, val);}
