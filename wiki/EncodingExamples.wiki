@@ -35,7 +35,7 @@
    }}} 
   Result: {"balance":1000.21,"num":100,"nickname":null,"is_vip":true,"name":"foo"}
 
-  Please note that the order of output entries is determined by the iterator implementation of the underlying java.util.Map implementation of JSONObject (which is java.util.HashMap). If you want to preserve the order of output entries, please use an implementation such as java.util.LinkedHashMap (see example 1-3).
+  JSONObject is subclass of java.util.HashMap. No ordering is provided. If you need strict ordering of elements use JSONValue.toJSONString( map ) method with ordered map implementation such as java.util.LinkedHashMap (see example 1-3).
   Please refer [MappingBetweenJSONAndJavaEntities Mapping Between JSON and Java Entities] for more information.
 
 ====Example 1-3 - Encode a JSON object - Using Map====
