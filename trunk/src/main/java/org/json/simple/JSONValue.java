@@ -321,7 +321,8 @@ public class JSONValue {
      * @param sb
      */
     static void escape(String s, StringBuffer sb) {
-		for(int i=0;i<s.length();i++){
+    	final int len = s.length();
+		for(int i=0;i<len;i++){
 			char ch=s.charAt(i);
 			switch(ch){
 			case '"':
