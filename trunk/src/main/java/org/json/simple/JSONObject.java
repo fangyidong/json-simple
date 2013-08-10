@@ -5,6 +5,7 @@
 package org.json.simple;
 
 import java.io.IOException;
+import java.io.StringWriter;
 import java.io.Writer;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -83,33 +84,28 @@ public class JSONObject extends HashMap implements Map, JSONAware, JSONStreamAwa
 	 * @return JSON text, or "null" if map is null.
 	 */
 	public static String toJSONString(Map map){
-		if(map == null)
-			return "null";
+		final StringWriter writer = new StringWriter();
 		
-        StringBuffer sb = new StringBuffer();
-        boolean first = true;
-		Iterator iter=map.entrySet().iterator();
-		
-        sb.append('{');
-		while(iter.hasNext()){
-            if(first)
-                first = false;
-            else
-                sb.append(',');
-            
-			Map.Entry entry=(Map.Entry)iter.next();
-			toJSONString(String.valueOf(entry.getKey()),entry.getValue(), sb);
+		try {
+			writeJSONString(map, writer);
+			return writer.toString();
+		} catch (IOException e) {
+			// This should never happen with a StringWriter
+			throw new RuntimeException(e);
 		}
-        sb.append('}');
-		return sb.toString();
 	}
 	
 	public String toJSONString(){
 		return toJSONString(this);
 	}
 	
-	private static String toJSONString(String key,Object value, StringBuffer sb){
-		sb.append('\"');
+	public String toString(){
+		return toJSONString();
+	}
+
+	public static String toString(String key,Object value){
+        StringBuffer sb = new StringBuffer();
+        sb.append('\"');
         if(key == null)
             sb.append("null");
         else
@@ -119,16 +115,6 @@ public class JSONObject extends HashMap implements Map, JSONAware, JSONStreamAwa
 		sb.append(JSONValue.toJSONString(value));
 		
 		return sb.toString();
-	}
-	
-	public String toString(){
-		return toJSONString();
-	}
-
-	public static String toString(String key,Object value){
-        StringBuffer sb = new StringBuffer();
-		toJSONString(key, value, sb);
-        return sb.toString();
 	}
 	
 	/**
