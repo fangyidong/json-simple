@@ -5,6 +5,7 @@
 package org.json.simple;
 
 import java.io.IOException;
+import java.io.StringWriter;
 import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -85,29 +86,16 @@ public class JSONArray extends ArrayList implements JSONAware, JSONStreamAware {
 	 * @return JSON text, or "null" if list is null.
 	 */
 	public static String toJSONString(Collection collection){
-		if(collection == null)
-			return "null";
+		final StringWriter writer = new StringWriter();
 		
-        boolean first = true;
-        StringBuffer sb = new StringBuffer();
-		Iterator iter=collection.iterator();
-        
-        sb.append('[');
-		while(iter.hasNext()){
-            if(first)
-                first = false;
-            else
-                sb.append(',');
-            
-			Object value=iter.next();
-			if(value == null){
-				sb.append("null");
-				continue;
-			}
-			sb.append(JSONValue.toJSONString(value));
+		try {
+			writeJSONString(collection, writer);
+		} catch (IOException e) {
+			// This should never happen for a StringWriter
+			throw new RuntimeException(e);
 		}
-        sb.append(']');
-		return sb.toString();
+		
+		return writer.toString();
 	}
 
 	public static void writeJSONString(byte[] array, Writer out) throws IOException{
