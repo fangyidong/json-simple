@@ -90,12 +90,11 @@ public class JSONArray extends ArrayList implements JSONAware, JSONStreamAware {
 		
 		try {
 			writeJSONString(collection, writer);
-		} catch (IOException e) {
+			return writer.toString();
+		} catch(IOException e){
 			// This should never happen for a StringWriter
 			throw new RuntimeException(e);
 		}
-		
-		return writer.toString();
 	}
 
 	public static void writeJSONString(byte[] array, Writer out) throws IOException{
@@ -117,27 +116,15 @@ public class JSONArray extends ArrayList implements JSONAware, JSONStreamAware {
 	}
 	
 	public static String toJSONString(byte[] array){
-		if(array == null){
-			return "null";
+		final StringWriter writer = new StringWriter();
+		
+		try {
+			writeJSONString(array, writer);
+			return writer.toString();
+		} catch(IOException e){
+			// This should never happen for a StringWriter
+			throw new RuntimeException(e);
 		}
-		
-		if(array.length == 0) {
-			return "[]";
-		}
-		
-		final StringBuffer buffer = new StringBuffer();
-		
-		buffer.append("[");
-		buffer.append(String.valueOf(array[0]));
-		
-		for(int i = 1; i < array.length; i++){
-			buffer.append(",");
-			buffer.append(String.valueOf(array[i]));
-		}
-		
-		buffer.append("]");
-		
-		return buffer.toString();
 	}
 	
 	public static void writeJSONString(short[] array, Writer out) throws IOException{
@@ -159,27 +146,15 @@ public class JSONArray extends ArrayList implements JSONAware, JSONStreamAware {
 	}
 	
 	public static String toJSONString(short[] array){
-		if(array == null){
-			return "null";
+		final StringWriter writer = new StringWriter();
+		
+		try {
+			writeJSONString(array, writer);
+			return writer.toString();
+		} catch(IOException e){
+			// This should never happen for a StringWriter
+			throw new RuntimeException(e);
 		}
-		
-		if(array.length == 0) {
-			return "[]";
-		}
-		
-		final StringBuffer buffer = new StringBuffer();
-		
-		buffer.append("[");
-		buffer.append(array[0]);
-		
-		for(int i = 1; i < array.length; i++){
-			buffer.append(",");
-			buffer.append(array[i]);
-		}
-		
-		buffer.append("]");
-		
-		return buffer.toString();
 	}
 	
 	public static void writeJSONString(int[] array, Writer out) throws IOException{
@@ -201,27 +176,15 @@ public class JSONArray extends ArrayList implements JSONAware, JSONStreamAware {
 	}
 	
 	public static String toJSONString(int[] array){
-		if(array == null){
-			return "null";
+		final StringWriter writer = new StringWriter();
+		
+		try {
+			writeJSONString(array, writer);
+			return writer.toString();
+		} catch(IOException e){
+			// This should never happen for a StringWriter
+			throw new RuntimeException(e);
 		}
-		
-		if(array.length == 0) {
-			return "[]";
-		}
-		
-		final StringBuffer buffer = new StringBuffer();
-		
-		buffer.append("[");
-		buffer.append(array[0]);
-		
-		for(int i = 1; i < array.length; i++){
-			buffer.append(",");
-			buffer.append(array[i]);
-		}
-		
-		buffer.append("]");
-		
-		return buffer.toString();
 	}
 	
 	public static void writeJSONString(long[] array, Writer out) throws IOException{
@@ -243,27 +206,15 @@ public class JSONArray extends ArrayList implements JSONAware, JSONStreamAware {
 	}
 	
 	public static String toJSONString(long[] array){
-		if(array == null){
-			return "null";
+		final StringWriter writer = new StringWriter();
+		
+		try {
+			writeJSONString(array, writer);
+			return writer.toString();
+		} catch(IOException e){
+			// This should never happen for a StringWriter
+			throw new RuntimeException(e);
 		}
-		
-		if(array.length == 0) {
-			return "[]";
-		}
-		
-		final StringBuffer buffer = new StringBuffer();
-		
-		buffer.append("[");
-		buffer.append(array[0]);
-		
-		for(int i = 1; i < array.length; i++){
-			buffer.append(",");
-			buffer.append(array[i]);
-		}
-		
-		buffer.append("]");
-		
-		return buffer.toString();
 	}
 	
 	public static void writeJSONString(float[] array, Writer out) throws IOException{
@@ -285,27 +236,15 @@ public class JSONArray extends ArrayList implements JSONAware, JSONStreamAware {
 	}
 	
 	public static String toJSONString(float[] array){
-		if(array == null){
-			return "null";
+		final StringWriter writer = new StringWriter();
+		
+		try {
+			writeJSONString(array, writer);
+			return writer.toString();
+		} catch(IOException e){
+			// This should never happen for a StringWriter
+			throw new RuntimeException(e);
 		}
-		
-		if(array.length == 0) {
-			return "[]";
-		}
-		
-		final StringBuffer buffer = new StringBuffer();
-		
-		buffer.append("[");
-		buffer.append(array[0]);
-		
-		for(int i = 1; i < array.length; i++){
-			buffer.append(",");
-			buffer.append(array[i]);
-		}
-		
-		buffer.append("]");
-		
-		return buffer.toString();
 	}
 	
 	public static void writeJSONString(double[] array, Writer out) throws IOException{
@@ -327,27 +266,15 @@ public class JSONArray extends ArrayList implements JSONAware, JSONStreamAware {
 	}
 	
 	public static String toJSONString(double[] array){
-		if(array == null){
-			return "null";
+		final StringWriter writer = new StringWriter();
+		
+		try {
+			writeJSONString(array, writer);
+			return writer.toString();
+		} catch(IOException e){
+			// This should never happen for a StringWriter
+			throw new RuntimeException(e);
 		}
-		
-		if(array.length == 0) {
-			return "[]";
-		}
-		
-		final StringBuffer buffer = new StringBuffer();
-		
-		buffer.append("[");
-		buffer.append(array[0]);
-		
-		for(int i = 1; i < array.length; i++){
-			buffer.append(",");
-			buffer.append(array[i]);
-		}
-		
-		buffer.append("]");
-		
-		return buffer.toString();
 	}
 	
 	public static void writeJSONString(boolean[] array, Writer out) throws IOException{
@@ -369,27 +296,15 @@ public class JSONArray extends ArrayList implements JSONAware, JSONStreamAware {
 	}
 	
 	public static String toJSONString(boolean[] array){
-		if(array == null){
-			return "null";
+		final StringWriter writer = new StringWriter();
+		
+		try {
+			writeJSONString(array, writer);
+			return writer.toString();
+		} catch(IOException e){
+			// This should never happen for a StringWriter
+			throw new RuntimeException(e);
 		}
-		
-		if(array.length == 0) {
-			return "[]";
-		}
-		
-		final StringBuffer buffer = new StringBuffer();
-		
-		buffer.append("[");
-		buffer.append(array[0]);
-		
-		for(int i = 1; i < array.length; i++){
-			buffer.append(",");
-			buffer.append(array[i]);
-		}
-		
-		buffer.append("]");
-		
-		return buffer.toString();
 	}
 	
 	public static void writeJSONString(char[] array, Writer out) throws IOException{
@@ -411,27 +326,15 @@ public class JSONArray extends ArrayList implements JSONAware, JSONStreamAware {
 	}
 	
 	public static String toJSONString(char[] array){
-		if(array == null){
-			return "null";
+		final StringWriter writer = new StringWriter();
+		
+		try {
+			writeJSONString(array, writer);
+			return writer.toString();
+		} catch(IOException e){
+			// This should never happen for a StringWriter
+			throw new RuntimeException(e);
 		}
-		
-		if(array.length == 0) {
-			return "[]";
-		}
-		
-		final StringBuffer buffer = new StringBuffer();
-		
-		buffer.append("[\"");
-		buffer.append(array[0]);
-		
-		for(int i = 1; i < array.length; i++){
-			buffer.append("\",\"");
-			buffer.append(array[i]);
-		}
-		
-		buffer.append("\"]");
-		
-		return buffer.toString();
 	}
 	
 	public static void writeJSONString(Object[] array, Writer out) throws IOException{
@@ -453,27 +356,15 @@ public class JSONArray extends ArrayList implements JSONAware, JSONStreamAware {
 	}
 	
 	public static String toJSONString(Object[] array){
-		if(array == null){
-			return "null";
+		final StringWriter writer = new StringWriter();
+		
+		try {
+			writeJSONString(array, writer);
+			return writer.toString();
+		} catch(IOException e){
+			// This should never happen for a StringWriter
+			throw new RuntimeException(e);
 		}
-		
-		if(array.length == 0) {
-			return "[]";
-		}
-		
-		final StringBuffer buffer = new StringBuffer();
-		
-		buffer.append("[");
-		buffer.append(JSONValue.toJSONString(array[0]));
-		
-		for(int i = 1; i < array.length; i++){
-			buffer.append(",");
-			buffer.append(JSONValue.toJSONString(array[i]));
-		}
-		
-		buffer.append("]");
-		
-		return buffer.toString();
 	}
 	
 	public String toJSONString(){

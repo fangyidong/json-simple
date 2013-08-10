@@ -7,6 +7,7 @@ package org.json.simple;
 import java.io.IOException;
 import java.io.Reader;
 import java.io.StringReader;
+import java.io.StringWriter;
 import java.io.Writer;
 import java.util.Collection;
 // import java.util.List;
@@ -238,69 +239,15 @@ public class JSONValue {
 	 * @return JSON text, or "null" if value is null or it's an NaN or an INF number.
 	 */
 	public static String toJSONString(Object value){
-		if(value == null)
-			return "null";
+		final StringWriter writer = new StringWriter();
 		
-		if(value instanceof String)
-			return "\""+escape((String)value)+"\"";
-		
-		if(value instanceof Double){
-			if(((Double)value).isInfinite() || ((Double)value).isNaN())
-				return "null";
-			else
-				return value.toString();
+		try{
+			writeJSONString(value, writer);
+			return writer.toString();
+		} catch(IOException e){
+			// This should never happen for a StringWriter
+			throw new RuntimeException(e);
 		}
-		
-		if(value instanceof Float){
-			if(((Float)value).isInfinite() || ((Float)value).isNaN())
-				return "null";
-			else
-				return value.toString();
-		}		
-		
-		if(value instanceof Number)
-			return value.toString();
-		
-		if(value instanceof Boolean)
-			return value.toString();
-		
-		if((value instanceof JSONAware))
-			return ((JSONAware)value).toJSONString();
-		
-		if(value instanceof Map)
-			return JSONObject.toJSONString((Map)value);
-		
-		if(value instanceof Collection)
-			return JSONArray.toJSONString((Collection)value);
-		
-		if(value instanceof byte[])
-			return JSONArray.toJSONString((byte[])value);
-		
-		if(value instanceof short[])
-			return JSONArray.toJSONString((short[])value);
-		
-		if(value instanceof int[])
-			return JSONArray.toJSONString((int[])value);
-		
-		if(value instanceof long[])
-			return JSONArray.toJSONString((long[])value);
-		
-		if(value instanceof float[])
-			return JSONArray.toJSONString((float[])value);
-		
-		if(value instanceof double[])
-			return JSONArray.toJSONString((double[])value);
-		
-		if(value instanceof boolean[])
-			return JSONArray.toJSONString((boolean[])value);
-		
-		if(value instanceof char[])
-			return JSONArray.toJSONString((char[])value);
-		
-		if(value instanceof Object[])
-			return JSONArray.toJSONString((Object[])value);
-		
-		return value.toString();
 	}
 
 	/**
