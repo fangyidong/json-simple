@@ -8,7 +8,8 @@ import java.io.IOException;
 import java.io.Reader;
 import java.io.StringReader;
 import java.io.Writer;
-import java.util.List;
+import java.util.Collection;
+// import java.util.List;
 import java.util.Map;
 
 import org.json.simple.parser.JSONParser;
@@ -146,8 +147,8 @@ public class JSONValue {
 			return;
 		}
 		
-		if(value instanceof List){
-			JSONArray.writeJSONString((List)value, out);
+		if(value instanceof Collection){
+			JSONArray.writeJSONString((Collection)value, out);
             return;
 		}
 		
@@ -201,8 +202,8 @@ public class JSONValue {
 		if(value instanceof Map)
 			return JSONObject.toJSONString((Map)value);
 		
-		if(value instanceof List)
-			return JSONArray.toJSONString((List)value);
+		if(value instanceof Collection)
+			return JSONArray.toJSONString((Collection)value);
 		
 		return value.toString();
 	}
