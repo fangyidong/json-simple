@@ -152,6 +152,51 @@ public class JSONValue {
             return;
 		}
 		
+		if(value instanceof byte[]){
+			JSONArray.writeJSONString((byte[])value, out);
+			return;
+		}
+		
+		if(value instanceof short[]){
+			JSONArray.writeJSONString((short[])value, out);
+			return;
+		}
+		
+		if(value instanceof int[]){
+			JSONArray.writeJSONString((int[])value, out);
+			return;
+		}
+		
+		if(value instanceof long[]){
+			JSONArray.writeJSONString((long[])value, out);
+			return;
+		}
+		
+		if(value instanceof float[]){
+			JSONArray.writeJSONString((float[])value, out);
+			return;
+		}
+		
+		if(value instanceof double[]){
+			JSONArray.writeJSONString((double[])value, out);
+			return;
+		}
+		
+		if(value instanceof boolean[]){
+			JSONArray.writeJSONString((boolean[])value, out);
+			return;
+		}
+		
+		if(value instanceof char[]){
+			JSONArray.writeJSONString((char[])value, out);
+			return;
+		}
+		
+		if(value instanceof Object[]){
+			JSONArray.writeJSONString((Object[])value, out);
+			return;
+		}
+		
 		out.write(value.toString());
 	}
 
@@ -204,6 +249,33 @@ public class JSONValue {
 		
 		if(value instanceof Collection)
 			return JSONArray.toJSONString((Collection)value);
+		
+		if(value instanceof byte[])
+			return JSONArray.toJSONString((byte[])value);
+		
+		if(value instanceof short[])
+			return JSONArray.toJSONString((short[])value);
+		
+		if(value instanceof int[])
+			return JSONArray.toJSONString((int[])value);
+		
+		if(value instanceof long[])
+			return JSONArray.toJSONString((long[])value);
+		
+		if(value instanceof float[])
+			return JSONArray.toJSONString((float[])value);
+		
+		if(value instanceof double[])
+			return JSONArray.toJSONString((double[])value);
+		
+		if(value instanceof boolean[])
+			return JSONArray.toJSONString((boolean[])value);
+		
+		if(value instanceof char[])
+			return JSONArray.toJSONString((char[])value);
+		
+		if(value instanceof Object[])
+			return JSONArray.toJSONString((Object[])value);
 		
 		return value.toString();
 	}

@@ -110,10 +110,392 @@ public class JSONArray extends ArrayList implements JSONAware, JSONStreamAware {
 		return sb.toString();
 	}
 
+	public static void writeJSONString(byte[] array, Writer out) throws IOException{
+		if(array == null){
+			out.write("null");
+		} else if(array.length == 0) {
+			out.write("[]");
+		} else {
+			out.write("[");
+			out.write(String.valueOf(array[0]));
+			
+			for(int i = 1; i < array.length; i++){
+				out.write(",");
+				out.write(String.valueOf(array[i]));
+			}
+			
+			out.write("]");
+		}
+	}
+	
+	public static String toJSONString(byte[] array){
+		if(array == null){
+			return "null";
+		}
+		
+		if(array.length == 0) {
+			return "[]";
+		}
+		
+		final StringBuffer buffer = new StringBuffer();
+		
+		buffer.append("[");
+		buffer.append(String.valueOf(array[0]));
+		
+		for(int i = 1; i < array.length; i++){
+			buffer.append(",");
+			buffer.append(String.valueOf(array[i]));
+		}
+		
+		buffer.append("]");
+		
+		return buffer.toString();
+	}
+	
+	public static void writeJSONString(short[] array, Writer out) throws IOException{
+		if(array == null){
+			out.write("null");
+		} else if(array.length == 0) {
+			out.write("[]");
+		} else {
+			out.write("[");
+			out.write(String.valueOf(array[0]));
+			
+			for(int i = 1; i < array.length; i++){
+				out.write(",");
+				out.write(String.valueOf(array[i]));
+			}
+			
+			out.write("]");
+		}
+	}
+	
+	public static String toJSONString(short[] array){
+		if(array == null){
+			return "null";
+		}
+		
+		if(array.length == 0) {
+			return "[]";
+		}
+		
+		final StringBuffer buffer = new StringBuffer();
+		
+		buffer.append("[");
+		buffer.append(array[0]);
+		
+		for(int i = 1; i < array.length; i++){
+			buffer.append(",");
+			buffer.append(array[i]);
+		}
+		
+		buffer.append("]");
+		
+		return buffer.toString();
+	}
+	
+	public static void writeJSONString(int[] array, Writer out) throws IOException{
+		if(array == null){
+			out.write("null");
+		} else if(array.length == 0) {
+			out.write("[]");
+		} else {
+			out.write("[");
+			out.write(String.valueOf(array[0]));
+			
+			for(int i = 1; i < array.length; i++){
+				out.write(",");
+				out.write(String.valueOf(array[i]));
+			}
+			
+			out.write("]");
+		}
+	}
+	
+	public static String toJSONString(int[] array){
+		if(array == null){
+			return "null";
+		}
+		
+		if(array.length == 0) {
+			return "[]";
+		}
+		
+		final StringBuffer buffer = new StringBuffer();
+		
+		buffer.append("[");
+		buffer.append(array[0]);
+		
+		for(int i = 1; i < array.length; i++){
+			buffer.append(",");
+			buffer.append(array[i]);
+		}
+		
+		buffer.append("]");
+		
+		return buffer.toString();
+	}
+	
+	public static void writeJSONString(long[] array, Writer out) throws IOException{
+		if(array == null){
+			out.write("null");
+		} else if(array.length == 0) {
+			out.write("[]");
+		} else {
+			out.write("[");
+			out.write(String.valueOf(array[0]));
+			
+			for(int i = 1; i < array.length; i++){
+				out.write(",");
+				out.write(String.valueOf(array[i]));
+			}
+			
+			out.write("]");
+		}
+	}
+	
+	public static String toJSONString(long[] array){
+		if(array == null){
+			return "null";
+		}
+		
+		if(array.length == 0) {
+			return "[]";
+		}
+		
+		final StringBuffer buffer = new StringBuffer();
+		
+		buffer.append("[");
+		buffer.append(array[0]);
+		
+		for(int i = 1; i < array.length; i++){
+			buffer.append(",");
+			buffer.append(array[i]);
+		}
+		
+		buffer.append("]");
+		
+		return buffer.toString();
+	}
+	
+	public static void writeJSONString(float[] array, Writer out) throws IOException{
+		if(array == null){
+			out.write("null");
+		} else if(array.length == 0) {
+			out.write("[]");
+		} else {
+			out.write("[");
+			out.write(String.valueOf(array[0]));
+			
+			for(int i = 1; i < array.length; i++){
+				out.write(",");
+				out.write(String.valueOf(array[i]));
+			}
+			
+			out.write("]");
+		}
+	}
+	
+	public static String toJSONString(float[] array){
+		if(array == null){
+			return "null";
+		}
+		
+		if(array.length == 0) {
+			return "[]";
+		}
+		
+		final StringBuffer buffer = new StringBuffer();
+		
+		buffer.append("[");
+		buffer.append(array[0]);
+		
+		for(int i = 1; i < array.length; i++){
+			buffer.append(",");
+			buffer.append(array[i]);
+		}
+		
+		buffer.append("]");
+		
+		return buffer.toString();
+	}
+	
+	public static void writeJSONString(double[] array, Writer out) throws IOException{
+		if(array == null){
+			out.write("null");
+		} else if(array.length == 0) {
+			out.write("[]");
+		} else {
+			out.write("[");
+			out.write(String.valueOf(array[0]));
+			
+			for(int i = 1; i < array.length; i++){
+				out.write(",");
+				out.write(String.valueOf(array[i]));
+			}
+			
+			out.write("]");
+		}
+	}
+	
+	public static String toJSONString(double[] array){
+		if(array == null){
+			return "null";
+		}
+		
+		if(array.length == 0) {
+			return "[]";
+		}
+		
+		final StringBuffer buffer = new StringBuffer();
+		
+		buffer.append("[");
+		buffer.append(array[0]);
+		
+		for(int i = 1; i < array.length; i++){
+			buffer.append(",");
+			buffer.append(array[i]);
+		}
+		
+		buffer.append("]");
+		
+		return buffer.toString();
+	}
+	
+	public static void writeJSONString(boolean[] array, Writer out) throws IOException{
+		if(array == null){
+			out.write("null");
+		} else if(array.length == 0) {
+			out.write("[]");
+		} else {
+			out.write("[");
+			out.write(String.valueOf(array[0]));
+			
+			for(int i = 1; i < array.length; i++){
+				out.write(",");
+				out.write(String.valueOf(array[i]));
+			}
+			
+			out.write("]");
+		}
+	}
+	
+	public static String toJSONString(boolean[] array){
+		if(array == null){
+			return "null";
+		}
+		
+		if(array.length == 0) {
+			return "[]";
+		}
+		
+		final StringBuffer buffer = new StringBuffer();
+		
+		buffer.append("[");
+		buffer.append(array[0]);
+		
+		for(int i = 1; i < array.length; i++){
+			buffer.append(",");
+			buffer.append(array[i]);
+		}
+		
+		buffer.append("]");
+		
+		return buffer.toString();
+	}
+	
+	public static void writeJSONString(char[] array, Writer out) throws IOException{
+		if(array == null){
+			out.write("null");
+		} else if(array.length == 0) {
+			out.write("[]");
+		} else {
+			out.write("[\"");
+			out.write(String.valueOf(array[0]));
+			
+			for(int i = 1; i < array.length; i++){
+				out.write("\",\"");
+				out.write(String.valueOf(array[i]));
+			}
+			
+			out.write("\"]");
+		}
+	}
+	
+	public static String toJSONString(char[] array){
+		if(array == null){
+			return "null";
+		}
+		
+		if(array.length == 0) {
+			return "[]";
+		}
+		
+		final StringBuffer buffer = new StringBuffer();
+		
+		buffer.append("[\"");
+		buffer.append(array[0]);
+		
+		for(int i = 1; i < array.length; i++){
+			buffer.append("\",\"");
+			buffer.append(array[i]);
+		}
+		
+		buffer.append("\"]");
+		
+		return buffer.toString();
+	}
+	
+	public static void writeJSONString(Object[] array, Writer out) throws IOException{
+		if(array == null){
+			out.write("null");
+		} else if(array.length == 0) {
+			out.write("[]");
+		} else {
+			out.write("[");
+			JSONValue.writeJSONString(array[0], out);
+			
+			for(int i = 1; i < array.length; i++){
+				out.write(",");
+				JSONValue.writeJSONString(array[i], out);
+			}
+			
+			out.write("]");
+		}
+	}
+	
+	public static String toJSONString(Object[] array){
+		if(array == null){
+			return "null";
+		}
+		
+		if(array.length == 0) {
+			return "[]";
+		}
+		
+		final StringBuffer buffer = new StringBuffer();
+		
+		buffer.append("[");
+		buffer.append(JSONValue.toJSONString(array[0]));
+		
+		for(int i = 1; i < array.length; i++){
+			buffer.append(",");
+			buffer.append(JSONValue.toJSONString(array[i]));
+		}
+		
+		buffer.append("]");
+		
+		return buffer.toString();
+	}
+	
 	public String toJSONString(){
 		return toJSONString(this);
 	}
-	
+
+	/**
+	 * Returns a string representation of this array. This is equivalent to
+	 * calling {@link JSONArray#toJSONString()}.
+	 */
 	public String toString() {
 		return toJSONString();
 	}
