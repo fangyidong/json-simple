@@ -309,22 +309,18 @@ public class Test extends TestCase{
 		assertEquals("[\"abc\\u0010a\\/\",123,222.123,true]",array1.toString());
 		
 		JSONObject obj1=new JSONObject();
-		obj1.put("name","fang");
-		obj1.put("age",new Integer(27));
-		obj1.put("is_developer",new Boolean(true));
-		obj1.put("weight",new Double(60.21));
 		obj1.put("array1",array1);
 		System.out.println("======obj1 with array1===========");
 		System.out.println(obj1);
 		System.out.println();
-		assertEquals("{\"array1\":[\"abc\\u0010a\\/\",123,222.123,true],\"weight\":60.21,\"age\":27,\"name\":\"fang\",\"is_developer\":true}",obj1.toString());
+		assertEquals("{\"array1\":[\"abc\\u0010a\\/\",123,222.123,true]}",obj1.toString());
 		
 		obj1.remove("array1");
 		array1.add(obj1);
 		System.out.println("======array1 with obj1========");
 		System.out.println(array1);
 		System.out.println();
-		assertEquals("[\"abc\\u0010a\\/\",123,222.123,true,{\"weight\":60.21,\"age\":27,\"name\":\"fang\",\"is_developer\":true}]",array1.toString());
+		assertEquals("[\"abc\\u0010a\\/\",123,222.123,true,{}]",array1.toString());
 	
 		List list = new ArrayList();
 		list.add("abc\u0010a/");
@@ -336,20 +332,16 @@ public class Test extends TestCase{
 		System.out.println(JSONArray.toJSONString(list));
 		System.out.println();
 		assertEquals("[\"abc\\u0010a\\/\",123,222.123,true,null]",JSONArray.toJSONString(list));
-		
+
 		Map map = new HashMap();
-		map.put("name","fang");
-		map.put("age",new Integer(27));
-		map.put("is_developer",new Boolean(true));
-		map.put("weight",new Double(60.21));
 		map.put("array1",list);
 		System.out.println("======map with list===========");
 		System.out.println(map);
 		System.out.println();
-		assertEquals("{\"array1\":[\"abc\\u0010a\\/\",123,222.123,true,null],\"weight\":60.21,\"age\":27,\"name\":\"fang\",\"is_developer\":true}",JSONObject.toJSONString(map));		
+		assertEquals("{\"array1\":[\"abc\\u0010a\\/\",123,222.123,true,null]}",JSONObject.toJSONString(map));		
 		
         Map m1 = new LinkedHashMap();
-        Map m2 = new HashMap();
+        Map m2 = new LinkedHashMap();
         List  l1 = new LinkedList();
 
         m1.put("k11","v11");
@@ -362,13 +354,13 @@ public class Test extends TestCase{
         l1.add(m2);
         String jsonString = JSONValue.toJSONString(l1);
         System.out.println(jsonString);
-        assertEquals("[{\"k11\":\"v11\",\"k12\":\"v12\",\"k13\":\"v13\"},{\"k22\":\"v22\",\"k21\":\"v21\",\"k23\":\"v23\"}]", jsonString);
+        assertEquals("[{\"k11\":\"v11\",\"k12\":\"v12\",\"k13\":\"v13\"},{\"k21\":\"v21\",\"k22\":\"v22\",\"k23\":\"v23\"}]", jsonString);
     
         StringWriter out = new StringWriter();
         JSONValue.writeJSONString(l1, out);
         jsonString = out.toString();
         System.out.println(jsonString);
-        assertEquals("[{\"k11\":\"v11\",\"k12\":\"v12\",\"k13\":\"v13\"},{\"k22\":\"v22\",\"k21\":\"v21\",\"k23\":\"v23\"}]", jsonString);
+        assertEquals("[{\"k11\":\"v11\",\"k12\":\"v12\",\"k13\":\"v13\"},{\"k21\":\"v21\",\"k22\":\"v22\",\"k23\":\"v23\"}]", jsonString);
         
         List l2 = new LinkedList();
         Map m3 = new LinkedHashMap();
@@ -386,6 +378,6 @@ public class Test extends TestCase{
         JSONValue.writeJSONString(l1, out);
         jsonString = out.toString();
         System.out.println(jsonString);
-        assertEquals("[{\"k11\":\"v11\",\"k12\":\"v12\",\"k13\":\"v13\",\"k14\":{\"k31\":\"v3\",\"k32\":123.45,\"k33\":false,\"k34\":null,\"k35\":[\"vvv\",\"1.23456789123456789\",true,null]}},{\"k22\":\"v22\",\"k21\":\"v21\",\"k23\":\"v23\"}]",jsonString);
+        assertEquals("[{\"k11\":\"v11\",\"k12\":\"v12\",\"k13\":\"v13\",\"k14\":{\"k31\":\"v3\",\"k32\":123.45,\"k33\":false,\"k34\":null,\"k35\":[\"vvv\",\"1.23456789123456789\",true,null]}},{\"k21\":\"v21\",\"k22\":\"v22\",\"k23\":\"v23\"}]",jsonString);
     }
 }
