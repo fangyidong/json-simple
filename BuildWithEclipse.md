@@ -1,0 +1,1 @@
+Eclipse project files .project and .classpath locate in the top directory of the JSON.simple source tree. You can import the project from Eclipse. Please note that you need to add the JUNIT library to the CLASSPATH.
