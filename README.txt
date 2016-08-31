@@ -308,4 +308,6 @@ Version 1.0 (2006/04/15)
    See the License for the specific language governing permissions and
    limitations under the License.
 
-Please visit: http://code.google.com/p/json-simple/ for the old version of the library.
+Please visit for the old version of this library:
+https://github.com/fangyidong/json-simple
+http://code.google.com/p/json-simple/
