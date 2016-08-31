@@ -1,0 +1,9 @@
+bin
+target
+.project
+.classpath
+.metadata
+.settings
+*.log
+*.java~
+json-simple*

@@ -14,13 +14,18 @@ import java.util.Map;
 /**
  * A JSON object. Key value pairs are unordered. JSONObject supports java.util.Map interface.
  * 
- * @author FangYidong<fangyidong@yahoo.com.cn>
+ * @author FangYidong&lt;fangyidong@yahoo.com.cn&gt;
+ * @deprecated since 2.0.0, replaced by {@link org.json.simple.JsonObject}
  */
+@Deprecated
 public class JSONObject extends HashMap implements Map, JSONAware, JSONStreamAware{
 	
 	private static final long serialVersionUID = -503443796854799292L;
 	
 	
+	/**
+	 * 
+	 */
 	public JSONObject() {
 		super();
 	}
@@ -29,7 +34,7 @@ public class JSONObject extends HashMap implements Map, JSONAware, JSONStreamAwa
 	 * Allows creation of a JSONObject from a Map. After that, both the
 	 * generated JSONObject and the Map can be modified independently.
 	 * 
-	 * @param map
+	 * @param map description omitted.
 	 */
 	public JSONObject(Map map) {
 		super(map);
@@ -42,8 +47,9 @@ public class JSONObject extends HashMap implements Map, JSONAware, JSONStreamAwa
      * 
      * @see org.json.simple.JSONValue#writeJSONString(Object, Writer)
      * 
-     * @param map
-     * @param out
+     * @param map description omitted.
+     * @param out description omitted.
+     * @throws IOException description omitted.
      */
 	public static void writeJSONString(Map map, Writer out) throws IOException {
 		if(map == null){
@@ -80,7 +86,7 @@ public class JSONObject extends HashMap implements Map, JSONAware, JSONStreamAwa
 	 * 
 	 * @see org.json.simple.JSONValue#toJSONString(Object)
 	 * 
-	 * @param map
+	 * @param map description omitted.
 	 * @return JSON text, or "null" if map is null.
 	 */
 	public static String toJSONString(Map map){
@@ -103,6 +109,13 @@ public class JSONObject extends HashMap implements Map, JSONAware, JSONStreamAwa
 		return toJSONString();
 	}
 
+	/**
+	 * description omitted.
+	 *
+	 * @param key description omitted.
+	 * @param value description omitted.
+	 * @return description omitted.
+	 */
 	public static String toString(String key,Object value){
         StringBuffer sb = new StringBuffer();
         sb.append('\"');
@@ -123,8 +136,8 @@ public class JSONObject extends HashMap implements Map, JSONAware, JSONStreamAwa
 	 * 
 	 * @see org.json.simple.JSONValue#escape(String)
 	 * 
-	 * @param s
-	 * @return
+	 * @param s description omitted.
+	 * @return description omitted.
 	 */
 	public static String escape(String s){
 		return JSONValue.escape(s);

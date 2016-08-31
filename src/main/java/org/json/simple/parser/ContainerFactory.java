@@ -8,8 +8,10 @@ import java.util.Map;
  * 
  * @see org.json.simple.parser.JSONParser#parse(java.io.Reader, ContainerFactory)
  * 
- * @author FangYidong<fangyidong@yahoo.com.cn>
+ * @author FangYidong&lt;fangyidong@yahoo.com.cn&gt;
+ * @deprecated since 2.0.0 the same results can be achieved with the Map and Collection constructors in java post parsing.
  */
+@Deprecated
 public interface ContainerFactory {
 	/**
 	 * @return A Map instance to store JSON object, or null if you want to use org.json.simple.JSONObject.

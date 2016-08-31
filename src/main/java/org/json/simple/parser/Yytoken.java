@@ -5,21 +5,57 @@
 package org.json.simple.parser;
 
 /**
- * @author FangYidong<fangyidong@yahoo.com.cn>
+ * @author FangYidong&lt;fangyidong@yahoo.com.cn&gt;
+ * @deprecated since 2.0.0, copied to a new package.
  */
+@Deprecated
 public class Yytoken {
+	/**
+	 * description omitted.
+	 */
 	public static final int TYPE_VALUE=0;//JSON primitive value: string,number,boolean,null
+	/**
+	 * description omitted.
+	 */
 	public static final int TYPE_LEFT_BRACE=1;
+	/**
+	 * description omitted.
+	 */
 	public static final int TYPE_RIGHT_BRACE=2;
+	/**
+	 * description omitted.
+	 */
 	public static final int TYPE_LEFT_SQUARE=3;
+	/**
+	 * description omitted.
+	 */
 	public static final int TYPE_RIGHT_SQUARE=4;
+	/**
+	 * description omitted.
+	 */
 	public static final int TYPE_COMMA=5;
+	/**
+	 * description omitted.
+	 */
 	public static final int TYPE_COLON=6;
+	/**
+	 * description omitted.
+	 */
 	public static final int TYPE_EOF=-1;//end of file
 	
+	/**
+	 * description omitted.
+	 */
 	public int type=0;
+	/**
+	 * description omitted.
+	 */
 	public Object value=null;
 	
+	/**
+	 * @param type description omitted.
+	 * @param value description omitted.
+	 */
 	public Yytoken(int type,Object value){
 		this.type=type;
 		this.value=value;
