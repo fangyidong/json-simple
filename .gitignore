@@ -6,4 +6,4 @@ target
 .settings
 *.log
 *.java~
-json-simple*
+*.xml
