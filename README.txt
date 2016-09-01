@@ -28,7 +28,7 @@ mvn eclipse:eclipse
 Run unit tests:
 mvn test
 
-Full build including javadocs:
+Full build including javadocs and source:
 mvn clean compile install package
 
 [CHANGE LOG]
