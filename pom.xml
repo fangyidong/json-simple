@@ -1,12 +1,12 @@
 <project>
     <modelVersion>4.0.0</modelVersion>
-    <groupId>com.googlecode.json-simple</groupId>
+    <groupId>com.cliftonlabs</groupId>
     <artifactId>json-simple</artifactId>
     <packaging>jar</packaging>
 
     <name>JSON.simple</name>
-    <description>A simple Java toolkit for JSON</description>
-    <url>http://code.google.com/p/json-simple/</url>
+    <description>Quickly develop RFC 4627 JSON compatible java 7+ applications based on com.googlecode.json-simple.json-simple</description>
+    <url>https://cliftonlabs.github.io/json-simple/</url>
 
     <version>2.0.0</version>
 
@@ -28,10 +28,6 @@
     </scm>
 
     <developers>
-        <developer>
-            <id>Yidong</id>
-            <name>Yidong Fang</name>
-        </developer>
         <developer>
             <name>Davin Loegering</name>
             <email>davin.loegering@cliftonlabs.com</email>
