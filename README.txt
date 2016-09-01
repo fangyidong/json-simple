@@ -31,6 +31,11 @@ mvn test
 Full build including javadocs and source:
 mvn clean compile install package
 
+Update gh-pages:
+1) Replace latest offical build's target/ directory to the gh-pages branch.
+2) Update the index.html hrefs if necessary.
+3) commit and push to gh-pages.
+
 [CHANGE LOG]
 Version 2.0.0 (2016/08/31)
 * Davin Loegering was added to the list of Authors.
