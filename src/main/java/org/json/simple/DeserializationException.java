@@ -1,7 +1,7 @@
 /* See: README for this file's copyright, terms, and conditions. */
 package org.json.simple;
 
-/** DeserializationException explains why and where the exception occurs in source JSON text.
+/** DeserializationException explains how and where the problem occurs in the source JSON text during deserialization.
  * 
  * @since 2.0.0 */
 public class DeserializationException extends Exception{

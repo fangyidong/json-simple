@@ -10,7 +10,7 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.Map;
 
-/** JsonArray is a common non-thread safe data format for listing data. The contents of a JsonArray are only validated as
+/** JsonArray is a common non-thread safe data format for a collection of data. The contents of a JsonArray are only validated as
  * JSON values on serialization.
  * @see Jsoner
  * @since 2.0.0 */

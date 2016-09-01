@@ -386,8 +386,7 @@ public class Jsoner{
     }
 
     /** A convenience method that assumes multiple RFC 4627 JSON values (except numbers) have been concatenated together
-     * for
-     * deserilization which will be collectively returned in a JsonArray wrapper.
+     * for deserilization which will be collectively returned in a JsonArray wrapper.
      * There may be numbers included, they just must not be concatenated together as it is prone to
      * NumberFormatExceptions (thus causing a DeserializationException) or the numbers no longer represent their
      * respective values.
@@ -651,9 +650,9 @@ public class Jsoner{
                 }
                 @SuppressWarnings("rawtypes")
                 final Map.Entry entry = (Map.Entry)entries.next();
-                writableDestination.write(Jsoner.serialize(entry.getKey()));
+                Jsoner.serialize(entry.getKey(), writableDestination, flags);
                 writableDestination.write(':');
-                writableDestination.write(Jsoner.serialize(entry.getValue()));
+                Jsoner.serialize(entry.getValue(), writableDestination, flags);
             }
             writableDestination.write('}');
         }else if(jsonSerializable instanceof Collection){
@@ -668,7 +667,7 @@ public class Jsoner{
                 }else{
                     writableDestination.write(',');
                 }
-                writableDestination.write(Jsoner.serialize(elements.next()));
+                Jsoner.serialize(elements.next(), writableDestination, flags);
             }
             writableDestination.write(']');
         }else if(jsonSerializable instanceof byte[]){
@@ -678,9 +677,9 @@ public class Jsoner{
             writableDestination.write('[');
             for(int i = 1; i <= numberOfElements; i++){
                 if(i == numberOfElements){
-                    writableDestination.write(String.valueOf(writableArray[i]));
+                    Jsoner.serialize(writableArray[i], writableDestination, flags);
                 }else{
-                    writableDestination.write(String.valueOf(writableArray[i]));
+                    Jsoner.serialize(writableArray[i], writableDestination, flags);
                     writableDestination.write(',');
                 }
             }
@@ -692,9 +691,9 @@ public class Jsoner{
             writableDestination.write('[');
             for(int i = 1; i <= numberOfElements; i++){
                 if(i == numberOfElements){
-                    writableDestination.write(String.valueOf(writableArray[i]));
+                    Jsoner.serialize(writableArray[i], writableDestination, flags);
                 }else{
-                    writableDestination.write(String.valueOf(writableArray[i]));
+                    Jsoner.serialize(writableArray[i], writableDestination, flags);
                     writableDestination.write(',');
                 }
             }
@@ -706,9 +705,9 @@ public class Jsoner{
             writableDestination.write('[');
             for(int i = 1; i <= numberOfElements; i++){
                 if(i == numberOfElements){
-                    writableDestination.write(String.valueOf(writableArray[i]));
+                    Jsoner.serialize(writableArray[i], writableDestination, flags);
                 }else{
-                    writableDestination.write(String.valueOf(writableArray[i]));
+                    Jsoner.serialize(writableArray[i], writableDestination, flags);
                     writableDestination.write(',');
                 }
             }
@@ -720,9 +719,9 @@ public class Jsoner{
             writableDestination.write('[');
             for(int i = 1; i <= numberOfElements; i++){
                 if(i == numberOfElements){
-                    writableDestination.write(String.valueOf(writableArray[i]));
+                    Jsoner.serialize(writableArray[i], writableDestination, flags);
                 }else{
-                    writableDestination.write(String.valueOf(writableArray[i]));
+                    Jsoner.serialize(writableArray[i], writableDestination, flags);
                     writableDestination.write(',');
                 }
             }
@@ -734,9 +733,9 @@ public class Jsoner{
             writableDestination.write('[');
             for(int i = 1; i <= numberOfElements; i++){
                 if(i == numberOfElements){
-                    writableDestination.write(String.valueOf(writableArray[i]));
+                    Jsoner.serialize(writableArray[i], writableDestination, flags);
                 }else{
-                    writableDestination.write(String.valueOf(writableArray[i]));
+                    Jsoner.serialize(writableArray[i], writableDestination, flags);
                     writableDestination.write(',');
                 }
             }
@@ -748,9 +747,9 @@ public class Jsoner{
             writableDestination.write('[');
             for(int i = 1; i <= numberOfElements; i++){
                 if(i == numberOfElements){
-                    writableDestination.write(String.valueOf(writableArray[i]));
+                    Jsoner.serialize(writableArray[i], writableDestination, flags);
                 }else{
-                    writableDestination.write(String.valueOf(writableArray[i]));
+                    Jsoner.serialize(writableArray[i], writableDestination, flags);
                     writableDestination.write(',');
                 }
             }
@@ -762,9 +761,9 @@ public class Jsoner{
             writableDestination.write('[');
             for(int i = 1; i <= numberOfElements; i++){
                 if(i == numberOfElements){
-                    writableDestination.write(String.valueOf(writableArray[i]));
+                    Jsoner.serialize(writableArray[i], writableDestination, flags);
                 }else{
-                    writableDestination.write(String.valueOf(writableArray[i]));
+                    Jsoner.serialize(writableArray[i], writableDestination, flags);
                     writableDestination.write(',');
                 }
             }
@@ -776,9 +775,9 @@ public class Jsoner{
             writableDestination.write("[\"");
             for(int i = 1; i <= numberOfElements; i++){
                 if(i == numberOfElements){
-                    writableDestination.write(Jsoner.escape(String.valueOf(writableArray[i])));
+                    Jsoner.serialize(writableArray[i], writableDestination, flags);
                 }else{
-                    writableDestination.write(Jsoner.escape(String.valueOf(writableArray[i])));
+                    Jsoner.serialize(writableArray[i], writableDestination, flags);
                     writableDestination.write("\",\"");
                 }
             }
@@ -790,9 +789,9 @@ public class Jsoner{
             writableDestination.write('[');
             for(int i = 1; i <= numberOfElements; i++){
                 if(i == numberOfElements){
-                    writableDestination.write(Jsoner.serialize(writableArray[i]));
+                    Jsoner.serialize(writableArray[i], writableDestination, flags);
                 }else{
-                    writableDestination.write(Jsoner.serialize(writableArray[i]));
+                    Jsoner.serialize(writableArray[i], writableDestination, flags);
                     writableDestination.write(",");
                 }
             }

@@ -45,7 +45,12 @@ public class JsonObject extends HashMap<String, Object> implements Jsonable{
      * @see BigDecimal
      * @see Number#doubleValue() */
     public BigDecimal getBigDecimalOrDefault(final String key, final BigDecimal defaultValue){
-        Object returnable = this.getOrDefault(key, defaultValue);
+        Object returnable;
+        if(this.containsKey(key)){
+            returnable = this.get(key);
+        }else{
+            returnable = defaultValue;
+        }
         if(returnable instanceof BigDecimal){
             /* Success there was a BigDecimal or it defaulted. */
         }else if(returnable instanceof Number){
@@ -64,7 +69,13 @@ public class JsonObject extends HashMap<String, Object> implements Jsonable{
      * @return the value stored at the key or the default provided if the key doesn't exist.
      * @throws ClassCastException if there was a value but didn't match the assumed return type. */
     public boolean getBooleanOrDefault(final String key, final boolean defaultValue){
-        return (boolean)this.getOrDefault(key, defaultValue);
+        Object returnable;
+        if(this.containsKey(key)){
+            returnable = this.get(key);
+        }else{
+            returnable = defaultValue;
+        }
+        return (boolean)returnable;
     }
 
     /** A convenience method that assumes there is a Number value at the given key.
@@ -75,7 +86,13 @@ public class JsonObject extends HashMap<String, Object> implements Jsonable{
      * @throws ClassCastException if there was a value but didn't match the assumed return type.
      * @see Number#byteValue() */
     public float getByteOrDefault(final String key, final byte defaultValue){
-        return ((Number)this.getOrDefault(key, defaultValue)).byteValue();
+        Object returnable;
+        if(this.containsKey(key)){
+            returnable = this.get(key);
+        }else{
+            returnable = defaultValue;
+        }
+        return ((Number)returnable).byteValue();
     }
 
     /** A convenience method that assumes there is a Number value at the given key.
@@ -86,7 +103,13 @@ public class JsonObject extends HashMap<String, Object> implements Jsonable{
      * @throws ClassCastException if there was a value but didn't match the assumed return type.
      * @see Number#doubleValue() */
     public double getDoubleOrDefault(final String key, final double defaultValue){
-        return ((Number)this.getOrDefault(key, defaultValue)).doubleValue();
+        Object returnable;
+        if(this.containsKey(key)){
+            returnable = this.get(key);
+        }else{
+            returnable = defaultValue;
+        }
+        return ((Number)returnable).doubleValue();
     }
 
     /** A convenience method that assumes there is a String value at the given key representing a fully qualified name in
@@ -158,7 +181,13 @@ public class JsonObject extends HashMap<String, Object> implements Jsonable{
      * @throws ClassCastException if there was a value but didn't match the assumed return type.
      * @see Number#floatValue() */
     public float getFloatOrDefault(final String key, final float defaultValue){
-        return ((Number)this.getOrDefault(key, defaultValue)).floatValue();
+        Object returnable;
+        if(this.containsKey(key)){
+            returnable = this.get(key);
+        }else{
+            returnable = defaultValue;
+        }
+        return ((Number)returnable).floatValue();
     }
 
     /** A convenience method that assumes there is a Number value at the given key.
@@ -169,7 +198,13 @@ public class JsonObject extends HashMap<String, Object> implements Jsonable{
      * @throws ClassCastException if there was a value but didn't match the assumed return type.
      * @see Number#intValue() */
     public int getIntegerOrDefault(final String key, final int defaultValue){
-        return ((Number)this.getOrDefault(key, defaultValue)).intValue();
+        Object returnable;
+        if(this.containsKey(key)){
+            returnable = this.get(key);
+        }else{
+            returnable = defaultValue;
+        }
+        return ((Number)returnable).intValue();
     }
 
     /** A convenience method that assumes there is a Collection at the given key.
@@ -181,7 +216,13 @@ public class JsonObject extends HashMap<String, Object> implements Jsonable{
     @SuppressWarnings("unchecked")
     public <T extends Collection<?>> T getCollectionOrDefault(final String key, final T defaultValue){
         /* The unchecked warning is suppressed because there is no way of guaranteeing at compile time the cast will work. */
-        return (T)this.getOrDefault(key, defaultValue);
+        Object returnable;
+        if(this.containsKey(key)){
+            returnable = this.get(key);
+        }else{
+            returnable = defaultValue;
+        }
+        return (T)returnable;
     }
 
     /** A convenience method that assumes there is a Map at the given key.
@@ -193,7 +234,13 @@ public class JsonObject extends HashMap<String, Object> implements Jsonable{
     @SuppressWarnings("unchecked")
     public <T extends Map<?, ?>> T getMapOrDefault(final String key, final T defaultValue){
         /* The unchecked warning is suppressed because there is no way of guaranteeing at compile time the cast will work. */
-        return (T)this.getOrDefault(key, defaultValue);
+        Object returnable;
+        if(this.containsKey(key)){
+            returnable = this.get(key);
+        }else{
+            returnable = defaultValue;
+        }
+        return (T)returnable;
     }
 
     /** A convenience method that assumes there is a Number value at the given key.
@@ -204,7 +251,13 @@ public class JsonObject extends HashMap<String, Object> implements Jsonable{
      * @throws ClassCastException if there was a value but didn't match the assumed return type.
      * @see Number#longValue() */
     public long getLongOrDefault(final String key, final long defaultValue){
-        return ((Number)this.getOrDefault(key, defaultValue)).longValue();
+        Object returnable;
+        if(this.containsKey(key)){
+            returnable = this.get(key);
+        }else{
+            returnable = defaultValue;
+        }
+        return ((Number)returnable).longValue();
     }
 
     /** A convenience method that assumes there is a Number value at the given key.
@@ -215,7 +268,13 @@ public class JsonObject extends HashMap<String, Object> implements Jsonable{
      * @throws ClassCastException if there was a value but didn't match the assumed return type.
      * @see Number#shortValue() */
     public short getShortOrDefault(final String key, final short defaultValue){
-        return ((Number)this.getOrDefault(key, defaultValue)).shortValue();
+        Object returnable;
+        if(this.containsKey(key)){
+            returnable = this.get(key);
+        }else{
+            returnable = defaultValue;
+        }
+        return ((Number)returnable).shortValue();
     }
 
     /** A convenience method that assumes there is a String value at the given key.
@@ -224,7 +283,13 @@ public class JsonObject extends HashMap<String, Object> implements Jsonable{
      * @return the value stored at the key or the default provided if the key doesn't exist.
      * @throws ClassCastException if there was a value but didn't match the assumed return type. */
     public String getStringOrDefault(final String key, final String defaultValue){
-        return (String)this.getOrDefault(key, defaultValue);
+        Object returnable;
+        if(this.containsKey(key)){
+            returnable = this.get(key);
+        }else{
+            returnable = defaultValue;
+        }
+        return (String)returnable;
     }
 
     /* (non-Javadoc)
@@ -246,7 +311,7 @@ public class JsonObject extends HashMap<String, Object> implements Jsonable{
     public void toJson(final Writer writable) throws IOException{
         /* Writes the map in JSON object format. */
         boolean isFirstEntry = true;
-        final Iterator<Entry<String, Object>> entries = this.entrySet().iterator();
+        final Iterator<Map.Entry<String, Object>> entries = this.entrySet().iterator();
         writable.write('{');
         while(entries.hasNext()){
             if(isFirstEntry){
