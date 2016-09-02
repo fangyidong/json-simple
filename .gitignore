@@ -1,5 +1,7 @@
 bin
 target
+pom.xml.releaseBackup
+release.properties
 .project
 .classpath
 .metadata

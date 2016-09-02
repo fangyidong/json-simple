@@ -25,11 +25,22 @@ Dave Hughes
 Generate json-simple project files for eclipse:
 mvn eclipse:eclipse
 
+Build the project:
+mvn compile
+
 Run unit tests:
 mvn test
 
-Full build including javadocs and source:
-mvn clean compile install package
+Build the project with javadocs and source:
+mvn package
+
+Make the project available to other local projects via local repository:
+mvn clean install
+
+Guided deploy of project with signed artifacts (jar, javadocs, and sources):
+mvn release:clean
+mvn release:prepare
+mvn release:perform
 
 Update gh-pages:
 1) Replace latest offical build's target/ directory to the gh-pages branch.
