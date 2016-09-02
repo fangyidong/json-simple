@@ -2,11 +2,11 @@
     xmlns="http://maven.apache.org/POM/4.0.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>com.cliftonlabs</groupId>
+    <groupId>org.json</groupId>
     <artifactId>json-simple</artifactId>
     <packaging>jar</packaging>
     <name>JSON.simple</name>
-    <description>Quickly develop RFC 4627 JSON compatible java 7+ applications based on com.googlecode.json-simple.json-simple by Yidong Fang</description>
+    <description>Java 7+ toolkit to quickly develop RFC 4627 JSON compatible applications.</description>
     <url>https://cliftonlabs.github.io/json-simple/</url>
     <version>2.0.0-SNAPSHOT</version>
     <properties>
