@@ -34,16 +34,13 @@ mvn test
 Build the project with javadocs and source:
 mvn package
 
-Make the project available to other local projects via local repository:
+Make the signed artifacts available to other local projects:
 mvn clean install
 
-Guided deploy of project with signed artifacts (jar, javadocs, and sources):
-mvn release:clean -P release
-mvn release:prepare -P release
-mvn release:perform -P release
-
-Manual deploy of a project with signed artifacts (jar, javadocs, and sources):
-mvn clean deploy -P release
+Guided deploy of project with signed artifacts:
+mvn release:clean
+mvn release:prepare
+mvn release:perform
 
 Update gh-pages:
 1) Replace latest offical build's target/ directory to the gh-pages branch.
