@@ -1,38 +1,5 @@
-[AUTHORS]
-Davin Loegering
-Yidong Fang
-Chris Nokleberg
-Dave Hughes
-
-[DEVELOPERS]
-Generate json-simple project files for eclipse:
-mvn eclipse:eclipse
-
-Build the project:
-mvn compile
-
-Run unit tests:
-mvn test
-
-Build the project with javadocs and source:
-mvn package
-
-Make the signed artifacts available to other local projects:
-mvn clean install
-
-Guided deploy of project with signed artifacts:
-mvn release:clean
-mvn release:prepare
-mvn release:perform
-mvn release:clean
-
-Update gh-pages:
-1) Replace latest offical build's target/ directory to the gh-pages branch.
-2) Update the index.html hrefs if necessary.
-3) commit and push to gh-pages.
-
 [CHANGE LOG]
-Version 2.0.0 (2016/08/31)
+Version 2.0.0 (2016/09/*)
 * Davin Loegering was added to the list of Authors.
 * Consolidated the author list, change log, and license files from the base directory into the README.txt file.
 * Removed ant build file.
@@ -104,6 +71,39 @@ Version 1.01 (2008/08/26)
 
 Version 1.0 (2006/04/15)
 * Initial version
+
+[CONTRIBUTORS]
+Davin Loegering
+Yidong Fang
+Chris Nokleberg
+Dave Hughes
+
+[DEVELOPERS]
+Generate json-simple project files for eclipse:
+mvn eclipse:eclipse
+
+Build the project:
+mvn compile
+
+Run unit tests:
+mvn test
+
+Build the project with javadocs and source:
+mvn package
+
+Make the signed artifacts available to other local projects:
+mvn clean install
+
+Guided deploy of project with signed artifacts:
+mvn release:clean
+mvn release:prepare
+mvn release:perform
+mvn release:clean
+
+Update gh-pages:
+1) Replace latest offical build's target/ directory to the gh-pages branch.
+2) Update the index.html hrefs if necessary.
+3) commit and push to gh-pages.
 
 [LICENSE]
                                  Apache License
