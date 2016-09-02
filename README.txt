@@ -41,6 +41,7 @@ Guided deploy of project with signed artifacts:
 mvn release:clean
 mvn release:prepare
 mvn release:perform
+mvn release:clean
 
 Update gh-pages:
 1) Replace latest offical build's target/ directory to the gh-pages branch.
