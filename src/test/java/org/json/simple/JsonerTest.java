@@ -50,10 +50,10 @@ public class JsonerTest{
         /* Serializing JsonArrays directly requires a defaultValue in case it doesn't deserialize a JsonArray. */
         defaultValue = new JsonArray();
         defaultValue.add("default");
-        deserialized = Jsoner.deserializeJsonArray("[,]", defaultValue);
+        deserialized = Jsoner.deserialize("[,]", defaultValue);
         Assert.assertEquals(new JsonArray(), deserialized);
         /* The call should return the defaultValue instead. */
-        deserialized = Jsoner.deserializeJsonArray("[asdf,]", defaultValue);
+        deserialized = Jsoner.deserialize("[asdf,]", defaultValue);
         Assert.assertEquals(defaultValue, deserialized);
     }
 
@@ -145,7 +145,7 @@ public class JsonerTest{
      * @throws DeserializationException if the test fails.
      * @throws IOException if the test fails. */
     @Test
-    public void testMultipleDeserialization() throws DeserializationException, IOException{
+    public void testDeserializationMany() throws DeserializationException, IOException{
         final StringBuilder deserializable = new StringBuilder();
         JsonArray expected;
         Object deserialized;
@@ -193,7 +193,7 @@ public class JsonerTest{
         expected.add(new JsonArray());
         deserializable.append("[]");
         expected.add(new JsonArray());
-        deserialized = Jsoner.deserializeMultipleJsonValues(new StringReader(deserializable.toString()));
+        deserialized = Jsoner.deserializeMany(new StringReader(deserializable.toString()));
         Assert.assertEquals(expected, deserialized);
     }
 
@@ -418,10 +418,10 @@ public class JsonerTest{
         /* Serializing JsonObjects directly requires a defaultValue in case it doesn't deserialize a JsonObject. */
         defaultValue = new JsonObject();
         defaultValue.put("default", -1);
-        deserialized = Jsoner.deserializeJsonObject("{,}", defaultValue);
+        deserialized = Jsoner.deserialize("{,}", defaultValue);
         Assert.assertEquals(new JsonObject(), deserialized);
         /* The call should return the defaultValue instead. */
-        deserialized = Jsoner.deserializeJsonObject("{asdf,}", defaultValue);
+        deserialized = Jsoner.deserialize("{asdf,}", defaultValue);
         Assert.assertEquals(defaultValue, deserialized);
     }
 

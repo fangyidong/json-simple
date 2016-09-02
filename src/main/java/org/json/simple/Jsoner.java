@@ -344,7 +344,7 @@ public class Jsoner{
      * @return a JsonArray that represents the deserializable, or the defaultValue if there isn't a JsonArray that
      *         represents deserializable.
      * @see Jsoner#deserialize(Reader) */
-    public static JsonArray deserializeJsonArray(final String deserializable, final JsonArray defaultValue){
+    public static JsonArray deserialize(final String deserializable, final JsonArray defaultValue){
         StringReader readable = null;
         JsonArray returnable;
         try{
@@ -368,7 +368,7 @@ public class Jsoner{
      * @return a JsonObject that represents the deserializable, or the defaultValue if there isn't a JsonObject that
      *         represents deserializable.
      * @see Jsoner#deserialize(Reader) */
-    public static JsonObject deserializeJsonObject(final String deserializable, final JsonObject defaultValue){
+    public static JsonObject deserialize(final String deserializable, final JsonObject defaultValue){
         StringReader readable = null;
         JsonObject returnable;
         try{
@@ -408,7 +408,7 @@ public class Jsoner{
      *         DeserializationException: fix the deserializable to no longer have an unexpected token and try again.
      * @throws IOException when the underlying reader encounters an I/O error. Ensure the reader is properly
      *         instantiated, isn't closed, or that it is ready before trying again. */
-    public static JsonArray deserializeMultipleJsonValues(final Reader deserializable) throws DeserializationException, IOException{
+    public static JsonArray deserializeMany(final Reader deserializable) throws DeserializationException, IOException{
         return Jsoner.deserialize(deserializable, EnumSet.of(DeserializationOptions.ALLOW_JSON_ARRAYS, DeserializationOptions.ALLOW_JSON_OBJECTS, DeserializationOptions.ALLOW_JSON_DATA, DeserializationOptions.ALLOW_CONCATENATED_JSON_VALUES));
     }
 
