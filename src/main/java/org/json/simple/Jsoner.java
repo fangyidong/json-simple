@@ -566,6 +566,7 @@ public class Jsoner{
     /** A convenience method that assumes a StringWriter.
      * @param jsonSerializable represents the object that should be serialized as a string in JSON format.
      * @return a string, in JSON format, that represents the object provided.
+     * @throws IllegalArgumentException if the jsonSerializable isn't serializable in JSON.
      * @see Jsoner#serialize(Object, Writer)
      * @see StringWriter */
     public static String serialize(final Object jsonSerializable){
@@ -583,7 +584,8 @@ public class Jsoner{
      * qualified name.
      * @param jsonSerializable represents the object that should be serialized in JSON format.
      * @param writableDestination represents where the resulting JSON text is written to.
-     * @throws IOException if the writableDestination encounters an I/O problem, like being closed while in use. */
+     * @throws IOException if the writableDestination encounters an I/O problem, like being closed while in use.
+     * @throws IllegalArgumentException if the jsonSerializable isn't serializable in JSON. */
     public static void serialize(final Object jsonSerializable, final Writer writableDestination) throws IOException{
         Jsoner.serialize(jsonSerializable, writableDestination, EnumSet.of(SerializationOptions.ALLOW_JSONABLES, SerializationOptions.ALLOW_FULLY_QUALIFIED_ENUMERATIONS));
     }
