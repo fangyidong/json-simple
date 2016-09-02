@@ -1,20 +1,3 @@
-[EXAMPLES]
-/* Quickly serialize stuff in json-simple: */
-Object stuff = null;            
-String serialized = Jsoner.serialize(stuff);
-/* Deserialize stuff in json-simple by handling a DeserializationException: */
-try{
-    Object deserialized = Jsoner.deserialize(serialized);
-}catch(DeserializationException caught){
-    /* Oops bad JSON. */
-}
-/* When you know you only want a JsonObject or an empty one if it fails: */
-JsonObject deserializedObject = Jsoner.deserializeJsonObject(serialized, new JsonObject());
-/* When you know you only want a JsonArray or an empty one if it fails: */
-JsonArray deserializedArray = Jsoner.deserializeJsonArray(serialized, new JsonArray());
-/* When you want it to look pretty: */
-String prettyPrinted = Jsoner.prettyPrint(serialized);
-
 [AUTHORS]
 Davin Loegering
 Yidong Fang
