@@ -38,9 +38,12 @@ Make the project available to other local projects via local repository:
 mvn clean install
 
 Guided deploy of project with signed artifacts (jar, javadocs, and sources):
-mvn release:clean
-mvn release:prepare
-mvn release:perform
+mvn release:clean -P release
+mvn release:prepare -P release
+mvn release:perform -P release
+
+Manual deploy of a project with signed artifacts (jar, javadocs, and sources):
+mvn clean deploy -P release
 
 Update gh-pages:
 1) Replace latest offical build's target/ directory to the gh-pages branch.
