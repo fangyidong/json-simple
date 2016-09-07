@@ -1,8 +1,0 @@
-<settings>
-  <servers>
-    <server>
-      <id>ossrh</id>
-      <username>cliftonlabs</username>
-    </server>
-  </servers>
-</settings>
