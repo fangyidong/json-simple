@@ -3,7 +3,6 @@
     <server>
       <id>ossrh</id>
       <username>cliftonlabs</username>
-      <password>???</password>
     </server>
   </servers>
 </settings>
