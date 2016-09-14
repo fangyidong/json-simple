@@ -1,16 +1,13 @@
 /* Copyright 2016 Clifton Labs
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
-
-       http://www.apache.org/licenses/LICENSE-2.0
-
-   Unless required by applicable law or agreed to in writing, software
-   distributed under the License is distributed on an "AS IS" BASIS,
-   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-   See the License for the specific language governing permissions and
-   limitations under the License. */
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License. */
 package org.json.simple;
 
 import java.io.IOException;
@@ -47,15 +44,38 @@ public class JsonObject extends HashMap<String, Object> implements Jsonable{
     }
 
     /** A convenience method that assumes there is a BigDecimal, Number, or String at the given key. If a Number is there
-     * its Number#doubleValue() is used to construct a new BigDecimal(double). If a String is there it is used to
+     * its Number#toString() is used to construct a new BigDecimal(String). If a String is there it is used to
+     * construct a new BigDecimal(String).
+     * @param key representing where the value ought to be stored at.
+     * @return the value stored at the key.
+     * @throws ClassCastException if the value didn't match the assumed return type.
+     * @throws NumberFormatException if a String isn't a valid representation of a BigDecimal or if the Number represents the double or float Infinity or NaN.
+     * @see BigDecimal
+     * @see Number#toString() */
+    public BigDecimal getBigDecimal(final String key){
+        Object returnable = this.get(key);
+        if(returnable instanceof BigDecimal){
+            /* Success there was a BigDecimal or it defaulted. */
+        }else if(returnable instanceof Number){
+            /* A number can be used to construct a BigDecimal */
+            returnable = new BigDecimal(returnable.toString());
+        }else if(returnable instanceof String){
+            /* A number can be used to construct a BigDecimal */
+            returnable = new BigDecimal((String)returnable);
+        }
+        return (BigDecimal)returnable;
+    }
+
+    /** A convenience method that assumes there is a BigDecimal, Number, or String at the given key. If a Number is there
+     * its Number#toString() is used to construct a new BigDecimal(String). If a String is there it is used to
      * construct a new BigDecimal(String).
      * @param key representing where the value ought to be stored at.
      * @param defaultValue representing what is returned when the key isn't in the JsonObject.
      * @return the value stored at the key or the default provided if the key doesn't exist.
      * @throws ClassCastException if there was a value but didn't match the assumed return types.
-     * @throws NumberFormatException if a String isn't a valid representation of a BigDecimal.
+     * @throws NumberFormatException if a String isn't a valid representation of a BigDecimal or if the Number represents the double or float Infinity or NaN.
      * @see BigDecimal
-     * @see Number#doubleValue() */
+     * @see Number#toString() */
     public BigDecimal getBigDecimalOrDefault(final String key, final BigDecimal defaultValue){
         Object returnable;
         if(this.containsKey(key)){
@@ -74,35 +94,39 @@ public class JsonObject extends HashMap<String, Object> implements Jsonable{
         }
         return (BigDecimal)returnable;
     }
+    
+    /** A convenience method that assumes there is a boolean value at the given key.
+     * @param key representing where the value ought to be stored at.
+     * @return the value stored at the key.
+     * @throws ClassCastException if the value didn't match the assumed return type. */
+    public Boolean getBoolean(final String key){
+        return (Boolean)this.get(key);
+    }
 
     /** A convenience method that assumes there is a boolean value at the given key.
      * @param key representing where the value ought to be stored at.
      * @param defaultValue representing what is returned when the key isn't in the JsonObject.
      * @return the value stored at the key or the default provided if the key doesn't exist.
      * @throws ClassCastException if there was a value but didn't match the assumed return type. */
-    public boolean getBooleanOrDefault(final String key, final boolean defaultValue){
+    public Boolean getBooleanOrDefault(final String key, final boolean defaultValue){
         Object returnable;
         if(this.containsKey(key)){
             returnable = this.get(key);
         }else{
             returnable = defaultValue;
         }
-        return (boolean)returnable;
+        return (Boolean)returnable;
     }
 
     /** A convenience method that assumes there is a Number value at the given key.
      * @param key representing where the value ought to be stored at.
-     * @param defaultValue representing what is returned when the key isn't in the JsonObject.
-     * @return the value stored at the key (which may involve rounding or truncation) or the default provided if the key
-     *         doesn't exist.
-     * @throws ClassCastException if there was a value but didn't match the assumed return type.
+     * @return the value stored at the key (which may involve rounding or truncation).
+     * @throws ClassCastException if the value didn't match the assumed return type.
      * @see Number#byteValue() */
-    public float getByteOrDefault(final String key, final byte defaultValue){
-        Object returnable;
-        if(this.containsKey(key)){
-            returnable = this.get(key);
-        }else{
-            returnable = defaultValue;
+    public Byte getByte(final String key){
+        Object returnable = this.get(key);
+        if(returnable == null){
+            return (Byte)returnable;
         }
         return ((Number)returnable).byteValue();
     }
@@ -113,8 +137,69 @@ public class JsonObject extends HashMap<String, Object> implements Jsonable{
      * @return the value stored at the key (which may involve rounding or truncation) or the default provided if the key
      *         doesn't exist.
      * @throws ClassCastException if there was a value but didn't match the assumed return type.
+     * @see Number#byteValue() */
+    public Byte getByteOrDefault(final String key, final byte defaultValue){
+        Object returnable;
+        if(this.containsKey(key)){
+            returnable = this.get(key);
+        }else{
+            returnable = defaultValue;
+        }
+        return ((Number)returnable).byteValue();
+    }
+    
+    /** A convenience method that assumes there is a Collection at the given key.
+     * @param <T> the kind of collection to expect at the key.
+     * @param key representing where the value ought to be stored at.
+     * @return the value stored at the key.
+     * @throws ClassCastException if the value didn't match the assumed return type. */
+    @SuppressWarnings("unchecked")
+    public <T extends Collection<?>> T getCollection(final String key){
+        /* The unchecked warning is suppressed because there is no way of guaranteeing at compile time the cast will
+         * work. */
+        return (T)this.get(key);
+    }
+
+    /** A convenience method that assumes there is a Collection at the given key.
+     * @param <T> the kind of collection to expect at the key.
+     * @param key representing where the value ought to be stored at.
+     * @param defaultValue representing what is returned when the key isn't in the JsonObject.
+     * @return the value stored at the key or the default provided if the key doesn't exist.
+     * @throws ClassCastException if there was a value but didn't match the assumed return type. */
+    @SuppressWarnings("unchecked")
+    public <T extends Collection<?>> T getCollectionOrDefault(final String key, final T defaultValue){
+        /* The unchecked warning is suppressed because there is no way of guaranteeing at compile time the cast will
+         * work. */
+        Object returnable;
+        if(this.containsKey(key)){
+            returnable = this.get(key);
+        }else{
+            returnable = defaultValue;
+        }
+        return (T)returnable;
+    }
+
+    /** A convenience method that assumes there is a Number value at the given key.
+     * @param key representing where the value ought to be stored at.
+     * @return the value stored at the key (which may involve rounding or truncation).
+     * @throws ClassCastException if the value didn't match the assumed return type.
      * @see Number#doubleValue() */
-    public double getDoubleOrDefault(final String key, final double defaultValue){
+    public Double getDouble(final String key){
+        Object returnable = this.get(key);
+        if(returnable == null){
+            return (Double)returnable;
+        }
+        return ((Number)returnable).doubleValue();
+    }
+
+    /** A convenience method that assumes there is a Number value at the given key.
+     * @param key representing where the value ought to be stored at.
+     * @param defaultValue representing what is returned when the key isn't in the JsonObject.
+     * @return the value stored at the key (which may involve rounding or truncation) or the default provided if the key
+     *         doesn't exist.
+     * @throws ClassCastException if there was a value but didn't match the assumed return type.
+     * @see Number#doubleValue() */
+    public Double getDoubleOrDefault(final String key, final double defaultValue){
         Object returnable;
         if(this.containsKey(key)){
             returnable = this.get(key);
@@ -122,6 +207,58 @@ public class JsonObject extends HashMap<String, Object> implements Jsonable{
             returnable = defaultValue;
         }
         return ((Number)returnable).doubleValue();
+    }
+    
+    /** A convenience method that assumes there is a String value at the given key representing a fully qualified name in
+     * dot notation of an enum.
+     * @param key representing where the value ought to be stored at.
+     * @param <T> the Enum type the value at the key is expected to belong to.
+     * @return the enum based on the string found at the key.
+     * @throws ClassNotFoundException if the value was a String but the declaring enum type couldn't be determined with
+     *         it.
+     * @throws ClassCastException if the element at the index was not a String or if the fully qualified enum name is of
+     *         the wrong type.
+     * @throws IllegalArgumentException if an enum type was determined but it doesn't define an enum with the determined
+     *         name.
+     * @see Enum static method valueOf(Class, String) */
+    @SuppressWarnings("unchecked")
+    public <T extends Enum<T>> T getEnum(final String key) throws ClassNotFoundException{
+        /* Supressing the unchecked warning because the returnType is dynamically identified and could lead to a
+         * ClassCastException when returnType is cast to Class<T>, which is expected by the method's contract. */
+        T returnable;
+        final String value;
+        final String[] splitValues;
+        final int numberOfSplitValues;
+        final StringBuilder returnTypeName;
+        final StringBuilder enumName;
+        final Class<T> returnType;
+        /* Make sure the value at the key is a String. */
+        value = this.getStringOrDefault(key, "");
+        /* Get the package, class, and enum names. */
+        splitValues = value.split("\\.");
+        numberOfSplitValues = splitValues.length;
+        returnTypeName = new StringBuilder();
+        enumName = new StringBuilder();
+        for(int i = 0; i < numberOfSplitValues; i++){
+            if(i == (numberOfSplitValues - 1)){
+                /* If it is the last split value then it should be the name of the Enum since dots are not allowed
+                 * in enum names. */
+                enumName.append(splitValues[i]);
+            }else if(i == (numberOfSplitValues - 2)){
+                /* If it is the penultimate split value then it should be the end of the package/enum type and not
+                 * need a dot appended to it. */
+                returnTypeName.append(splitValues[i]);
+            }else{
+                /* Must be part of the package/enum type and will need a dot appended to it since they got removed
+                 * in the split. */
+                returnTypeName.append(splitValues[i]);
+                returnTypeName.append(".");
+            }
+        }
+        /* Use the package/class and enum names to get the Enum<T>. */
+        returnType = (Class<T>)Class.forName(returnTypeName.toString());
+        returnable = Enum.valueOf(returnType, enumName.toString());
+        return returnable;
     }
 
     /** A convenience method that assumes there is a String value at the given key representing a fully qualified name in
@@ -187,12 +324,25 @@ public class JsonObject extends HashMap<String, Object> implements Jsonable{
 
     /** A convenience method that assumes there is a Number value at the given key.
      * @param key representing where the value ought to be stored at.
+     * @return the value stored at the key (which may involve rounding or truncation).
+     * @throws ClassCastException if the value didn't match the assumed return type.
+     * @see Number#floatValue() */
+    public Float getFloat(final String key){
+        Object returnable = this.get(key);
+        if(returnable == null){
+            return (Float)returnable;
+        }
+        return ((Number)returnable).floatValue();
+    }
+
+    /** A convenience method that assumes there is a Number value at the given key.
+     * @param key representing where the value ought to be stored at.
      * @param defaultValue representing what is returned when the key isn't in the JsonObject.
      * @return the value stored at the key (which may involve rounding or truncation) or the default provided if the key
      *         doesn't exist.
      * @throws ClassCastException if there was a value but didn't match the assumed return type.
      * @see Number#floatValue() */
-    public float getFloatOrDefault(final String key, final float defaultValue){
+    public Float getFloatOrDefault(final String key, final float defaultValue){
         Object returnable;
         if(this.containsKey(key)){
             returnable = this.get(key);
@@ -204,12 +354,25 @@ public class JsonObject extends HashMap<String, Object> implements Jsonable{
 
     /** A convenience method that assumes there is a Number value at the given key.
      * @param key representing where the value ought to be stored at.
+     * @return the value stored at the key (which may involve rounding or truncation).
+     * @throws ClassCastException if the value didn't match the assumed return type.
+     * @see Number#intValue() */
+    public Integer getInteger(final String key){
+        Object returnable = this.get(key);
+        if(returnable == null){
+            return (Integer)returnable;
+        }
+        return ((Number)returnable).intValue();
+    }
+
+    /** A convenience method that assumes there is a Number value at the given key.
+     * @param key representing where the value ought to be stored at.
      * @param defaultValue representing what is returned when the key isn't in the JsonObject.
      * @return the value stored at the key (which may involve rounding or truncation) or the default provided if the key
      *         doesn't exist.
      * @throws ClassCastException if there was a value but didn't match the assumed return type.
      * @see Number#intValue() */
-    public int getIntegerOrDefault(final String key, final int defaultValue){
+    public Integer getIntegerOrDefault(final String key, final int defaultValue){
         Object returnable;
         if(this.containsKey(key)){
             returnable = this.get(key);
@@ -219,55 +382,15 @@ public class JsonObject extends HashMap<String, Object> implements Jsonable{
         return ((Number)returnable).intValue();
     }
 
-    /** A convenience method that assumes there is a Collection at the given key.
-     * @param <T> the kind of collection to expect at the key.
-     * @param key representing where the value ought to be stored at.
-     * @param defaultValue representing what is returned when the key isn't in the JsonObject.
-     * @return the value stored at the key or the default provided if the key doesn't exist.
-     * @throws ClassCastException if there was a value but didn't match the assumed return type. */
-    @SuppressWarnings("unchecked")
-    public <T extends Collection<?>> T getCollectionOrDefault(final String key, final T defaultValue){
-        /* The unchecked warning is suppressed because there is no way of guaranteeing at compile time the cast will work. */
-        Object returnable;
-        if(this.containsKey(key)){
-            returnable = this.get(key);
-        }else{
-            returnable = defaultValue;
-        }
-        return (T)returnable;
-    }
-
-    /** A convenience method that assumes there is a Map at the given key.
-     * @param <T> the kind of map to expect at the key.
-     * @param key representing where the value ought to be stored at.
-     * @param defaultValue representing what is returned when the key isn't in the JsonObject.
-     * @return the value stored at the key or the default provided if the key doesn't exist.
-     * @throws ClassCastException if there was a value but didn't match the assumed return type. */
-    @SuppressWarnings("unchecked")
-    public <T extends Map<?, ?>> T getMapOrDefault(final String key, final T defaultValue){
-        /* The unchecked warning is suppressed because there is no way of guaranteeing at compile time the cast will work. */
-        Object returnable;
-        if(this.containsKey(key)){
-            returnable = this.get(key);
-        }else{
-            returnable = defaultValue;
-        }
-        return (T)returnable;
-    }
-
     /** A convenience method that assumes there is a Number value at the given key.
      * @param key representing where the value ought to be stored at.
-     * @param defaultValue representing what is returned when the key isn't in the JsonObject.
-     * @return the value stored at the key (which may involve rounding or truncation) or the default provided if the key
-     *         doesn't exist.
-     * @throws ClassCastException if there was a value but didn't match the assumed return type.
+     * @return the value stored at the key (which may involve rounding or truncation).
+     * @throws ClassCastException if the value didn't match the assumed return type.
      * @see Number#longValue() */
-    public long getLongOrDefault(final String key, final long defaultValue){
-        Object returnable;
-        if(this.containsKey(key)){
-            returnable = this.get(key);
-        }else{
-            returnable = defaultValue;
+    public Long getLong(final String key){
+        Object returnable = this.get(key);
+        if(returnable == null){
+            return (Long)returnable;
         }
         return ((Number)returnable).longValue();
     }
@@ -278,8 +401,69 @@ public class JsonObject extends HashMap<String, Object> implements Jsonable{
      * @return the value stored at the key (which may involve rounding or truncation) or the default provided if the key
      *         doesn't exist.
      * @throws ClassCastException if there was a value but didn't match the assumed return type.
+     * @see Number#longValue() */
+    public Long getLongOrDefault(final String key, final long defaultValue){
+        Object returnable;
+        if(this.containsKey(key)){
+            returnable = this.get(key);
+        }else{
+            returnable = defaultValue;
+        }
+        return ((Number)returnable).longValue();
+    }
+    
+    /** A convenience method that assumes there is a Map at the given key.
+     * @param <T> the kind of map to expect at the key.
+     * @param key representing where the value ought to be stored at.
+     * @return the value stored at the key.
+     * @throws ClassCastException if the value didn't match the assumed return type. */
+    @SuppressWarnings("unchecked")
+    public <T extends Map<?, ?>> T getMap(final String key){
+        /* The unchecked warning is suppressed because there is no way of guaranteeing at compile time the cast will
+         * work. */
+        return (T)this.get(key);
+    }
+
+    /** A convenience method that assumes there is a Map at the given key.
+     * @param <T> the kind of map to expect at the key.
+     * @param key representing where the value ought to be stored at.
+     * @param defaultValue representing what is returned when the key isn't in the JsonObject.
+     * @return the value stored at the key or the default provided if the key doesn't exist.
+     * @throws ClassCastException if there was a value but didn't match the assumed return type. */
+    @SuppressWarnings("unchecked")
+    public <T extends Map<?, ?>> T getMapOrDefault(final String key, final T defaultValue){
+        /* The unchecked warning is suppressed because there is no way of guaranteeing at compile time the cast will
+         * work. */
+        Object returnable;
+        if(this.containsKey(key)){
+            returnable = this.get(key);
+        }else{
+            returnable = defaultValue;
+        }
+        return (T)returnable;
+    }
+
+    /** A convenience method that assumes there is a Number value at the given key.
+     * @param key representing where the value ought to be stored at.
+     * @return the value stored at the key (which may involve rounding or truncation).
+     * @throws ClassCastException if the value didn't match the assumed return type.
      * @see Number#shortValue() */
-    public short getShortOrDefault(final String key, final short defaultValue){
+    public Short getShort(final String key){
+        Object returnable = this.get(key);
+        if(returnable == null){
+            return (Short)returnable;
+        }
+        return ((Number)returnable).shortValue();
+    }
+
+    /** A convenience method that assumes there is a Number value at the given key.
+     * @param key representing where the value ought to be stored at.
+     * @param defaultValue representing what is returned when the key isn't in the JsonObject.
+     * @return the value stored at the key (which may involve rounding or truncation) or the default provided if the key
+     *         doesn't exist.
+     * @throws ClassCastException if there was a value but didn't match the assumed return type.
+     * @see Number#shortValue() */
+    public Short getShortOrDefault(final String key, final short defaultValue){
         Object returnable;
         if(this.containsKey(key)){
             returnable = this.get(key);
@@ -287,6 +471,14 @@ public class JsonObject extends HashMap<String, Object> implements Jsonable{
             returnable = defaultValue;
         }
         return ((Number)returnable).shortValue();
+    }
+
+    /** A convenience method that assumes there is a String value at the given key.
+     * @param key representing where the value ought to be stored at.
+     * @return the value stored at the key.
+     * @throws ClassCastException if the value didn't match the assumed return type. */
+    public String getString(final String key){
+        return (String)this.get(key);
     }
 
     /** A convenience method that assumes there is a String value at the given key.

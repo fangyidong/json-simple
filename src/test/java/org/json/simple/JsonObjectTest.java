@@ -58,7 +58,7 @@ public class JsonObjectTest{
 
     /** Ensures a BigDecimal can be gotten if there is a BigDecimal, Number, or String at the key. */
     @Test
-    public void testGetBigDecimalOrDefault(){
+    public void testGetBigDecimal(){
         final JsonObject json = new JsonObject();
         final BigDecimal defaultValue = new BigDecimal("101");
         json.put("big", new BigDecimal("0"));
@@ -69,14 +69,14 @@ public class JsonObjectTest{
         json.put("short", new Short((short)0));
         json.put("byte", new Byte((byte)0));
         json.put("string", new String("0"));
-        Assert.assertEquals(new BigDecimal("0"), json.getBigDecimalOrDefault("big", defaultValue));
-        Assert.assertEquals(new BigDecimal("0.0"), json.getBigDecimalOrDefault("double", defaultValue));
-        Assert.assertEquals(new BigDecimal("0.0"), json.getBigDecimalOrDefault("float", defaultValue));
-        Assert.assertEquals(new BigDecimal("0"), json.getBigDecimalOrDefault("long", defaultValue));
-        Assert.assertEquals(new BigDecimal("0"), json.getBigDecimalOrDefault("int", defaultValue));
-        Assert.assertEquals(new BigDecimal("0"), json.getBigDecimalOrDefault("short", defaultValue));
-        Assert.assertEquals(new BigDecimal("0"), json.getBigDecimalOrDefault("byte", defaultValue));
-        Assert.assertEquals(new BigDecimal("0"), json.getBigDecimalOrDefault("string", defaultValue));
+        Assert.assertEquals(new BigDecimal("0"), json.getBigDecimal("big"));
+        Assert.assertEquals(new BigDecimal("0.0"), json.getBigDecimal("double"));
+        Assert.assertEquals(new BigDecimal("0.0"), json.getBigDecimal("float"));
+        Assert.assertEquals(new BigDecimal("0"), json.getBigDecimal("long"));
+        Assert.assertEquals(new BigDecimal("0"), json.getBigDecimal("int"));
+        Assert.assertEquals(new BigDecimal("0"), json.getBigDecimal("short"));
+        Assert.assertEquals(new BigDecimal("0"), json.getBigDecimal("byte"));
+        Assert.assertEquals(new BigDecimal("0"), json.getBigDecimal("string"));
         Assert.assertEquals(new BigDecimal("101"), json.getBigDecimalOrDefault("doesnotexist", defaultValue));
     }
 
@@ -123,12 +123,12 @@ public class JsonObjectTest{
     /** Ensures enums can be returned from a String value at an index.
      * @throws ClassNotFoundException if the test failed. */
     @Test
-    public void testGetEnumOrDefault() throws ClassNotFoundException{
+    public void testGetEnum() throws ClassNotFoundException{
         final JsonObject json = new JsonObject();
         json.put("key0", "org.json.simple.JsonObjectTest$TestStaticEnums.ONE");
         json.put("key1", "org.json.simple.JsonObjectTest$TestEnums.A");
-        Assert.assertEquals(JsonObjectTest.TestStaticEnums.ONE, json.getEnumOrDefault("key0", JsonObjectTest.TestStaticEnums.TWO));
-        Assert.assertEquals(JsonObjectTest.TestEnums.A, json.getEnumOrDefault("key1", JsonObjectTest.TestEnums.B));
+        Assert.assertEquals(JsonObjectTest.TestStaticEnums.ONE, json.getEnum("key0"));
+        Assert.assertEquals(JsonObjectTest.TestEnums.A, json.getEnum("key1"));
         Assert.assertEquals(JsonObjectTest.TestEnums.A, json.getEnumOrDefault("doesnotexist", JsonObjectTest.TestEnums.A));
     }
 
@@ -148,14 +148,14 @@ public class JsonObjectTest{
         object.put("key5", 5);
         json.put("map", map);
         json.put("object", object);
-        output0 = json.<LinkedHashMap<Object, Object>> getMapOrDefault("map", new LinkedHashMap<Object, Object>());
+        output0 = json.<LinkedHashMap<Object, Object>> getMap("map");
         Assert.assertTrue(output0.containsKey("key0"));
         Assert.assertTrue(output0.containsKey("key1"));
         Assert.assertTrue(output0.containsKey("key2"));
         Assert.assertTrue(output0.containsValue(0));
         Assert.assertTrue(output0.containsValue(1));
         Assert.assertTrue(output0.containsValue(2));
-        output1 = json.<JsonObject> getMapOrDefault("object", new JsonObject());
+        output1 = json.<JsonObject> getMap("object");
         Assert.assertTrue(output1.containsKey("key3"));
         Assert.assertTrue(output1.containsKey("key4"));
         Assert.assertTrue(output1.containsKey("key5"));

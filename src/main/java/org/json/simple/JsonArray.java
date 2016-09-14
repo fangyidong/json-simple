@@ -1,16 +1,13 @@
 /* Copyright 2016 Clifton Labs
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
-
-       http://www.apache.org/licenses/LICENSE-2.0
-
-   Unless required by applicable law or agreed to in writing, software
-   distributed under the License is distributed on an "AS IS" BASIS,
-   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-   See the License for the specific language governing permissions and
-   limitations under the License. */
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License. */
 package org.json.simple;
 
 import java.io.IOException;
@@ -22,7 +19,8 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.Map;
 
-/** JsonArray is a common non-thread safe data format for a collection of data. The contents of a JsonArray are only validated as
+/** JsonArray is a common non-thread safe data format for a collection of data. The contents of a JsonArray are only
+ * validated as
  * JSON values on serialization.
  * @see Jsoner
  * @since 2.0.0 */
@@ -88,8 +86,8 @@ public class JsonArray extends ArrayList<Object> implements Jsonable{
      * @return the value at the index provided cast to a boolean.
      * @throws ClassCastException if there was a value but didn't match the assumed return type.
      * @throws IndexOutOfBoundsException if the index is outside of the range of element indexes in the JsonArray. */
-    public boolean getBoolean(final int index){
-        return (boolean)this.get(index);
+    public Boolean getBoolean(final int index){
+        return (Boolean)this.get(index);
     }
 
     /** A convenience method that assumes there is a Number value at the given index.
@@ -98,8 +96,22 @@ public class JsonArray extends ArrayList<Object> implements Jsonable{
      * @throws ClassCastException if there was a value but didn't match the assumed return type.
      * @throws IndexOutOfBoundsException if the index is outside of the range of element indexes in the JsonArray.
      * @see Number */
-    public byte getByte(final int index){
+    public Byte getByte(final int index){
         return ((Number)this.get(index)).byteValue();
+    }
+
+    /** A convenience method that assumes there is a Collection value at the given index.
+     * @param <T> the kind of collection to expect at the index.
+     * @param index represents where the value is expected to be at.
+     * @return the value at the index provided cast to a Collection.
+     * @throws ClassCastException if there was a value but didn't match the assumed return type.
+     * @throws IndexOutOfBoundsException if the index is outside of the range of element indexes in the JsonArray.
+     * @see Collection */
+    @SuppressWarnings("unchecked")
+    public <T extends Collection<?>> T getCollection(final int index){
+        /* The unchecked warning is suppressed because there is no way of guaranteeing at compile time the cast will
+         * work. */
+        return (T)this.get(index);
     }
 
     /** A convenience method that assumes there is a Number value at the given index.
@@ -108,7 +120,7 @@ public class JsonArray extends ArrayList<Object> implements Jsonable{
      * @throws ClassCastException if there was a value but didn't match the assumed return type.
      * @throws IndexOutOfBoundsException if the index is outside of the range of element indexes in the JsonArray.
      * @see Number */
-    public double getDouble(final int index){
+    public Double getDouble(final int index){
         return ((Number)this.get(index)).doubleValue();
     }
 
@@ -171,7 +183,7 @@ public class JsonArray extends ArrayList<Object> implements Jsonable{
      * @throws ClassCastException if there was a value but didn't match the assumed return type.
      * @throws IndexOutOfBoundsException if the index is outside of the range of element indexes in the JsonArray.
      * @see Number */
-    public float getFloat(final int index){
+    public Float getFloat(final int index){
         return ((Number)this.get(index)).floatValue();
     }
 
@@ -181,21 +193,18 @@ public class JsonArray extends ArrayList<Object> implements Jsonable{
      * @throws ClassCastException if there was a value but didn't match the assumed return type.
      * @throws IndexOutOfBoundsException if the index is outside of the range of element indexes in the JsonArray.
      * @see Number */
-    public int getInteger(final int index){
+    public Integer getInteger(final int index){
         return ((Number)this.get(index)).intValue();
     }
 
-    /** A convenience method that assumes there is a Collection value at the given index.
-     * @param <T> the kind of collection to expect at the index.
+    /** A convenience method that assumes there is a Number value at the given index.
      * @param index represents where the value is expected to be at.
-     * @return the value at the index provided cast to a Collection.
+     * @return the value at the index provided cast to a long.
      * @throws ClassCastException if there was a value but didn't match the assumed return type.
      * @throws IndexOutOfBoundsException if the index is outside of the range of element indexes in the JsonArray.
-     * @see Collection */
-    @SuppressWarnings("unchecked")
-    public <T extends Collection<?>> T getCollection(final int index){
-        /* The unchecked warning is suppressed because there is no way of guaranteeing at compile time the cast will work. */
-        return (T)this.get(index);
+     * @see Number */
+    public Long getLong(final int index){
+        return ((Number)this.get(index)).longValue();
     }
 
     /** A convenience method that assumes there is a Map value at the given index.
@@ -206,19 +215,10 @@ public class JsonArray extends ArrayList<Object> implements Jsonable{
      * @throws IndexOutOfBoundsException if the index is outside of the range of element indexes in the JsonArray.
      * @see Map */
     @SuppressWarnings("unchecked")
-    public <T extends Map<?,?>> T getMap(final int index){
-        /* The unchecked warning is suppressed because there is no way of guaranteeing at compile time the cast will work. */
+    public <T extends Map<?, ?>> T getMap(final int index){
+        /* The unchecked warning is suppressed because there is no way of guaranteeing at compile time the cast will
+         * work. */
         return (T)this.get(index);
-    }
-
-    /** A convenience method that assumes there is a Number value at the given index.
-     * @param index represents where the value is expected to be at.
-     * @return the value at the index provided cast to a long.
-     * @throws ClassCastException if there was a value but didn't match the assumed return type.
-     * @throws IndexOutOfBoundsException if the index is outside of the range of element indexes in the JsonArray.
-     * @see Number */
-    public long getLong(final int index){
-        return ((Number)this.get(index)).longValue();
     }
 
     /** A convenience method that assumes there is a Number value at the given index.
@@ -227,7 +227,7 @@ public class JsonArray extends ArrayList<Object> implements Jsonable{
      * @throws ClassCastException if there was a value but didn't match the assumed return type.
      * @throws IndexOutOfBoundsException if the index is outside of the range of element indexes in the JsonArray.
      * @see Number */
-    public short getShort(final int index){
+    public Short getShort(final int index){
         return ((Number)this.get(index)).shortValue();
     }
 
