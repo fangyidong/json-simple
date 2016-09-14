@@ -106,9 +106,17 @@ mvn release:perform
 mvn release:clean
 
 Update gh-pages:
-1) Replace latest offical build's target/ directory to the gh-pages branch.
-2) Update the index.html hrefs if necessary.
-3) commit and push to gh-pages.
+1) switch to gh-pages
+2) Delete target/
+
+3) switch to latest json-simple release tag
+4) mvn clean install
+
+5) switch back to gh-pages
+6) git add target/
+
+7) Update the index.html version references.
+8) commit and push to gh-pages.
 
 [LICENSE]
                                  Apache License
