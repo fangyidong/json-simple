@@ -1,16 +1,13 @@
 /* Copyright 2016 Clifton Labs
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
-
-       http://www.apache.org/licenses/LICENSE-2.0
-
-   Unless required by applicable law or agreed to in writing, software
-   distributed under the License is distributed on an "AS IS" BASIS,
-   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-   See the License for the specific language governing permissions and
-   limitations under the License. */
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License. */
 package org.json.simple;
 
 import java.io.IOException;
@@ -273,7 +270,7 @@ public class Jsoner{
                     break;
                 case PARSING_ENTRY:
                     switch(token.getType()){
-                    /* Parsed pair keys can only happen while parsing objects. */
+                        /* Parsed pair keys can only happen while parsing objects. */
                         case COLON:
                             /* The parse could detect a colon while parsing a key value pair since it separates the key
                              * and value from each other. Continue parsing the entry. */
@@ -361,7 +358,7 @@ public class Jsoner{
         JsonArray returnable;
         try{
             readable = new StringReader(deserializable);
-            returnable = Jsoner.deserialize(readable, EnumSet.of(DeserializationOptions.ALLOW_JSON_ARRAYS)).<JsonArray>getCollection(0);
+            returnable = Jsoner.deserialize(readable, EnumSet.of(DeserializationOptions.ALLOW_JSON_ARRAYS)).<JsonArray> getCollection(0);
         }catch(NullPointerException | IOException | DeserializationException caught){
             /* Don't care, just return the default value. */
             returnable = defaultValue;
@@ -385,7 +382,7 @@ public class Jsoner{
         JsonObject returnable;
         try{
             readable = new StringReader(deserializable);
-            returnable = Jsoner.deserialize(readable, EnumSet.of(DeserializationOptions.ALLOW_JSON_OBJECTS)).<JsonObject>getMap(0);
+            returnable = Jsoner.deserialize(readable, EnumSet.of(DeserializationOptions.ALLOW_JSON_OBJECTS)).<JsonObject> getMap(0);
         }catch(NullPointerException | IOException | DeserializationException caught){
             /* Don't care, just return the default value. */
             returnable = defaultValue;
