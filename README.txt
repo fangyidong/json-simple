@@ -1,4 +1,9 @@
 [CHANGE LOG]
+Version 2.1.0 (2016/09/*)
+* Bug fix: JsonObject#getDefaultByte(key, defaultValue) now properly returns a byte value instead of a float.
+* Enhancement: JsonObject has typed gets for each JSON value type.
+* Enhancement: JsonArray and JsonObject no longer return primitives.
+
 Version 2.0.0 (2016/09/*)
 * Davin Loegering was added to the list of Authors.
 * Consolidated the author list, change log, and license files from the base directory into the README.txt file.
@@ -18,7 +23,7 @@ Version 2.0.0 (2016/09/*)
 * Deprecated JSONStreamAware and JSONAware in favor of Jsonable.
 * Deprecated JSONObject in favor of JsonObject.
 * Deprecated JSONArray in favor of JsonArray.
-* Deprecated org.json.simple.parser.ParseException for org.json.simple.ParseException.
+* Deprecated org.json.simple.parser.ParseException for org.json.simple.DeserializationException.
 * Deprecated org.json.simple.parser.Yytoken for org.json.simple.Yytoken.
 * Deprecated org.json.simple.parser.Yylex for org.json.simple.Yylex.
 * Tests for deprecated classes have been reorganized and updated to ensure backwards compatibility is maintained throughout the 2.x release lifetime.
@@ -26,7 +31,7 @@ Version 2.0.0 (2016/09/*)
 * Classes introduced in the 2.0 release have substantial javadocs to help projects heathily update ASAP.
 * The Jsonable interface allows others to define how their objects should be serialized in JSON.
 * The new ParseException has a new problem type for disallowed tokens.
-* The new ParseException now recommends recovery actions based on the problem that caused the ParseException in its message. All recovery scenarios are basically the same so ParseException is still the only json-simple exception class.
+* The new ParseException now recommends recovery actions based on the problem that caused the DeserializationException in its message. All recovery scenarios are basically the same so ParseException is still the only json-simple exception class.
 * The new Yytoken types are renamed.
 * The new Yytoken is robustly constructed only allowing a null value when it is a null value in the DATUM tokens.
 * Jsoner can escape strings provided to it to help with implementing the Jsonable interface.
@@ -43,7 +48,7 @@ Version 2.0.0 (2016/09/*)
 * JsonArrays that are homogeneous can be cast and copied into a provided collection of the homogenous type.
 * JsonArray contains gets for each allowed data type in JSON and convenience methods for Collections, Enums, and Maps. Note that they will throw ClassCastExceptions in such cases since it is still indictitive of a programmer's error.
 * JsonObject is based on HashMap<String, Object>.
-* JsonObject contains getOrDefaults for each allowed data type in JSON and convenience methods for Collections, Enums, and Maps. Note that they will throw ClassCastExceptions in such cases since it is still indictitive of a programmer's error.
+* JsonObject contains getTypeOrDefault for each allowed data type in JSON and convenience methods for Collections, Enums, and Maps. Note that they will throw ClassCastExceptions in such cases since it is still indictitive of a programmer's error.
 
 Version 1.1.1 (2012/01/29)
 * Supports OSGi
