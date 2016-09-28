@@ -164,4 +164,66 @@ public class JsonObjectTest{
         Assert.assertTrue(output1.containsValue(5));
         Assert.assertEquals(new JsonObject(), json.getMapOrDefault("doesnotexist", new JsonObject()));
     }
+
+    /** Ensures basic JSON values can be gotten. */
+    @Test
+    public void testOtherJsonGets(){
+        final JsonObject json = new JsonObject();
+        json.put("string", "101");
+        json.put("boolean", true);
+        json.put("number", 101);
+        json.put("big", new BigDecimal("101"));
+        /* Booleans are gotten from strings and booleans. */
+        Assert.assertEquals(true, json.getBoolean("boolean"));
+        Assert.assertEquals(false, json.getBoolean("string"));
+        Assert.assertEquals(true, json.getBooleanOrDefault("boolean", false));
+        Assert.assertEquals(false, json.getBooleanOrDefault("string", true));
+        /* Numbers are gotten from strings. */
+        Assert.assertEquals(new Byte((byte)101), json.getByte("string"));
+        Assert.assertEquals(new Short((short)101), json.getShort("string"));
+        Assert.assertEquals(new Integer(101), json.getInteger("string"));
+        Assert.assertEquals(new Long(101), json.getLong("string"));
+        Assert.assertEquals(new Float(101), json.getFloat("string"));
+        Assert.assertEquals(new Double(101), json.getDouble("string"));
+        Assert.assertEquals(new Byte((byte)101), json.getByteOrDefault("string", (byte)0));
+        Assert.assertEquals(new Short((short)101), json.getShortOrDefault("string", (short)0));
+        Assert.assertEquals(new Integer(101), json.getIntegerOrDefault("string", 0));
+        Assert.assertEquals(new Long(101), json.getLongOrDefault("string", 0));
+        Assert.assertEquals(new Float(101), json.getFloatOrDefault("string", 0));
+        Assert.assertEquals(new Double(101), json.getDoubleOrDefault("string", 0));
+        /* Numbers are gotten from numbers. */
+        Assert.assertEquals(new Byte((byte)101), json.getByte("number"));
+        Assert.assertEquals(new Short((short)101), json.getShort("number"));
+        Assert.assertEquals(new Integer(101), json.getInteger("number"));
+        Assert.assertEquals(new Long(101), json.getLong("number"));
+        Assert.assertEquals(new Float(101), json.getFloat("number"));
+        Assert.assertEquals(new Double(101), json.getDouble("number"));
+        Assert.assertEquals(new Byte((byte)101), json.getByteOrDefault("number", (byte)0));
+        Assert.assertEquals(new Short((short)101), json.getShortOrDefault("number", (short)0));
+        Assert.assertEquals(new Integer(101), json.getIntegerOrDefault("number", 0));
+        Assert.assertEquals(new Long(101), json.getLongOrDefault("number", 0));
+        Assert.assertEquals(new Float(101), json.getFloatOrDefault("number", 0));
+        Assert.assertEquals(new Double(101), json.getDoubleOrDefault("number", 0));
+        Assert.assertEquals(new Byte((byte)101), json.getByte("big"));
+        Assert.assertEquals(new Short((short)101), json.getShort("big"));
+        Assert.assertEquals(new Integer(101), json.getInteger("big"));
+        Assert.assertEquals(new Long(101), json.getLong("big"));
+        Assert.assertEquals(new Float(101), json.getFloat("big"));
+        Assert.assertEquals(new Double(101), json.getDouble("big"));
+        Assert.assertEquals(new Byte((byte)101), json.getByteOrDefault("big", (byte)0));
+        Assert.assertEquals(new Short((short)101), json.getShortOrDefault("big", (short)0));
+        Assert.assertEquals(new Integer(101), json.getIntegerOrDefault("big", 0));
+        Assert.assertEquals(new Long(101), json.getLongOrDefault("big", 0));
+        Assert.assertEquals(new Float(101), json.getFloatOrDefault("big", 0));
+        Assert.assertEquals(new Double(101), json.getDoubleOrDefault("big", 0));
+        /* Strings are gotten from booleans, numbers, and strings. */
+        Assert.assertEquals("101", json.getString("string"));
+        Assert.assertEquals("true", json.getString("boolean"));
+        Assert.assertEquals("101", json.getString("number"));
+        Assert.assertEquals("101", json.getString("big"));
+        Assert.assertEquals("101", json.getStringOrDefault("string", "failed"));
+        Assert.assertEquals("true", json.getStringOrDefault("boolean", "failed"));
+        Assert.assertEquals("101", json.getStringOrDefault("number", "failed"));
+        Assert.assertEquals("101", json.getStringOrDefault("big", "failed"));
+    }
 }

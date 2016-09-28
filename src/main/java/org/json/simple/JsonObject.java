@@ -49,7 +49,8 @@ public class JsonObject extends HashMap<String, Object> implements Jsonable{
      * @param key representing where the value ought to be stored at.
      * @return the value stored at the key.
      * @throws ClassCastException if the value didn't match the assumed return type.
-     * @throws NumberFormatException if a String isn't a valid representation of a BigDecimal or if the Number represents the double or float Infinity or NaN.
+     * @throws NumberFormatException if a String isn't a valid representation of a BigDecimal or if the Number
+     *         represents the double or float Infinity or NaN.
      * @see BigDecimal
      * @see Number#toString() */
     public BigDecimal getBigDecimal(final String key){
@@ -73,7 +74,8 @@ public class JsonObject extends HashMap<String, Object> implements Jsonable{
      * @param defaultValue representing what is returned when the key isn't in the JsonObject.
      * @return the value stored at the key or the default provided if the key doesn't exist.
      * @throws ClassCastException if there was a value but didn't match the assumed return types.
-     * @throws NumberFormatException if a String isn't a valid representation of a BigDecimal or if the Number represents the double or float Infinity or NaN.
+     * @throws NumberFormatException if a String isn't a valid representation of a BigDecimal or if the Number
+     *         represents the double or float Infinity or NaN.
      * @see BigDecimal
      * @see Number#toString() */
     public BigDecimal getBigDecimalOrDefault(final String key, final BigDecimal defaultValue){
@@ -89,21 +91,25 @@ public class JsonObject extends HashMap<String, Object> implements Jsonable{
             /* A number can be used to construct a BigDecimal */
             returnable = new BigDecimal(returnable.toString());
         }else if(returnable instanceof String){
-            /* A number can be used to construct a BigDecimal */
+            /* A String can be used to construct a BigDecimal */
             returnable = new BigDecimal((String)returnable);
         }
         return (BigDecimal)returnable;
     }
-    
-    /** A convenience method that assumes there is a boolean value at the given key.
+
+    /** A convenience method that assumes there is a Boolean or String value at the given key.
      * @param key representing where the value ought to be stored at.
      * @return the value stored at the key.
      * @throws ClassCastException if the value didn't match the assumed return type. */
     public Boolean getBoolean(final String key){
-        return (Boolean)this.get(key);
+        Object returnable = this.get(key);
+        if(returnable instanceof String){
+            returnable = Boolean.valueOf((String)returnable);
+        }
+        return (Boolean)returnable;
     }
 
-    /** A convenience method that assumes there is a boolean value at the given key.
+    /** A convenience method that assumes there is a Boolean or String value at the given key.
      * @param key representing where the value ought to be stored at.
      * @param defaultValue representing what is returned when the key isn't in the JsonObject.
      * @return the value stored at the key or the default provided if the key doesn't exist.
@@ -115,28 +121,36 @@ public class JsonObject extends HashMap<String, Object> implements Jsonable{
         }else{
             returnable = defaultValue;
         }
+        if(returnable instanceof String){
+            returnable = Boolean.valueOf((String)returnable);
+        }
         return (Boolean)returnable;
     }
 
-    /** A convenience method that assumes there is a Number value at the given key.
+    /** A convenience method that assumes there is a Number or String value at the given key.
      * @param key representing where the value ought to be stored at.
      * @return the value stored at the key (which may involve rounding or truncation).
      * @throws ClassCastException if the value didn't match the assumed return type.
+     * @throws NumberFormatException if a String isn't a valid representation of a BigDecimal or if the Number
+     *         represents the double or float Infinity or NaN.
      * @see Number#byteValue() */
     public Byte getByte(final String key){
         Object returnable = this.get(key);
-        if(returnable == null){
-            return (Byte)returnable;
+        if(returnable instanceof String){
+            /* A String can be used to construct a BigDecimal. */
+            returnable = new BigDecimal((String)returnable);
         }
         return ((Number)returnable).byteValue();
     }
 
-    /** A convenience method that assumes there is a Number value at the given key.
+    /** A convenience method that assumes there is a Number or String value at the given key.
      * @param key representing where the value ought to be stored at.
      * @param defaultValue representing what is returned when the key isn't in the JsonObject.
      * @return the value stored at the key (which may involve rounding or truncation) or the default provided if the key
      *         doesn't exist.
      * @throws ClassCastException if there was a value but didn't match the assumed return type.
+     * @throws NumberFormatException if a String isn't a valid representation of a BigDecimal or if the Number
+     *         represents the double or float Infinity or NaN.
      * @see Number#byteValue() */
     public Byte getByteOrDefault(final String key, final byte defaultValue){
         Object returnable;
@@ -145,11 +159,15 @@ public class JsonObject extends HashMap<String, Object> implements Jsonable{
         }else{
             returnable = defaultValue;
         }
+        if(returnable instanceof String){
+            /* A String can be used to construct a BigDecimal. */
+            returnable = new BigDecimal((String)returnable);
+        }
         return ((Number)returnable).byteValue();
     }
-    
+
     /** A convenience method that assumes there is a Collection at the given key.
-     * @param <T> the kind of collection to expect at the key.
+     * @param <T> the kind of collection to expect at the key. Note unless manually added, collection values will be a JsonArray.
      * @param key representing where the value ought to be stored at.
      * @return the value stored at the key.
      * @throws ClassCastException if the value didn't match the assumed return type. */
@@ -161,7 +179,7 @@ public class JsonObject extends HashMap<String, Object> implements Jsonable{
     }
 
     /** A convenience method that assumes there is a Collection at the given key.
-     * @param <T> the kind of collection to expect at the key.
+     * @param <T> the kind of collection to expect at the key. Note unless manually added, collection values will be a JsonArray.
      * @param key representing where the value ought to be stored at.
      * @param defaultValue representing what is returned when the key isn't in the JsonObject.
      * @return the value stored at the key or the default provided if the key doesn't exist.
@@ -179,25 +197,30 @@ public class JsonObject extends HashMap<String, Object> implements Jsonable{
         return (T)returnable;
     }
 
-    /** A convenience method that assumes there is a Number value at the given key.
+    /** A convenience method that assumes there is a Number or String value at the given key.
      * @param key representing where the value ought to be stored at.
      * @return the value stored at the key (which may involve rounding or truncation).
      * @throws ClassCastException if the value didn't match the assumed return type.
+     * @throws NumberFormatException if a String isn't a valid representation of a BigDecimal or if the Number
+     *         represents the double or float Infinity or NaN.
      * @see Number#doubleValue() */
     public Double getDouble(final String key){
         Object returnable = this.get(key);
-        if(returnable == null){
-            return (Double)returnable;
+        if(returnable instanceof String){
+            /* A String can be used to construct a BigDecimal. */
+            returnable = new BigDecimal((String)returnable);
         }
         return ((Number)returnable).doubleValue();
     }
 
-    /** A convenience method that assumes there is a Number value at the given key.
+    /** A convenience method that assumes there is a Number or String value at the given key.
      * @param key representing where the value ought to be stored at.
      * @param defaultValue representing what is returned when the key isn't in the JsonObject.
      * @return the value stored at the key (which may involve rounding or truncation) or the default provided if the key
      *         doesn't exist.
      * @throws ClassCastException if there was a value but didn't match the assumed return type.
+     * @throws NumberFormatException if a String isn't a valid representation of a BigDecimal or if the Number
+     *         represents the double or float Infinity or NaN.
      * @see Number#doubleValue() */
     public Double getDoubleOrDefault(final String key, final double defaultValue){
         Object returnable;
@@ -206,9 +229,13 @@ public class JsonObject extends HashMap<String, Object> implements Jsonable{
         }else{
             returnable = defaultValue;
         }
+        if(returnable instanceof String){
+            /* A String can be used to construct a BigDecimal. */
+            returnable = new BigDecimal((String)returnable);
+        }
         return ((Number)returnable).doubleValue();
     }
-    
+
     /** A convenience method that assumes there is a String value at the given key representing a fully qualified name in
      * dot notation of an enum.
      * @param key representing where the value ought to be stored at.
@@ -322,25 +349,30 @@ public class JsonObject extends HashMap<String, Object> implements Jsonable{
         return returnable;
     }
 
-    /** A convenience method that assumes there is a Number value at the given key.
+    /** A convenience method that assumes there is a Number or String value at the given key.
      * @param key representing where the value ought to be stored at.
      * @return the value stored at the key (which may involve rounding or truncation).
      * @throws ClassCastException if the value didn't match the assumed return type.
+     * @throws NumberFormatException if a String isn't a valid representation of a BigDecimal or if the Number
+     *         represents the double or float Infinity or NaN.
      * @see Number#floatValue() */
     public Float getFloat(final String key){
         Object returnable = this.get(key);
-        if(returnable == null){
-            return (Float)returnable;
+        if(returnable instanceof String){
+            /* A String can be used to construct a BigDecimal. */
+            returnable = new BigDecimal((String)returnable);
         }
         return ((Number)returnable).floatValue();
     }
 
-    /** A convenience method that assumes there is a Number value at the given key.
+    /** A convenience method that assumes there is a Number or String value at the given key.
      * @param key representing where the value ought to be stored at.
      * @param defaultValue representing what is returned when the key isn't in the JsonObject.
      * @return the value stored at the key (which may involve rounding or truncation) or the default provided if the key
      *         doesn't exist.
      * @throws ClassCastException if there was a value but didn't match the assumed return type.
+     * @throws NumberFormatException if a String isn't a valid representation of a BigDecimal or if the Number
+     *         represents the double or float Infinity or NaN.
      * @see Number#floatValue() */
     public Float getFloatOrDefault(final String key, final float defaultValue){
         Object returnable;
@@ -349,28 +381,37 @@ public class JsonObject extends HashMap<String, Object> implements Jsonable{
         }else{
             returnable = defaultValue;
         }
+        if(returnable instanceof String){
+            /* A String can be used to construct a BigDecimal. */
+            returnable = new BigDecimal((String)returnable);
+        }
         return ((Number)returnable).floatValue();
     }
 
-    /** A convenience method that assumes there is a Number value at the given key.
+    /** A convenience method that assumes there is a Number or String value at the given key.
      * @param key representing where the value ought to be stored at.
      * @return the value stored at the key (which may involve rounding or truncation).
      * @throws ClassCastException if the value didn't match the assumed return type.
+     * @throws NumberFormatException if a String isn't a valid representation of a BigDecimal or if the Number
+     *         represents the double or float Infinity or NaN.
      * @see Number#intValue() */
     public Integer getInteger(final String key){
         Object returnable = this.get(key);
-        if(returnable == null){
-            return (Integer)returnable;
+        if(returnable instanceof String){
+            /* A String can be used to construct a BigDecimal. */
+            returnable = new BigDecimal((String)returnable);
         }
         return ((Number)returnable).intValue();
     }
 
-    /** A convenience method that assumes there is a Number value at the given key.
+    /** A convenience method that assumes there is a Number or String value at the given key.
      * @param key representing where the value ought to be stored at.
      * @param defaultValue representing what is returned when the key isn't in the JsonObject.
      * @return the value stored at the key (which may involve rounding or truncation) or the default provided if the key
      *         doesn't exist.
      * @throws ClassCastException if there was a value but didn't match the assumed return type.
+     * @throws NumberFormatException if a String isn't a valid representation of a BigDecimal or if the Number
+     *         represents the double or float Infinity or NaN.
      * @see Number#intValue() */
     public Integer getIntegerOrDefault(final String key, final int defaultValue){
         Object returnable;
@@ -379,28 +420,37 @@ public class JsonObject extends HashMap<String, Object> implements Jsonable{
         }else{
             returnable = defaultValue;
         }
+        if(returnable instanceof String){
+            /* A String can be used to construct a BigDecimal. */
+            returnable = new BigDecimal((String)returnable);
+        }
         return ((Number)returnable).intValue();
     }
 
-    /** A convenience method that assumes there is a Number value at the given key.
+    /** A convenience method that assumes there is a Number or String value at the given key.
      * @param key representing where the value ought to be stored at.
      * @return the value stored at the key (which may involve rounding or truncation).
      * @throws ClassCastException if the value didn't match the assumed return type.
+     * @throws NumberFormatException if a String isn't a valid representation of a BigDecimal or if the Number
+     *         represents the double or float Infinity or NaN.
      * @see Number#longValue() */
     public Long getLong(final String key){
         Object returnable = this.get(key);
-        if(returnable == null){
-            return (Long)returnable;
+        if(returnable instanceof String){
+            /* A String can be used to construct a BigDecimal. */
+            returnable = new BigDecimal((String)returnable);
         }
         return ((Number)returnable).longValue();
     }
 
-    /** A convenience method that assumes there is a Number value at the given key.
+    /** A convenience method that assumes there is a Number or String value at the given key.
      * @param key representing where the value ought to be stored at.
      * @param defaultValue representing what is returned when the key isn't in the JsonObject.
      * @return the value stored at the key (which may involve rounding or truncation) or the default provided if the key
      *         doesn't exist.
      * @throws ClassCastException if there was a value but didn't match the assumed return type.
+     * @throws NumberFormatException if a String isn't a valid representation of a BigDecimal or if the Number
+     *         represents the double or float Infinity or NaN.
      * @see Number#longValue() */
     public Long getLongOrDefault(final String key, final long defaultValue){
         Object returnable;
@@ -409,11 +459,15 @@ public class JsonObject extends HashMap<String, Object> implements Jsonable{
         }else{
             returnable = defaultValue;
         }
+        if(returnable instanceof String){
+            /* A String can be used to construct a BigDecimal. */
+            returnable = new BigDecimal((String)returnable);
+        }
         return ((Number)returnable).longValue();
     }
-    
+
     /** A convenience method that assumes there is a Map at the given key.
-     * @param <T> the kind of map to expect at the key.
+     * @param <T> the kind of map to expect at the key. Note unless manually added, Map values will be a JsonObject.
      * @param key representing where the value ought to be stored at.
      * @return the value stored at the key.
      * @throws ClassCastException if the value didn't match the assumed return type. */
@@ -425,7 +479,7 @@ public class JsonObject extends HashMap<String, Object> implements Jsonable{
     }
 
     /** A convenience method that assumes there is a Map at the given key.
-     * @param <T> the kind of map to expect at the key.
+     * @param <T> the kind of map to expect at the key. Note unless manually added, Map values will be a JsonObject.
      * @param key representing where the value ought to be stored at.
      * @param defaultValue representing what is returned when the key isn't in the JsonObject.
      * @return the value stored at the key or the default provided if the key doesn't exist.
@@ -443,25 +497,30 @@ public class JsonObject extends HashMap<String, Object> implements Jsonable{
         return (T)returnable;
     }
 
-    /** A convenience method that assumes there is a Number value at the given key.
+    /** A convenience method that assumes there is a Number or String value at the given key.
      * @param key representing where the value ought to be stored at.
      * @return the value stored at the key (which may involve rounding or truncation).
      * @throws ClassCastException if the value didn't match the assumed return type.
+     * @throws NumberFormatException if a String isn't a valid representation of a BigDecimal or if the Number
+     *         represents the double or float Infinity or NaN.
      * @see Number#shortValue() */
     public Short getShort(final String key){
         Object returnable = this.get(key);
-        if(returnable == null){
-            return (Short)returnable;
+        if(returnable instanceof String){
+            /* A String can be used to construct a BigDecimal. */
+            returnable = new BigDecimal((String)returnable);
         }
         return ((Number)returnable).shortValue();
     }
 
-    /** A convenience method that assumes there is a Number value at the given key.
+    /** A convenience method that assumes there is a Number or String value at the given key.
      * @param key representing where the value ought to be stored at.
      * @param defaultValue representing what is returned when the key isn't in the JsonObject.
      * @return the value stored at the key (which may involve rounding or truncation) or the default provided if the key
      *         doesn't exist.
      * @throws ClassCastException if there was a value but didn't match the assumed return type.
+     * @throws NumberFormatException if a String isn't a valid representation of a BigDecimal or if the Number
+     *         represents the double or float Infinity or NaN.
      * @see Number#shortValue() */
     public Short getShortOrDefault(final String key, final short defaultValue){
         Object returnable;
@@ -470,18 +529,28 @@ public class JsonObject extends HashMap<String, Object> implements Jsonable{
         }else{
             returnable = defaultValue;
         }
+        if(returnable instanceof String){
+            /* A String can be used to construct a BigDecimal. */
+            returnable = new BigDecimal((String)returnable);
+        }
         return ((Number)returnable).shortValue();
     }
 
-    /** A convenience method that assumes there is a String value at the given key.
+    /** A convenience method that assumes there is a Boolean, Number, or String value at the given key.
      * @param key representing where the value ought to be stored at.
      * @return the value stored at the key.
      * @throws ClassCastException if the value didn't match the assumed return type. */
     public String getString(final String key){
-        return (String)this.get(key);
+        Object returnable = this.get(key);
+        if(returnable instanceof Boolean){
+            returnable = returnable.toString();
+        }else if(returnable instanceof Number){
+            returnable = returnable.toString();
+        }
+        return (String)returnable;
     }
 
-    /** A convenience method that assumes there is a String value at the given key.
+    /** A convenience method that assumes there is a Boolean, Number, or String value at the given key.
      * @param key representing where the value ought to be stored at.
      * @param defaultValue representing what is returned when the key isn't in the JsonObject.
      * @return the value stored at the key or the default provided if the key doesn't exist.
@@ -492,6 +561,11 @@ public class JsonObject extends HashMap<String, Object> implements Jsonable{
             returnable = this.get(key);
         }else{
             returnable = defaultValue;
+        }
+        if(returnable instanceof Boolean){
+            returnable = returnable.toString();
+        }else if(returnable instanceof Number){
+            returnable = returnable.toString();
         }
         return (String)returnable;
     }

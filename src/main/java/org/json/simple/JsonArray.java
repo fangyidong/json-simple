@@ -72,36 +72,45 @@ public class JsonArray extends ArrayList<Object> implements Jsonable{
         if(returnable instanceof BigDecimal){
             /* Success there was a BigDecimal. */
         }else if(returnable instanceof Number){
-            /* A number can be used to construct a BigDecimal */
+            /* A number can be used to construct a BigDecimal. */
             returnable = new BigDecimal(returnable.toString());
         }else if(returnable instanceof String){
-            /* A number can be used to construct a BigDecimal */
+            /* A number can be used to construct a BigDecimal. */
             returnable = new BigDecimal((String)returnable);
         }
         return (BigDecimal)returnable;
     }
 
-    /** A convenience method that assumes there is a boolean value at the given index.
+    /** A convenience method that assumes there is a Boolean or String value at the given index.
      * @param index represents where the value is expected to be at.
      * @return the value at the index provided cast to a boolean.
      * @throws ClassCastException if there was a value but didn't match the assumed return type.
      * @throws IndexOutOfBoundsException if the index is outside of the range of element indexes in the JsonArray. */
     public Boolean getBoolean(final int index){
-        return (Boolean)this.get(index);
+        Object returnable = this.get(index);
+        if(returnable instanceof String){
+            returnable = Boolean.valueOf((String)returnable);
+        }
+        return (Boolean)returnable;
     }
 
-    /** A convenience method that assumes there is a Number value at the given index.
+    /** A convenience method that assumes there is a Number or String value at the given index.
      * @param index represents where the value is expected to be at.
      * @return the value at the index provided cast to a byte.
      * @throws ClassCastException if there was a value but didn't match the assumed return type.
      * @throws IndexOutOfBoundsException if the index is outside of the range of element indexes in the JsonArray.
      * @see Number */
     public Byte getByte(final int index){
-        return ((Number)this.get(index)).byteValue();
+        Object returnable = this.get(index);
+        if(returnable instanceof String){
+            /* A String can be used to construct a BigDecimal. */
+            returnable = new BigDecimal((String)returnable);
+        }
+        return ((Number)returnable).byteValue();
     }
 
     /** A convenience method that assumes there is a Collection value at the given index.
-     * @param <T> the kind of collection to expect at the index.
+     * @param <T> the kind of collection to expect at the index. Note unless manually added, collection values will be a JsonArray.
      * @param index represents where the value is expected to be at.
      * @return the value at the index provided cast to a Collection.
      * @throws ClassCastException if there was a value but didn't match the assumed return type.
@@ -114,14 +123,19 @@ public class JsonArray extends ArrayList<Object> implements Jsonable{
         return (T)this.get(index);
     }
 
-    /** A convenience method that assumes there is a Number value at the given index.
+    /** A convenience method that assumes there is a Number or String value at the given index.
      * @param index represents where the value is expected to be at.
      * @return the value at the index provided cast to a double.
      * @throws ClassCastException if there was a value but didn't match the assumed return type.
      * @throws IndexOutOfBoundsException if the index is outside of the range of element indexes in the JsonArray.
      * @see Number */
     public Double getDouble(final int index){
-        return ((Number)this.get(index)).doubleValue();
+        Object returnable = this.get(index);
+        if(returnable instanceof String){
+            /* A String can be used to construct a BigDecimal. */
+            returnable = new BigDecimal((String)returnable);
+        }
+        return ((Number)returnable).doubleValue();
     }
 
     /** A convenience method that assumes there is a String value at the given index representing a fully qualified name
@@ -177,38 +191,53 @@ public class JsonArray extends ArrayList<Object> implements Jsonable{
         return returnable;
     }
 
-    /** A convenience method that assumes there is a Number value at the given index.
+    /** A convenience method that assumes there is a Number or String value at the given index.
      * @param index represents where the value is expected to be at.
      * @return the value at the index provided cast to a float.
      * @throws ClassCastException if there was a value but didn't match the assumed return type.
      * @throws IndexOutOfBoundsException if the index is outside of the range of element indexes in the JsonArray.
      * @see Number */
     public Float getFloat(final int index){
-        return ((Number)this.get(index)).floatValue();
+        Object returnable = this.get(index);
+        if(returnable instanceof String){
+            /* A String can be used to construct a BigDecimal. */
+            returnable = new BigDecimal((String)returnable);
+        }
+        return ((Number)returnable).floatValue();
     }
 
-    /** A convenience method that assumes there is a Number value at the given index.
+    /** A convenience method that assumes there is a Number or String value at the given index.
      * @param index represents where the value is expected to be at.
      * @return the value at the index provided cast to a int.
      * @throws ClassCastException if there was a value but didn't match the assumed return type.
      * @throws IndexOutOfBoundsException if the index is outside of the range of element indexes in the JsonArray.
      * @see Number */
     public Integer getInteger(final int index){
-        return ((Number)this.get(index)).intValue();
+        Object returnable = this.get(index);
+        if(returnable instanceof String){
+            /* A String can be used to construct a BigDecimal. */
+            returnable = new BigDecimal((String)returnable);
+        }
+        return ((Number)returnable).intValue();
     }
 
-    /** A convenience method that assumes there is a Number value at the given index.
+    /** A convenience method that assumes there is a Number or String value at the given index.
      * @param index represents where the value is expected to be at.
      * @return the value at the index provided cast to a long.
      * @throws ClassCastException if there was a value but didn't match the assumed return type.
      * @throws IndexOutOfBoundsException if the index is outside of the range of element indexes in the JsonArray.
      * @see Number */
     public Long getLong(final int index){
-        return ((Number)this.get(index)).longValue();
+        Object returnable = this.get(index);
+        if(returnable instanceof String){
+            /* A String can be used to construct a BigDecimal. */
+            returnable = new BigDecimal((String)returnable);
+        }
+        return ((Number)returnable).longValue();
     }
 
     /** A convenience method that assumes there is a Map value at the given index.
-     * @param <T> the kind of map to expect at the index.
+     * @param <T> the kind of map to expect at the index. Note unless manually added, Map values will be a JsonObject.
      * @param index represents where the value is expected to be at.
      * @return the value at the index provided cast to a Map.
      * @throws ClassCastException if there was a value but didn't match the assumed return type.
@@ -221,23 +250,34 @@ public class JsonArray extends ArrayList<Object> implements Jsonable{
         return (T)this.get(index);
     }
 
-    /** A convenience method that assumes there is a Number value at the given index.
+    /** A convenience method that assumes there is a Number or String value at the given index.
      * @param index represents where the value is expected to be at.
      * @return the value at the index provided cast to a short.
      * @throws ClassCastException if there was a value but didn't match the assumed return type.
      * @throws IndexOutOfBoundsException if the index is outside of the range of element indexes in the JsonArray.
      * @see Number */
     public Short getShort(final int index){
-        return ((Number)this.get(index)).shortValue();
+        Object returnable = this.get(index);
+        if(returnable instanceof String){
+            /* A String can be used to construct a BigDecimal. */
+            returnable = new BigDecimal((String)returnable);
+        }
+        return ((Number)returnable).shortValue();
     }
 
-    /** A convenience method that assumes there is a String value at the given index.
+    /** A convenience method that assumes there is a Boolean, Number, or String value at the given index.
      * @param index represents where the value is expected to be at.
      * @return the value at the index provided cast to a String.
      * @throws ClassCastException if there was a value but didn't match the assumed return type.
      * @throws IndexOutOfBoundsException if the index is outside of the range of element indexes in the JsonArray. */
     public String getString(final int index){
-        return (String)this.get(index);
+        Object returnable = this.get(index);
+        if(returnable instanceof Boolean){
+            returnable = returnable.toString();
+        }else if(returnable instanceof Number){
+            returnable = returnable.toString();
+        }
+        return (String)returnable;
     }
 
     /* (non-Javadoc)
