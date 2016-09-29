@@ -1,4 +1,4 @@
-Version 2.2.0 (2016/09/*)
+Version 2.1.1 (2016/09/*)
 * Enhancement: JsonArray and JsonObject convenience gets are more flexible on their expected value. Booleans now allow Booleans or Strings. Numbers now allow Numbers or Strings. Strings now allow Booleans, Numbers, or Strings.
 
 Version 2.1.0 (2016/09/*)
