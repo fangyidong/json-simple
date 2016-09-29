@@ -98,6 +98,8 @@ public class JsonArray extends ArrayList<Object> implements Jsonable{
      * @param index represents where the value is expected to be at.
      * @return the value at the index provided cast to a byte.
      * @throws ClassCastException if there was a value but didn't match the assumed return type.
+     * @throws NumberFormatException if a String isn't a valid representation of a BigDecimal or if the Number
+     *         represents the double or float Infinity or NaN.
      * @throws IndexOutOfBoundsException if the index is outside of the range of element indexes in the JsonArray.
      * @see Number */
     public Byte getByte(final int index){
@@ -127,6 +129,8 @@ public class JsonArray extends ArrayList<Object> implements Jsonable{
      * @param index represents where the value is expected to be at.
      * @return the value at the index provided cast to a double.
      * @throws ClassCastException if there was a value but didn't match the assumed return type.
+     * @throws NumberFormatException if a String isn't a valid representation of a BigDecimal or if the Number
+     *         represents the double or float Infinity or NaN.
      * @throws IndexOutOfBoundsException if the index is outside of the range of element indexes in the JsonArray.
      * @see Number */
     public Double getDouble(final int index){
@@ -195,6 +199,8 @@ public class JsonArray extends ArrayList<Object> implements Jsonable{
      * @param index represents where the value is expected to be at.
      * @return the value at the index provided cast to a float.
      * @throws ClassCastException if there was a value but didn't match the assumed return type.
+     * @throws NumberFormatException if a String isn't a valid representation of a BigDecimal or if the Number
+     *         represents the double or float Infinity or NaN.
      * @throws IndexOutOfBoundsException if the index is outside of the range of element indexes in the JsonArray.
      * @see Number */
     public Float getFloat(final int index){
@@ -210,6 +216,8 @@ public class JsonArray extends ArrayList<Object> implements Jsonable{
      * @param index represents where the value is expected to be at.
      * @return the value at the index provided cast to a int.
      * @throws ClassCastException if there was a value but didn't match the assumed return type.
+     * @throws NumberFormatException if a String isn't a valid representation of a BigDecimal or if the Number
+     *         represents the double or float Infinity or NaN.
      * @throws IndexOutOfBoundsException if the index is outside of the range of element indexes in the JsonArray.
      * @see Number */
     public Integer getInteger(final int index){
@@ -225,6 +233,8 @@ public class JsonArray extends ArrayList<Object> implements Jsonable{
      * @param index represents where the value is expected to be at.
      * @return the value at the index provided cast to a long.
      * @throws ClassCastException if there was a value but didn't match the assumed return type.
+     * @throws NumberFormatException if a String isn't a valid representation of a BigDecimal or if the Number
+     *         represents the double or float Infinity or NaN.
      * @throws IndexOutOfBoundsException if the index is outside of the range of element indexes in the JsonArray.
      * @see Number */
     public Long getLong(final int index){
@@ -254,6 +264,8 @@ public class JsonArray extends ArrayList<Object> implements Jsonable{
      * @param index represents where the value is expected to be at.
      * @return the value at the index provided cast to a short.
      * @throws ClassCastException if there was a value but didn't match the assumed return type.
+     * @throws NumberFormatException if a String isn't a valid representation of a BigDecimal or if the Number
+     *         represents the double or float Infinity or NaN.
      * @throws IndexOutOfBoundsException if the index is outside of the range of element indexes in the JsonArray.
      * @see Number */
     public Short getShort(final int index){
