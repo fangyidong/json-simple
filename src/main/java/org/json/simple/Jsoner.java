@@ -819,8 +819,8 @@ public class Jsoner{
              * This feature would require another serialize method exposed to allow this serialization.
              * This feature (although perhaps useful on its own) would also include a method in the JsonObject where you
              * pass it a class and it would do its best to instantiate a POJO of the class using the keys in the
-             * JsonObject. /
-             * /* It cannot by any measure be safely serialized according to specification. */
+             * JsonObject. */
+             /* It cannot by any measure be safely serialized according to specification. */
             if(flags.contains(SerializationOptions.ALLOW_INVALIDS)){
                 /* Can be helpful for debugging how it isn't valid. */
                 writableDestination.write(jsonSerializable.toString());
