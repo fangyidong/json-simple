@@ -1,3 +1,7 @@
+Version 2.1.2 (2016/10/*)
+* Bug fix: Jsoner#prettyPrint(printable) no longer quotes colons.
+* Enhancement: for convenience a colon missing between a key value pair will officially continue to function as it has since the 1.* versions. Deserialization test cases have been updated.
+
 Version 2.1.1 (2016/09/*)
 * Separated the CHANGLOG and LICENSE from the README as they are recognized by tools like github. Most of the information in README is linked to on the project's website.
 * Enhancement: JsonArray and JsonObject convenience gets are more flexible on their expected value. Booleans now allow Booleans or Strings. Numbers now allow Numbers or Strings. Strings now allow Booleans, Numbers, or Strings.

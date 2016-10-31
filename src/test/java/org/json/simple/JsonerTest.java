@@ -110,37 +110,6 @@ public class JsonerTest{
         Assert.assertEquals("false", serialized.toString());
     }
 
-    /** Makes sure enums are serialized when appropriate.
-     * @throws IOException if the test fails. */
-    @Test
-    public void testEnumSerialization() throws IOException{
-        StringWriter serialized;
-        serialized = new StringWriter();
-        Jsoner.serialize(TestStaticEnums.ONE, serialized);
-        Assert.assertEquals("\"org.json.simple.JsonerTest$TestStaticEnums.ONE\"", serialized.toString());
-        serialized = new StringWriter();
-        try{
-            Jsoner.serializeStrictly(TestStaticEnums.ONE, serialized);
-        }catch(final IllegalArgumentException caught){
-            /* Strictly doesn't allow enums. */
-        }
-        serialized = new StringWriter();
-        Jsoner.serializeCarelessly(TestStaticEnums.ONE, serialized);
-        Assert.assertEquals(TestStaticEnums.ONE.toString(), serialized.toString());
-        serialized = new StringWriter();
-        Jsoner.serialize(TestEnums.A, serialized);
-        Assert.assertEquals("\"org.json.simple.JsonerTest$TestEnums.A\"", serialized.toString());
-        serialized = new StringWriter();
-        try{
-            Jsoner.serializeStrictly(TestEnums.A, serialized);
-        }catch(final IllegalArgumentException caught){
-            /* Strictly doesn't allow enums. */
-        }
-        serialized = new StringWriter();
-        Jsoner.serializeCarelessly(TestEnums.A, serialized);
-        Assert.assertEquals(TestEnums.A.toString(), serialized.toString());
-    }
-
     /** Ensures multiple concatenated JSON values are directly deserializable.
      * @throws DeserializationException if the test fails.
      * @throws IOException if the test fails. */
@@ -195,6 +164,37 @@ public class JsonerTest{
         expected.add(new JsonArray());
         deserialized = Jsoner.deserializeMany(new StringReader(deserializable.toString()));
         Assert.assertEquals(expected, deserialized);
+    }
+
+    /** Makes sure enums are serialized when appropriate.
+     * @throws IOException if the test fails. */
+    @Test
+    public void testEnumSerialization() throws IOException{
+        StringWriter serialized;
+        serialized = new StringWriter();
+        Jsoner.serialize(TestStaticEnums.ONE, serialized);
+        Assert.assertEquals("\"org.json.simple.JsonerTest$TestStaticEnums.ONE\"", serialized.toString());
+        serialized = new StringWriter();
+        try{
+            Jsoner.serializeStrictly(TestStaticEnums.ONE, serialized);
+        }catch(final IllegalArgumentException caught){
+            /* Strictly doesn't allow enums. */
+        }
+        serialized = new StringWriter();
+        Jsoner.serializeCarelessly(TestStaticEnums.ONE, serialized);
+        Assert.assertEquals(TestStaticEnums.ONE.toString(), serialized.toString());
+        serialized = new StringWriter();
+        Jsoner.serialize(TestEnums.A, serialized);
+        Assert.assertEquals("\"org.json.simple.JsonerTest$TestEnums.A\"", serialized.toString());
+        serialized = new StringWriter();
+        try{
+            Jsoner.serializeStrictly(TestEnums.A, serialized);
+        }catch(final IllegalArgumentException caught){
+            /* Strictly doesn't allow enums. */
+        }
+        serialized = new StringWriter();
+        Jsoner.serializeCarelessly(TestEnums.A, serialized);
+        Assert.assertEquals(TestEnums.A.toString(), serialized.toString());
     }
 
     /** Ensures booleans, JsonArray, JsonObject, null, numbers, and Strings are deserializable while inside a JsonObject
@@ -411,16 +411,41 @@ public class JsonerTest{
     public void testObjectDeserialization() throws DeserializationException{
         JsonObject defaultValue;
         Object deserialized;
+        JsonObject expected;
+        expected = new JsonObject();
+        defaultValue = new JsonObject();
+        defaultValue.put("error", -1);
         /* Trailing commas are common causes of wasting time debugging JSON. Allowing it in deserialization will
          * inevitably make it feel more simple and save the user time debugging pointless things. */
         deserialized = Jsoner.deserialize("{,}");
-        Assert.assertEquals(new JsonObject(), deserialized);
-        /* Serializing JsonObjects directly requires a defaultValue in case it doesn't deserialize a JsonObject. */
-        defaultValue = new JsonObject();
-        defaultValue.put("default", -1);
-        deserialized = Jsoner.deserialize("{,}", defaultValue);
-        Assert.assertEquals(new JsonObject(), deserialized);
-        /* The call should return the defaultValue instead. */
+        Assert.assertEquals(expected, deserialized);
+        /* A missing colon can be frustrating to track down and a waste of time debugging JSON. Allowing it in
+         * deserialization will inevitably make it feel more simple and save the user time debugging things that don't
+         * actually impede the library. */
+        expected.put("key", "value");
+        deserialized = Jsoner.deserialize("{\"key\"\"value\"}", defaultValue);
+        Assert.assertEquals(expected, deserialized);
+        /* Same thing but with numbers. */
+        expected.remove("key");
+        expected.put("key", new BigDecimal("234.0"));
+        deserialized = Jsoner.deserialize("{\"key\"234.0}", defaultValue);
+        Assert.assertEquals(expected, deserialized);
+        /* Same thing but with booleans. */
+        expected.remove("key");
+        expected.put("key", true);
+        deserialized = Jsoner.deserialize("{\"key\"true}", defaultValue);
+        Assert.assertEquals(expected, deserialized);
+        /* Same thing but with objects. */
+        expected.remove("key");
+        expected.put("key", new JsonObject());
+        deserialized = Jsoner.deserialize("{\"key\"{}}", defaultValue);
+        Assert.assertEquals(expected, deserialized);
+        /* Same thing but with arrays. */
+        expected.remove("key");
+        expected.put("key", new JsonArray());
+        deserialized = Jsoner.deserialize("{\"key\"[]}", defaultValue);
+        Assert.assertEquals(expected, deserialized);
+        /* Deserializing JsonObjects directly requires a defaultValue in case it doesn't deserialize a JsonObject. */
         deserialized = Jsoner.deserialize("{asdf,}", defaultValue);
         Assert.assertEquals(defaultValue, deserialized);
     }
@@ -445,7 +470,7 @@ public class JsonerTest{
     /** Ensures arrays and objects can be printed in an easier to read format. */
     @Test
     public void testPrettyPrint(){
-        Assert.assertEquals("[\n\t0,\n\t1,\n\t2,\n\t{\n\t\t\"k0\"\":\"\"v0\",\n\t\t\"k1\"\":\"\"v1\"\n\t},\n\t[\n\t\t[\n\t\t\t\"\",\n\t\t\t\"\"\n\t\t]\n\t],\n\tnull,\n\ttrue,\n\tfalse\n]", Jsoner.prettyPrint("[0,1,2,{\"k0\":\"v0\",\"k1\":\"v1\"},[[\"\",\"\"]],null,true,false]"));
+        Assert.assertEquals("[\n\t0,\n\t1,\n\t2,\n\t{\n\t\t\"k0\":\"v0\",\n\t\t\"k1\":\"v1\"\n\t},\n\t[\n\t\t[\n\t\t\t\"\",\n\t\t\t\"\"\n\t\t]\n\t],\n\tnull,\n\ttrue,\n\tfalse\n]", Jsoner.prettyPrint("[0,1,2,{\"k0\":\"v0\",\"k1\":\"v1\"},[[\"\",\"\"]],null,true,false]"));
     }
 
     /** Ensures Strings are directly deserializable.

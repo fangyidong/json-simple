@@ -520,6 +520,9 @@ public class Jsoner{
             do{
                 lexed = Jsoner.lexNextToken(lexer);
                 switch(lexed.getType()){
+                    case COLON:
+                        returnable.append(":");
+                        break;
                     case COMMA:
                         returnable.append(lexed.getValue());
                         returnable.append("\n");
