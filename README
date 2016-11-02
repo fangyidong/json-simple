@@ -1,6 +1,9 @@
 For more information please visit:
 https://cliftonlabs.github.io/json-simple/
 
+For the javadocs please visit:
+https://cliftonlabs.github.io/json-simple/target/apidocs/index.html
+
 [DEVELOPERS]
 Generate json-simple project files for eclipse:
 mvn eclipse:eclipse
