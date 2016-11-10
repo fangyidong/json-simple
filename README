@@ -5,6 +5,8 @@ For the javadocs please visit:
 https://cliftonlabs.github.io/json-simple/target/apidocs/index.html
 
 [DEVELOPERS]
+If you are developing on a system that has case-insensitve files then please review https://github.com/cliftonlabs/json-simple/issues/13 to get started.
+
 Generate json-simple project files for eclipse:
 mvn eclipse:eclipse
 
