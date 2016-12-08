@@ -37,8 +37,8 @@ Version 2.0.0 (2016/09/*)
 * Classes that have been deprecated still have shoddy javadocs but were updated to not produce errors and warnings during the build process.
 * Classes introduced in the 2.0 release have substantial javadocs to help projects heathily update ASAP.
 * The Jsonable interface allows others to define how their objects should be serialized in JSON.
-* The new ParseException has a new problem type for disallowed tokens.
-* The new ParseException now recommends recovery actions based on the problem that caused the DeserializationException in its message. All recovery scenarios are basically the same so ParseException is still the only json-simple exception class.
+* DeserializationException has a new problem type for disallowed tokens.
+* DeserializationException now recommends recovery actions based on the problem that caused the DeserializationException in its message. All recovery scenarios are basically the same so DeserializationException is still the only json-simple exception class.
 * The new Yytoken types are renamed.
 * The new Yytoken is robustly constructed only allowing a null value when it is a null value in the DATUM tokens.
 * Jsoner can escape strings provided to it to help with implementing the Jsonable interface.
