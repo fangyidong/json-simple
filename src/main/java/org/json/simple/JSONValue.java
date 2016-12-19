@@ -251,7 +251,7 @@ public class JSONValue {
 	}
 
 	/**
-	 * Escape quotes, \, /, \r, \n, \b, \f, \t and other control characters (U+0000 through U+001F).
+	 * Escape quotes, \, \r, \n, \b, \f, \t and other control characters (U+0000 through U+001F).
 	 * @param s
 	 * @return
 	 */
@@ -292,9 +292,6 @@ public class JSONValue {
 				break;
 			case '\t':
 				sb.append("\\t");
-				break;
-			case '/':
-				sb.append("\\/");
 				break;
 			default:
                 //Reference: http://www.unicode.org/versions/Unicode5.1.0/
