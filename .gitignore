@@ -1,0 +1,11 @@
+bin
+target
+pom.xml.releaseBackup
+release.properties
+.project
+.classpath
+.metadata
+.settings
+*.log
+*.java~
+*.xml

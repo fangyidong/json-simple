@@ -1,7 +1,16 @@
-/*
- * $Id: JSONValue.java,v 1.1 2006/04/15 14:37:04 platform Exp $
- * Created on 2006-4-15
- */
+/* Copyright 2006 FangYidong
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License. */
 package org.json.simple;
 
 import java.io.IOException;
@@ -18,8 +27,10 @@ import org.json.simple.parser.ParseException;
 
 
 /**
- * @author FangYidong<fangyidong@yahoo.com.cn>
+ * @author FangYidong&lt;fangyidong@yahoo.com.cn&gt;
+ * @deprecated since 2.0.0, replaced by {@link org.json.simple.Jsoner}
  */
+@Deprecated
 public class JSONValue {
 	/**
 	 * Parse JSON text into java object from the input source. 
@@ -28,7 +39,7 @@ public class JSONValue {
 	 * @see org.json.simple.parser.JSONParser#parse(Reader)
 	 * @see #parseWithException(Reader)
 	 * 
-	 * @param in
+	 * @param in description omitted.
 	 * @return Instance of the following:
 	 *	org.json.simple.JSONObject,
 	 * 	org.json.simple.JSONArray,
@@ -58,7 +69,7 @@ public class JSONValue {
 	 * @see org.json.simple.parser.JSONParser#parse(Reader)
 	 * @see #parseWithException(Reader)
 	 * 
-	 * @param s
+	 * @param s description omitted.
 	 * @return Instance of the following:
 	 *	org.json.simple.JSONObject,
 	 * 	org.json.simple.JSONArray,
@@ -81,7 +92,7 @@ public class JSONValue {
 	 * 
 	 * @see org.json.simple.parser.JSONParser
 	 * 
-	 * @param in
+	 * @param in description omitted.
 	 * @return Instance of the following:
 	 * 	org.json.simple.JSONObject,
 	 * 	org.json.simple.JSONArray,
@@ -90,14 +101,21 @@ public class JSONValue {
 	 * 	java.lang.Boolean,
 	 * 	null
 	 * 
-	 * @throws IOException
-	 * @throws ParseException
+	 * @throws IOException description omitted.
+	 * @throws ParseException description omitted.
 	 */
 	public static Object parseWithException(Reader in) throws IOException, ParseException{
 		JSONParser parser=new JSONParser();
 		return parser.parse(in);
 	}
 	
+	/**
+	 * description omitted.
+	 *
+	 * @param s description omitted.
+	 * @return description omitted.
+	 * @throws ParseException description omitted.
+	 */
 	public static Object parseWithException(String s) throws ParseException{
 		JSONParser parser=new JSONParser();
 		return parser.parse(s);
@@ -112,10 +130,11 @@ public class JSONValue {
      * "this" as the first parameter, use JSONObject.writeJSONString(Map, Writer) or JSONArray.writeJSONString(List, Writer) instead. 
      * 
      * @see org.json.simple.JSONObject#writeJSONString(Map, Writer)
-     * @see org.json.simple.JSONArray#writeJSONString(List, Writer)
+     * @see org.json.simple.JSONArray#writeJSONString(Collection, Writer)
      * 
-     * @param value
-     * @param writer
+     * @param value description omitted.
+     * @param out description omitted.
+     * @throws IOException description omitted.
      */
 	public static void writeJSONString(Object value, Writer out) throws IOException {
 		if(value == null){
@@ -233,9 +252,9 @@ public class JSONValue {
 	 * "this" as the parameter, use JSONObject.toJSONString(Map) or JSONArray.toJSONString(List) instead. 
 	 * 
 	 * @see org.json.simple.JSONObject#toJSONString(Map)
-	 * @see org.json.simple.JSONArray#toJSONString(List)
+	 * @see org.json.simple.JSONArray#toJSONString(Collection)
 	 * 
-	 * @param value
+	 * @param value description omitted.
 	 * @return JSON text, or "null" if value is null or it's an NaN or an INF number.
 	 */
 	public static String toJSONString(Object value){
@@ -252,8 +271,8 @@ public class JSONValue {
 
 	/**
 	 * Escape quotes, \, /, \r, \n, \b, \f, \t and other control characters (U+0000 through U+001F).
-	 * @param s
-	 * @return
+	 * @param s description omitted.
+	 * @return description omitted.
 	 */
 	public static String escape(String s){
 		if(s==null)
@@ -265,7 +284,7 @@ public class JSONValue {
 
     /**
      * @param s - Must not be null.
-     * @param sb
+     * @param sb description omitted.
      */
     static void escape(String s, StringBuffer sb) {
     	final int len = s.length();

@@ -1,7 +1,16 @@
-/*
- * $Id: JSONParser.java,v 1.1 2006/04/15 14:10:48 platform Exp $
- * Created on 2006-4-15
- */
+/* Copyright 2006 FangYidong
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License. */
 package org.json.simple.parser;
 
 import java.io.IOException;
@@ -18,16 +27,42 @@ import org.json.simple.JSONObject;
 /**
  * Parser for JSON text. Please note that JSONParser is NOT thread-safe.
  * 
- * @author FangYidong<fangyidong@yahoo.com.cn>
+ * @author FangYidong&lt;fangyidong@yahoo.com.cn&gt;
+ * @deprecated since 2.0.0, copied to a new package {@link org.json.simple.Jsoner}.
  */
+@Deprecated
 public class JSONParser {
+	/**
+	 * description omitted.
+	 */
 	public static final int S_INIT=0;
+	/**
+	 * description omitted.
+	 */
 	public static final int S_IN_FINISHED_VALUE=1;//string,number,boolean,null,object,array
+	/**
+	 * description omitted.
+	 */
 	public static final int S_IN_OBJECT=2;
+	/**
+	 * description omitted.
+	 */
 	public static final int S_IN_ARRAY=3;
+	/**
+	 * description omitted.
+	 */
 	public static final int S_PASSED_PAIR_KEY=4;
+	/**
+	 * description omitted.
+	 */
 	public static final int S_IN_PAIR_VALUE=5;
+	/**
+	 * description omitted.
+	 */
 	public static final int S_END=6;
+	/**
+	 * description omitted.
+	 */
 	public static final int S_IN_ERROR=-1;
 	
 	private LinkedList handlerStatusStack;
@@ -56,8 +91,6 @@ public class JSONParser {
      * Reset the parser to the initial state with a new character reader.
      * 
      * @param in - The new character reader.
-     * @throws IOException
-     * @throws ParseException
      */
 	public void reset(Reader in){
 		lexer.yyreset(in);
@@ -71,10 +104,25 @@ public class JSONParser {
 		return lexer.getPosition();
 	}
 	
+	/**
+	 * description omitted.
+	 *
+	 * @param s description omitted.
+	 * @return description omitted.
+	 * @throws ParseException description omitted.
+	 */
 	public Object parse(String s) throws ParseException{
 		return parse(s, (ContainerFactory)null);
 	}
 	
+	/**
+	 * description omitted.
+	 *
+	 * @param s description omitted.
+	 * @param containerFactory description omitted.
+	 * @return description omitted.
+	 * @throws ParseException description omitted.
+	 */
 	public Object parse(String s, ContainerFactory containerFactory) throws ParseException{
 		StringReader in=new StringReader(s);
 		try{
@@ -88,6 +136,14 @@ public class JSONParser {
 		}
 	}
 	
+	/**
+	 * description omitted.
+	 *
+	 * @param in description omitted.
+	 * @return description omitted.
+	 * @throws IOException description omitted.
+	 * @throws ParseException description omitted.
+	 */
 	public Object parse(Reader in) throws IOException, ParseException{
 		return parse(in, (ContainerFactory)null);
 	}
@@ -95,7 +151,7 @@ public class JSONParser {
 	/**
 	 * Parse JSON text into java object from the input source.
 	 * 	
-	 * @param in
+	 * @param in description omitted.
      * @param containerFactory - Use this factory to createyour own JSON object and JSON array containers.
 	 * @return Instance of the following:
 	 *  org.json.simple.JSONObject,
@@ -105,8 +161,8 @@ public class JSONParser {
 	 * 	java.lang.Boolean,
 	 * 	null
 	 * 
-	 * @throws IOException
-	 * @throws ParseException
+	 * @throws IOException description omitted.
+	 * @throws ParseException description omitted.
 	 */
 	public Object parse(Reader in, ContainerFactory containerFactory) throws IOException, ParseException{
 		reset(in);
@@ -291,10 +347,25 @@ public class JSONParser {
 		return l;
 	}
 	
+	/**
+	 * description omitted.
+	 *
+	 * @param s description omitted.
+	 * @param contentHandler description omitted.
+	 * @throws ParseException description omitted.
+	 */
 	public void parse(String s, ContentHandler contentHandler) throws ParseException{
 		parse(s, contentHandler, false);
 	}
 	
+	/**
+	 * description omitted.
+	 *
+	 * @param s description omitted.
+	 * @param contentHandler description omitted.
+	 * @param isResume description omitted.
+	 * @throws ParseException description omitted.
+	 */
 	public void parse(String s, ContentHandler contentHandler, boolean isResume) throws ParseException{
 		StringReader in=new StringReader(s);
 		try{
@@ -308,6 +379,14 @@ public class JSONParser {
 		}
 	}
 	
+	/**
+	 * description omitted.
+	 *
+	 * @param in description omitted.
+	 * @param contentHandler description omitted.
+	 * @throws IOException description omitted.
+	 * @throws ParseException description omitted.
+	 */
 	public void parse(Reader in, ContentHandler contentHandler) throws IOException, ParseException{
 		parse(in, contentHandler, false);
 	}
@@ -317,14 +396,14 @@ public class JSONParser {
 	 * 
 	 * @see ContentHandler
 	 * 
-	 * @param in
-	 * @param contentHandler
+	 * @param in description omitted.
+	 * @param contentHandler description omitted.
 	 * @param isResume - Indicates if it continues previous parsing operation.
      *                   If set to true, resume parsing the old stream, and parameter 'in' will be ignored. 
 	 *                   If this method is called for the first time in this instance, isResume will be ignored.
 	 * 
-	 * @throws IOException
-	 * @throws ParseException
+	 * @throws IOException description omitted.
+	 * @throws ParseException description omitted.
 	 */
 	public void parse(Reader in, ContentHandler contentHandler, boolean isResume) throws IOException, ParseException{
 		if(!isResume){

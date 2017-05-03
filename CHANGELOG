@@ -1,0 +1,85 @@
+Version 2.1.2 (2016/10/*)
+* Bug fix: Jsoner#prettyPrint(printable) no longer quotes colons.
+* Enhancement: for convenience a colon missing between a key value pair will officially continue to function as it has since the 1.* versions. Deserialization test cases have been updated.
+
+Version 2.1.1 (2016/09/*)
+* Separated the CHANGLOG and LICENSE from the README as they are recognized by tools like github. Most of the information in README is linked to on the project's website.
+* Enhancement: JsonArray and JsonObject convenience gets are more flexible on their expected value. Booleans now allow Booleans or Strings. Numbers now allow Numbers or Strings. Strings now allow Booleans, Numbers, or Strings.
+
+Version 2.1.0 (2016/09/*)
+* Bug fix: JsonObject#getDefaultByte(key, defaultValue) now properly returns a byte value instead of a float.
+* Enhancement: JsonObject has typed gets for each JSON value type.
+* Enhancement: JsonArray and JsonObject no longer return primitives.
+
+Version 2.0.0 (2016/09/*)
+* Davin Loegering was added to the list of Authors.
+* Consolidated the author list, change log, and license files from the base directory into the README.txt file.
+* Removed ant build file.
+* SCM section of the POM is updated with the github information since the svn repo urls were 404s.
+* POM now defines the source at 1.7 instead of 1.2, and is the only cause for the major version increment. The 2.0.0 release of this library is otherwise 100% backwards compatible with the older versions.
+* Minor code quality changes have been made to the old files of the project.
+* JFlex plugin now included in POM.
+* JFlex will produce a lexing class from all lex files in src/main/lex.
+* Javadocs are now produced when the jar goal is executed.
+* Moved lex files from doc/ to src/main/lex.
+* Deprecated the old json.lex in favor of jsonstrict.lex.
+* Deprecated ContentHandler and doesn't have a 2.0 equivalent.
+* Deprecated ContainerFactory and doesn't have a 2.0 equivalent.
+* Deprecated ItemList and doesn't have a 2.0 equivalent.
+* Deprecated JSONParse and JSONValue in favor of Jsoner.
+* Deprecated JSONStreamAware and JSONAware in favor of Jsonable.
+* Deprecated JSONObject in favor of JsonObject.
+* Deprecated JSONArray in favor of JsonArray.
+* Deprecated org.json.simple.parser.ParseException for org.json.simple.DeserializationException.
+* Deprecated org.json.simple.parser.Yytoken for org.json.simple.Yytoken.
+* Deprecated org.json.simple.parser.Yylex for org.json.simple.Yylex.
+* Tests for deprecated classes have been reorganized and updated to ensure backwards compatibility is maintained throughout the 2.x release lifetime.
+* Classes that have been deprecated still have shoddy javadocs but were updated to not produce errors and warnings during the build process.
+* Classes introduced in the 2.0 release have substantial javadocs to help projects heathily update ASAP.
+* The Jsonable interface allows others to define how their objects should be serialized in JSON.
+* DeserializationException has a new problem type for disallowed tokens.
+* DeserializationException now recommends recovery actions based on the problem that caused the DeserializationException in its message. All recovery scenarios are basically the same so DeserializationException is still the only json-simple exception class.
+* The new Yytoken types are renamed.
+* The new Yytoken is robustly constructed only allowing a null value when it is a null value in the DATUM tokens.
+* Jsoner can escape strings provided to it to help with implementing the Jsonable interface.
+* Jsoner can pretty print JSON strings provided to it for logging and basic display purposes.
+* Jsoner can serialize data defined in the RFC 4627 specification and objects that implement the Jsonable interface. If data could be serialized multiple ways the deepest Jsonable implementation in the heiarchy is preferred. Any defined Jsonable implementation will be preferred before falling back to a default serialization.
+* Jsoner can serialize an Enum that doesn't implement Jsonable.
+* Jsoner will deserialize any numerical value as a BigDecimal.
+* Jsoner can deserialize JsonArrays, JsonObjects, Strings, Numbers, Booleans, and null from strings provided to it.
+* Jsoner can deserialize a JsonArray and exception out if any other value would be returned.
+* Jsoner can deserialize a JsonObject and exception out if any other value would be returned.
+* Jsoner can deserialize multiple JsonArrays, JsonObjects, Strings, Numbers, Booleans, and nulls from a single string provided to it.
+* Jsoner deserialization (parsing) is thread safe.
+* JsonArray is based on ArrayList<Object>. So it won't produce code warnings and can be used to construct a more convenient Collection.
+* JsonArrays that are homogeneous can be cast and copied into a provided collection of the homogenous type.
+* JsonArray contains gets for each allowed data type in JSON and convenience methods for Collections, Enums, and Maps. Note that they will throw ClassCastExceptions in such cases since it is still indictitive of a programmer's error.
+* JsonObject is based on HashMap<String, Object>.
+* JsonObject contains getTypeOrDefault for each allowed data type in JSON and convenience methods for Collections, Enums, and Maps. Note that they will throw ClassCastExceptions in such cases since it is still indictitive of a programmer's error.
+
+Version 1.1.1 (2012/01/29)
+* Supports OSGi
+* Accepts a java.util.Map parameter in constructor of JSONObject
+
+Version 1.1  (2009/01/23)
+* Supports stoppable SAX-like content handler for streaming of JSON text
+* Added JSONStreamAware to support streaming JSON text
+* Added ContainerFactory to support creating arbitrary Map and List as JSON object and JSON array container during decoding
+* Supports any Map and List as JSON object and JSON array container during encoding
+* Added interface JSONAware
+* Added ParseException to get detail error report while parsing 
+* Added escaping for Unicode characters that cause problems for browser JS eval
+ 
+Version 1.02 (2009/01/10)
+* Updated json.lex to improve performance of the lexer
+* Removed Rope.java and related junit test
+
+Version 1.01 (2008/08/26)
+* License changed to a more commerce friendly and clear one, Apache License 2.0
+* Use JFlex to generate a faster Yylex.java
+* Added Rope.java to get faster string operations
+* Separate test codes from source codes
+* Added ant build file build.xml
+
+Version 1.0 (2006/04/15)
+* Initial version

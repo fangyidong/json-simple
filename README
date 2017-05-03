@@ -1,0 +1,43 @@
+For more information please visit:
+https://cliftonlabs.github.io/json-simple/
+
+For the javadocs please visit:
+https://cliftonlabs.github.io/json-simple/target/apidocs/index.html
+
+[DEVELOPERS]
+If you are developing on a system that has case-insensitve files then please review https://github.com/cliftonlabs/json-simple/issues/13 to get started.
+
+Generate json-simple project files for eclipse:
+mvn eclipse:eclipse
+
+Build the project:
+mvn compile
+
+Run unit tests:
+mvn test
+
+Build the project with javadocs and source:
+mvn package
+
+Make the signed artifacts available to other local projects:
+mvn clean install
+
+Guided deploy of project with signed artifacts:
+mvn release:clean
+mvn release:prepare
+mvn release:perform
+mvn release:clean
+
+Update gh-pages:
+1) switch to gh-pages
+2) Delete target/
+
+3) switch to latest json-simple release tag
+4) mvn clean install
+
+5) switch back to gh-pages
+6) git add target/
+
+7) Update the index.html version references.
+8) commit and push to gh-pages.
+
