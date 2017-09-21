@@ -40,6 +40,7 @@ public class ItemList {
 	}
 	
 	public String[] getArray(){
+		// This is the official method!
 		return (String[])this.items.toArray(new String[0]);
 	}
 	
