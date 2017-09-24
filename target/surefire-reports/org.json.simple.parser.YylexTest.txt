@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: org.json.simple.parser.YylexTest
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.022 s - in org.json.simple.parser.YylexTest
