@@ -48,7 +48,7 @@ public class YylexTest extends TestCase {
 			System.out.println("error:"+err);
 			assertEquals(ParseException.ERROR_UNEXPECTED_CHAR, e.getErrorType());
 			assertEquals(0,e.getPosition());
-			assertEquals(new Character('\b'),e.getUnexpectedObject());
+			assertEquals(Character.valueOf('\b'),e.getUnexpectedObject());
 		}
 		catch(IOException ie){
 			throw ie;
