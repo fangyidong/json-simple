@@ -1,3 +1,7 @@
+Version 2.2.0 (2017/10/*)
+* Bug fix: getEnum and getInteger and friends return null when the paired value is null to better match the java Map contract.
+* Enhancement: Jsoner can prettyPrint with tabs or spaces.
+
 Version 2.1.2 (2016/10/*)
 * Bug fix: Jsoner#prettyPrint(printable) no longer quotes colons.
 * Enhancement: for convenience a colon missing between a key value pair will officially continue to function as it has since the 1.* versions. Deserialization test cases have been updated.
