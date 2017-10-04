@@ -1,10 +1,10 @@
 Version 2.3.0 (2017/10/*)
 * Deprecated the feature in Jsoner that serializes Enums to fully qualified strings, the Enums should implement Jsonable instead.
 * Deprecated getEnum and getEnumOrDefault methods in JsonArray and JsonObject.
-* Deprecated get___(String) and get___OrDefault(String, ___) in favor of get(JsonKey) and get___OrDefault(JsonKey) respectively.
+* Deprecated get___(String) and get___OrDefault(String, ___) in favor of get___(JsonKey) and get___OrDefault(JsonKey) respectively.
 * Enhancement: Added JsonKey interface to aid with code maintainability and convenience.
 * Enhancement: Jsoner can mint a JsonKey.
-* Enhancement: Jsoner deserialization no longer throws IOExceptions in favor of a DeserializationException with an IOEXCEPTION problem since they are 99% of the time handled the same way.
+* Enhancement: Jsoner deserialization no longer throws IOExceptions in favor of a DeserializationException with an IOEXCEPTION problem since the code to handle one is typically duplicated to handle the other.
 
 Version 2.2.0 (2017/10/*)
 * Bug fix: getEnum and getInteger and friends return null when the paired value is null to better match the java Map contract.
