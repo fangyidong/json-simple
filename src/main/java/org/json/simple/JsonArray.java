@@ -1,4 +1,4 @@
-/* Copyright 2016 Clifton Labs
+/* Copyright 2016-2017 Clifton Labs
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -20,7 +20,9 @@ import java.util.Iterator;
 import java.util.Map;
 
 /** JsonArray is a common non-thread safe data format for a collection of data. The contents of a JsonArray are only
- * validated as JSON values on serialization.
+ * validated as JSON values on serialization. Meaning all values added to a JsonArray must be recognized by the Jsoner
+ * for it to be a true 'JsonArray', so it is really a JsonableArrayList that will serialize to a JsonArray if all of
+ * its contents are valid JSON.
  * @see Jsoner
  * @since 2.0.0 */
 public class JsonArray extends ArrayList<Object> implements Jsonable{
