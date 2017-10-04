@@ -13,7 +13,8 @@ package org.json.simple;
 import java.io.IOException;
 import java.io.Writer;
 
-/** Jsonables can be serialized in java script object notation (JSON).
+/** Jsonables can be serialized in java script object notation (JSON). Deserializing a String produced by a Jsonable
+ * should represent the Jsonable in JSON form.
  * @since 2.0.0 */
 public interface Jsonable{
 	/** Serialize to a JSON formatted string.
