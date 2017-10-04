@@ -28,7 +28,7 @@ import java.util.Set;
 public class Jsoner{
 	/** Flags to tweak the behavior of the primary deserialization method. */
 	private static enum DeserializationOptions{
-		/** Whether a multiple JSON values can be deserialized as a root element. */
+		/** Whether multiple JSON values can be deserialized as a root element. */
 		ALLOW_CONCATENATED_JSON_VALUES,
 		/** Whether a JsonArray can be deserialized as a root element. */
 		ALLOW_JSON_ARRAYS,
@@ -42,7 +42,9 @@ public class Jsoner{
 	private static enum SerializationOptions{
 		/** Instead of aborting serialization on non-JSON values that are Enums it will continue serialization with the
 		 * Enums' "${PACKAGE}.${DECLARING_CLASS}.${NAME}".
-		 * @see Enum */
+		 * @see Enum
+		 * @deprecated 2.3.0 the enum should implement Jsonable instead. */
+		@Deprecated
 		ALLOW_FULLY_QUALIFIED_ENUMERATIONS,
 		/** Instead of aborting serialization on non-JSON values it will continue serialization by serializing the
 		 * non-JSON value directly into the now invalid JSON. Be mindful that invalid JSON will not successfully
@@ -53,7 +55,9 @@ public class Jsoner{
 		 * @see Jsonable */
 		ALLOW_JSONABLES,
 		/** Instead of aborting serialization on non-JSON values it will continue serialization by using reflection to
-		 * best describe the value as a JsonObject. */
+		 * best describe the value as a JsonObject.
+		 * @deprecated 2.3.0 there is no passive way to accomplish this contract and so will be abandoned. */
+		@Deprecated
 		ALLOW_UNDEFINEDS;
 	}
 
@@ -812,18 +816,6 @@ public class Jsoner{
 			}
 			writableDestination.write(']');
 		}else{
-			/* TODO a potential feature for future release since POJOs are often represented as JsonObjects. It would be
-			 * nice to have a flag that tries to reflectively figure out what a non-Jsonable POJO's fields are and use
-			 * their names as keys and their respective values for the keys' values in the JsonObject?
-			 * Naturally implementing Jsonable is safer and in many ways makes this feature a convenience for not
-			 * needing
-			 * to implement Jsonable for very simple POJOs.
-			 * If it fails to produce a JsonObject to serialize it should defer to replacements if allowed.
-			 * If replacement fails it should defer to invalids if allowed.
-			 * This feature would require another serialize method exposed to allow this serialization.
-			 * This feature (although perhaps useful on its own) would also include a method in the JsonObject where you
-			 * pass it a class and it would do its best to instantiate a POJO of the class using the keys in the
-			 * JsonObject. */
 			/* It cannot by any measure be safely serialized according to specification. */
 			if(flags.contains(SerializationOptions.ALLOW_INVALIDS)){
 				/* Can be helpful for debugging how it isn't valid. */
