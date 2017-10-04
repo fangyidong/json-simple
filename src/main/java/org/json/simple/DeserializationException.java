@@ -1,4 +1,4 @@
-/* Copyright 2016 Clifton Labs
+/* Copyright 2016-2017 Clifton Labs
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -17,6 +17,8 @@ public class DeserializationException extends Exception{
 	public enum Problems{
 		@SuppressWarnings("javadoc")
 		DISALLOWED_TOKEN,
+		/** @since 2.3.0 to consolidate exceptions that occur during deserialization. */
+		IOEXCEPTION,
 		@SuppressWarnings("javadoc")
 		UNEXPECTED_CHARACTER,
 		@SuppressWarnings("javadoc")
@@ -37,6 +39,11 @@ public class DeserializationException extends Exception{
 		this.position = position;
 		this.problemType = problemType;
 		this.unexpectedObject = unexpectedObject;
+		if(Problems.IOEXCEPTION.equals(problemType) || Problems.UNEXPECTED_EXCEPTION.equals(problemType)){
+			if(unexpectedObject instanceof Throwable){
+				this.initCause((Throwable)unexpectedObject);
+			}
+		}
 	}
 
 	@Override
@@ -46,6 +53,9 @@ public class DeserializationException extends Exception{
 			case DISALLOWED_TOKEN:
 				sb.append("The disallowed token (").append(this.unexpectedObject).append(") was found at position ").append(this.position).append(". If this is in error, try again with a parse that allows the token instead. Otherwise, fix the parsable string and try again.");
 				break;
+			case IOEXCEPTION:
+				sb.append("An IOException was encountered, ensure the reader is properly instantiated, isn't closed, or that it is ready before trying again.\n").append(this.unexpectedObject);
+				break;
 			case UNEXPECTED_CHARACTER:
 				sb.append("The unexpected character (").append(this.unexpectedObject).append(") was found at position ").append(this.position).append(". Fix the parsable string and try again.");
 				break;
@@ -53,7 +63,7 @@ public class DeserializationException extends Exception{
 				sb.append("The unexpected token ").append(this.unexpectedObject).append(" was found at position ").append(this.position).append(". Fix the parsable string and try again.");
 				break;
 			case UNEXPECTED_EXCEPTION:
-				sb.append("Please report this to the library's maintainer. The unexpected exception that should be addressed before trying again occurred at position ").append(this.position).append(": ").append(this.unexpectedObject);
+				sb.append("Please report this to the library's maintainer. The unexpected exception that should be addressed before trying again occurred at position ").append(this.position).append(":\n").append(this.unexpectedObject);
 				break;
 			default:
 				sb.append("Please report this to the library's maintainer. An error at position ").append(this.position).append(" occurred. There are no recovery recommendations available.");

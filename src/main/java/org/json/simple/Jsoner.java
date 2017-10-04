@@ -84,10 +84,8 @@ public class Jsoner{
 	 * @return either a boolean, null, Number, String, JsonObject, or JsonArray that best represents the deserializable.
 	 * @throws DeserializationException if an unexpected token is encountered in the deserializable. To recover from a
 	 *         DeserializationException: fix the deserializable
-	 *         to no longer have an unexpected token and try again.
-	 * @throws IOException if the underlying reader encounters an I/O error. Ensure the reader is properly instantiated,
-	 *         isn't closed, or that it is ready before trying again. */
-	public static Object deserialize(final Reader readableDeserializable) throws DeserializationException, IOException{
+	 *         to no longer have an unexpected token and try again. */
+	public static Object deserialize(final Reader readableDeserializable) throws DeserializationException{
 		return Jsoner.deserialize(readableDeserializable, EnumSet.of(DeserializationOptions.ALLOW_JSON_ARRAYS, DeserializationOptions.ALLOW_JSON_OBJECTS, DeserializationOptions.ALLOW_JSON_DATA)).get(0);
 	}
 
@@ -97,10 +95,8 @@ public class Jsoner{
 	 * @return the allowable object best represented by the deserializable.
 	 * @throws DeserializationException if a disallowed or unexpected token is encountered in the deserializable. To
 	 *         recover from a DeserializationException: fix the
-	 *         deserializable to no longer have a disallowed or unexpected token and try again.
-	 * @throws IOException if the underlying reader encounters an I/O error. Ensure the reader is properly instantiated,
-	 *         isn't closed, or that it is ready before trying again. */
-	private static JsonArray deserialize(final Reader deserializable, final Set<DeserializationOptions> flags) throws DeserializationException, IOException{
+	 *         deserializable to no longer have a disallowed or unexpected token and try again. */
+	private static JsonArray deserialize(final Reader deserializable, final Set<DeserializationOptions> flags) throws DeserializationException{
 		final Yylex lexer = new Yylex(deserializable);
 		Yytoken token;
 		States currentState;
@@ -308,7 +304,7 @@ public class Jsoner{
 		try{
 			readableDeserializable = new StringReader(deserializable);
 			returnable = Jsoner.deserialize(readableDeserializable);
-		}catch(IOException | NullPointerException caught){
+		}catch(final NullPointerException caught){
 			/* They both have the same recovery scenario.
 			 * See StringReader.
 			 * If deserializable is null, it should be reasonable to expect null back. */
@@ -334,7 +330,7 @@ public class Jsoner{
 		try{
 			readable = new StringReader(deserializable);
 			returnable = Jsoner.deserialize(readable, EnumSet.of(DeserializationOptions.ALLOW_JSON_ARRAYS)).<JsonArray> getCollection(0);
-		}catch(NullPointerException | IOException | DeserializationException caught){
+		}catch(NullPointerException | DeserializationException caught){
 			/* Don't care, just return the default value. */
 			returnable = defaultValue;
 		}finally{
@@ -358,7 +354,7 @@ public class Jsoner{
 		try{
 			readable = new StringReader(deserializable);
 			returnable = Jsoner.deserialize(readable, EnumSet.of(DeserializationOptions.ALLOW_JSON_OBJECTS)).<JsonObject> getMap(0);
-		}catch(NullPointerException | IOException | DeserializationException caught){
+		}catch(NullPointerException | DeserializationException caught){
 			/* Don't care, just return the default value. */
 			returnable = defaultValue;
 		}finally{
@@ -389,10 +385,8 @@ public class Jsoner{
 	 *         either a boolean, null, Number, String, JsonArray, or JsonObject that best represents the concatenated
 	 *         content inside deserializable.
 	 * @throws DeserializationException if an unexpected token is encountered in the deserializable. To recover from a
-	 *         DeserializationException: fix the deserializable to no longer have an unexpected token and try again.
-	 * @throws IOException when the underlying reader encounters an I/O error. Ensure the reader is properly
-	 *         instantiated, isn't closed, or that it is ready before trying again. */
-	public static JsonArray deserializeMany(final Reader deserializable) throws DeserializationException, IOException{
+	 *         DeserializationException: fix the deserializable to no longer have an unexpected token and try again. */
+	public static JsonArray deserializeMany(final Reader deserializable) throws DeserializationException{
 		return Jsoner.deserialize(deserializable, EnumSet.of(DeserializationOptions.ALLOW_JSON_ARRAYS, DeserializationOptions.ALLOW_JSON_OBJECTS, DeserializationOptions.ALLOW_JSON_DATA, DeserializationOptions.ALLOW_CONCATENATED_JSON_VALUES));
 	}
 
@@ -455,13 +449,15 @@ public class Jsoner{
 	/** Processes the lexer's reader for the next token.
 	 * @param lexer represents a text processor being used in the deserialization process.
 	 * @return a token representing a meaningful element encountered by the lexer.
-	 * @throws DeserializationException if an unexpected character is encountered while processing the text.
-	 * @throws IOException if the underlying reader inside the lexer encounters an I/O problem, like being prematurely
-	 *         closed. */
-	private static Yytoken lexNextToken(final Yylex lexer) throws DeserializationException, IOException{
+	 * @throws DeserializationException if an unexpected character is encountered while processing the text. */
+	private static Yytoken lexNextToken(final Yylex lexer) throws DeserializationException{
 		Yytoken returnable;
 		/* Parse through the next token. */
-		returnable = lexer.yylex();
+		try{
+			returnable = lexer.yylex();
+		}catch(final IOException caught){
+			throw new DeserializationException(-1, DeserializationException.Problems.UNEXPECTED_EXCEPTION, caught);
+		}
 		if(returnable == null){
 			/* If there isn't another token, it must be the end. */
 			returnable = new Yytoken(Yytoken.Types.END, null);
@@ -569,9 +565,6 @@ public class Jsoner{
 			}while(!lexed.getType().equals(Yytoken.Types.END));
 		}catch(final DeserializationException caught){
 			/* This is according to the method's contract. */
-			return null;
-		}catch(final IOException caught){
-			/* See StringReader. */
 			return null;
 		}
 		//System.out.println(printable);
@@ -845,7 +838,7 @@ public class Jsoner{
 	 * @param jsonSerializable represents the object that should be serialized in JSON format.
 	 * @param writableDestination represents where the resulting JSON text is written to.
 	 * @throws IOException if the writableDestination encounters an I/O problem, like being closed while in use.
-	 * @throws IllegalArgumentException if the jsonSerializable isn't serializable in JSON. */
+	 * @throws IllegalArgumentException if the jsonSerializable isn't serializable in raw JSON. */
 	public static void serializeStrictly(final Object jsonSerializable, final Writer writableDestination) throws IOException{
 		Jsoner.serialize(jsonSerializable, writableDestination, EnumSet.noneOf(SerializationOptions.class));
 	}
