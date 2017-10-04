@@ -666,9 +666,43 @@ public class JsonObject extends HashMap<String, Object> implements Jsonable{
 		/* Supressing the unchecked warning because the returnType is dynamically identified and could lead to a
 		 * ClassCastException when returnType is cast to Class<T>, which is acceptable by the method's contract. */
 		T returnable;
+		final String value;
+		final String[] splitValues;
+		final int numberOfSplitValues;
+		final StringBuilder returnTypeName;
+		final StringBuilder enumName;
+		final Class<T> returnType;
 		/* Check to make sure the key is there. */
 		if(this.containsKey(key)){
-			returnable = this.getEnum(key);
+			/* Make sure the value at the key is a String. */
+			value = this.getStringOrDefault(key.getKey(), "");
+			if(value == null){
+				return null;
+			}
+			/* Get the package, class, and enum names. */
+			splitValues = value.split("\\.");
+			numberOfSplitValues = splitValues.length;
+			returnTypeName = new StringBuilder();
+			enumName = new StringBuilder();
+			for(int i = 0; i < numberOfSplitValues; i++){
+				if(i == (numberOfSplitValues - 1)){
+					/* If it is the last split value then it should be the name of the Enum since dots are not allowed
+					 * in enum names. */
+					enumName.append(splitValues[i]);
+				}else if(i == (numberOfSplitValues - 2)){
+					/* If it is the penultimate split value then it should be the end of the package/enum type and not
+					 * need a dot appended to it. */
+					returnTypeName.append(splitValues[i]);
+				}else{
+					/* Must be part of the package/enum type and will need a dot appended to it since they got removed
+					 * in the split. */
+					returnTypeName.append(splitValues[i]);
+					returnTypeName.append(".");
+				}
+			}
+			/* Use the package/class and enum names to get the Enum<T>. */
+			returnType = (Class<T>)Class.forName(returnTypeName.toString());
+			returnable = Enum.valueOf(returnType, enumName.toString());
 		}else{
 			/* It wasn't there and according to the method's contract we return the default value. */
 			returnable = (T)key.getValue();
