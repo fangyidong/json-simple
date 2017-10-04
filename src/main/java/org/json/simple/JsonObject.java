@@ -24,8 +24,7 @@ import java.util.Set;
 
 /** JsonObject is a common non-thread safe data format for string to data mappings. The contents of a JsonObject are
  * only validated as JSON values on serialization. Meaning all values added to a JsonObject must be recognized by the
- * Jsoner
- * for it to be a true 'JsonObject', so it is really a JsonableHashMap that will serialize to a JsonObject if all of
+ * Jsoner for it to be a true 'JsonObject', so it is really a JsonableHashMap that will serialize to a JsonObject if all of
  * its contents are valid JSON.
  * @see Jsoner
  * @since 2.0.0 */
@@ -74,8 +73,7 @@ public class JsonObject extends HashMap<String, Object> implements Jsonable{
 	}
 
 	/** A convenience method that assumes there is a BigDecimal, Number, or String at the given key. If a Number is
-	 * there
-	 * its Number#toString() is used to construct a new BigDecimal(String). If a String is there it is used to
+	 * there its Number#toString() is used to construct a new BigDecimal(String). If a String is there it is used to
 	 * construct a new BigDecimal(String).
 	 * @param key representing where the value ought to be paired with.
 	 * @return a BigDecimal representing the value paired with the key.
@@ -101,8 +99,7 @@ public class JsonObject extends HashMap<String, Object> implements Jsonable{
 	}
 
 	/** A convenience method that assumes there is a BigDecimal, Number, or String at the given key. If a Number is
-	 * there
-	 * its Number#toString() is used to construct a new BigDecimal(String). If a String is there it is used to
+	 * there its Number#toString() is used to construct a new BigDecimal(String). If a String is there it is used to
 	 * construct a new BigDecimal(String).
 	 * @param key representing where the value ought to be stored at.
 	 * @return the value stored at the key.
@@ -128,8 +125,7 @@ public class JsonObject extends HashMap<String, Object> implements Jsonable{
 	}
 
 	/** A convenience method that assumes there is a BigDecimal, Number, or String at the given key. If a Number is
-	 * there
-	 * its Number#toString() is used to construct a new BigDecimal(String). If a String is there it is used to
+	 * there its Number#toString() is used to construct a new BigDecimal(String). If a String is there it is used to
 	 * construct a new BigDecimal(String).
 	 * @param key representing where the value ought to be paired with.
 	 * @return a BigDecimal representing the value paired with the key or JsonKey#getValue() if the key isn't present.
@@ -160,8 +156,7 @@ public class JsonObject extends HashMap<String, Object> implements Jsonable{
 	}
 
 	/** A convenience method that assumes there is a BigDecimal, Number, or String at the given key. If a Number is
-	 * there
-	 * its Number#toString() is used to construct a new BigDecimal(String). If a String is there it is used to
+	 * there its Number#toString() is used to construct a new BigDecimal(String). If a String is there it is used to
 	 * construct a new BigDecimal(String).
 	 * @param key representing where the value ought to be stored at.
 	 * @param defaultValue representing what is returned when the key isn't in the JsonObject.
@@ -527,8 +522,7 @@ public class JsonObject extends HashMap<String, Object> implements Jsonable{
 	}
 
 	/** A convenience method that assumes there is a String value at the given key representing a fully qualified name
-	 * in
-	 * dot notation of an enum.
+	 * in dot notation of an enum.
 	 * @param key representing where the value ought to be paired with.
 	 * @param <T> the Enum type the value at the key is expected to belong to.
 	 * @return an Enum representing the value paired with the key.
@@ -587,8 +581,7 @@ public class JsonObject extends HashMap<String, Object> implements Jsonable{
 	}
 
 	/** A convenience method that assumes there is a String value at the given key representing a fully qualified name
-	 * in
-	 * dot notation of an enum.
+	 * in dot notation of an enum.
 	 * @param key representing where the value ought to be stored at.
 	 * @param <T> the Enum type the value at the key is expected to belong to.
 	 * @return the enum based on the string found at the key, or null if the value paired with the provided key is null.
@@ -645,8 +638,7 @@ public class JsonObject extends HashMap<String, Object> implements Jsonable{
 	}
 
 	/** A convenience method that assumes there is a String value at the given key representing a fully qualified name
-	 * in
-	 * dot notation of an enum.
+	 * in dot notation of an enum.
 	 * @param key representing where the value ought to be paired with.
 	 * @param <T> the Enum type the value at the key is expected to belong to.
 	 * @return an Enum representing the value paired with the key or JsonKey#getValue() if the key isn't present.
@@ -711,8 +703,7 @@ public class JsonObject extends HashMap<String, Object> implements Jsonable{
 	}
 
 	/** A convenience method that assumes there is a String value at the given key representing a fully qualified name
-	 * in
-	 * dot notation of an enum.
+	 * in dot notation of an enum.
 	 * @param key representing where the value ought to be stored at.
 	 * @param defaultValue representing what is returned when the key isn't in the JsonObject.
 	 * @param <T> the Enum type the value at the key is expected to belong to.

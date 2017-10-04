@@ -32,7 +32,8 @@ public class DeserializationException extends Exception{
 	private final Problems		problemType;
 	private final Object		unexpectedObject;
 
-	/** @param position where the exception occurred.
+	/** Instantiates a DeserializationException without assumptions.
+	 * @param position where the exception occurred.
 	 * @param problemType how the exception occurred.
 	 * @param unexpectedObject what caused the exception. */
 	public DeserializationException(final int position, final Problems problemType, final Object unexpectedObject){
@@ -72,17 +73,20 @@ public class DeserializationException extends Exception{
 		return sb.toString();
 	}
 
-	/** @return an index of the string character the error type occurred at. */
+	/** Helps debug the location of a problem.
+	 * @return an index of the string character the error type occurred at. */
 	public int getPosition(){
 		return this.position;
 	}
 
-	/** @return the enumeration for how the exception occurred. */
+	/** Helps find an appropriate solution for a problem.
+	 * @return the enumeration for how the exception occurred. */
 	public Problems getProblemType(){
 		return this.problemType;
 	}
 
-	/** @return a representation of what caused the exception. */
+	/** Helps identify the problem.
+	 * @return a representation of what caused the exception. */
 	public Object getUnexpectedObject(){
 		return this.unexpectedObject;
 	}

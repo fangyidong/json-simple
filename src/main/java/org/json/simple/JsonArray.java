@@ -163,7 +163,7 @@ public class JsonArray extends ArrayList<Object> implements Jsonable{
 	 *         the dynamically determined name.
 	 * @throws IndexOutOfBoundsException if the index is outside of the range of element indexes in the JsonArray.
 	 * @see Enum#valueOf(Class, String)
-	 * @deprecated 2.3.0 Jsoner deprecated automatically serializing enums as Strings.  */
+	 * @deprecated 2.3.0 Jsoner deprecated automatically serializing enums as Strings. */
 	@Deprecated
 	@SuppressWarnings("unchecked")
 	public <T extends Enum<T>> T getEnum(final int index) throws ClassNotFoundException{
