@@ -465,6 +465,25 @@ public class Jsoner{
 		return returnable;
 	}
 
+	/** Creates a new JsonKey that wraps the given string and value. This function should NOT be
+	 * used in favor of existing constants and enumerations to make code easier to maintain.
+	 * @param key represents the JsonKey as a String.
+	 * @param value represents the value the JsonKey uses.
+	 * @return a JsonKey that represents the provided key and value. */
+	public static JsonKey mintJsonKey(final String key, final Object value){
+		return new JsonKey(){
+			@Override
+			public String getKey(){
+				return key;
+			}
+
+			@Override
+			public Object getValue(){
+				return value;
+			}
+		};
+	}
+
 	/** Used for state transitions while deserializing.
 	 * @param stateStack represents the deserialization states saved for future processing.
 	 * @return a state for deserialization context so it knows how to consume the next token. */
