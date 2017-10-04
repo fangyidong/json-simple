@@ -162,7 +162,9 @@ public class JsonArray extends ArrayList<Object> implements Jsonable{
 	 * @throws IllegalArgumentException if an enum type was dynamically determined but it doesn't define an enum with
 	 *         the dynamically determined name.
 	 * @throws IndexOutOfBoundsException if the index is outside of the range of element indexes in the JsonArray.
-	 * @see Enum#valueOf(Class, String) */
+	 * @see Enum#valueOf(Class, String)
+	 * @deprecated 2.3.0 Jsoner deprecated automatically serializing enums as Strings.  */
+	@Deprecated
 	@SuppressWarnings("unchecked")
 	public <T extends Enum<T>> T getEnum(final int index) throws ClassNotFoundException{
 		/* Supressing the unchecked warning because the returnType is dynamically identified and could lead to a

@@ -153,8 +153,9 @@ public class JsonArrayTest{
 
 	/** Ensures enums can be returned from a String value at an index.
 	 * @throws ClassNotFoundException if the test failed. */
+	@SuppressWarnings("deprecation")
 	@Test
-	public void testGetEnum() throws ClassNotFoundException{
+	public void testGetEnumDeprecated() throws ClassNotFoundException{
 		final JsonArray json = new JsonArray();
 		json.add("org.json.simple.JsonArrayTest$TestStaticEnums.ONE");
 		json.add("org.json.simple.JsonArrayTest$TestEnums.A");
