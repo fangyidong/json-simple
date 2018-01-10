@@ -15,7 +15,7 @@ int getPosition(){
 %unicode
 %state STRING_BEGIN
 
-%yylexthrow DeserializationException
+%yylexthrow JsonException
 %char
 
 HEX_D = [a-fA-F0-9]
@@ -40,7 +40,7 @@ FALLBACK_CH = .
 			sb.append((char)ch);
 		}catch(Exception e){
 			/* The lexer is broken if it can build a 4 byte character code and fail to append the character. */
-			throw new DeserializationException(yychar, DeserializationException.Problems.UNEXPECTED_EXCEPTION, e);
+			throw new JsonException(yychar, JsonException.Problems.UNEXPECTED_EXCEPTION, e);
 		}
 	}
 <STRING_BEGIN> \\				{sb.append('\\');}
@@ -56,4 +56,4 @@ FALLBACK_CH = .
 <YYINITIAL> ","					{ return new Yytoken(Yytoken.Types.COMMA, null);}
 <YYINITIAL> ":"					{ return new Yytoken(Yytoken.Types.COLON, null);}
 <YYINITIAL> {WS}+		    	{}
-<YYINITIAL> {FALLBACK_CH}		{ throw new DeserializationException(yychar, DeserializationException.Problems.UNEXPECTED_CHARACTER, new Character(yycharat(0)));}
+<YYINITIAL> {FALLBACK_CH}		{ throw new JsonException(yychar, JsonException.Problems.UNEXPECTED_CHARACTER, new Character(yycharat(0)));}

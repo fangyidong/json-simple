@@ -10,7 +10,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.github.cliftonlabs.json_simple.DeserializationException;
+import com.github.cliftonlabs.json_simple.JsonException;
 import com.github.cliftonlabs.json_simple.Yylex;
 import com.github.cliftonlabs.json_simple.Yytoken;
 
@@ -30,9 +30,9 @@ public class YylexTest{
 
     /** Ensures a negative number is lexable.
      * @throws IOException if the test fails.
-     * @throws DeserializationException if the test fails. */
+     * @throws JsonException if the test fails. */
     @Test
-    public void testLexingNegativeNumber() throws IOException, DeserializationException{
+    public void testLexingNegativeNumber() throws IOException, JsonException{
         StringReader lexable;
         Yylex lexer;
         Yytoken lexed;
@@ -45,9 +45,9 @@ public class YylexTest{
 
     /** Ensures a number with a decimal place in it is lexable.
      * @throws IOException if the test fails.
-     * @throws DeserializationException if the test fails. */
+     * @throws JsonException if the test fails. */
     @Test
-    public void testLexingNumberWithDecimal() throws IOException, DeserializationException{
+    public void testLexingNumberWithDecimal() throws IOException, JsonException{
         StringReader lexable;
         Yylex lexer;
         Yytoken lexed;
@@ -60,9 +60,9 @@ public class YylexTest{
 
     /** Ensures a number with an exponent is lexable.
      * @throws IOException if the test fails.
-     * @throws DeserializationException if the test fails. */
+     * @throws JsonException if the test fails. */
     @Test
-    public void testLexingNumberWithExponent() throws IOException, DeserializationException{
+    public void testLexingNumberWithExponent() throws IOException, JsonException{
         StringReader lexable;
         Yylex lexer;
         Yytoken lexed;
@@ -75,9 +75,9 @@ public class YylexTest{
 
     /** Ensures a positive number is lexable.
      * @throws IOException if the test fails.
-     * @throws DeserializationException if the test fails. */
+     * @throws JsonException if the test fails. */
     @Test
-    public void testLexingPositiveNumber() throws IOException, DeserializationException{
+    public void testLexingPositiveNumber() throws IOException, JsonException{
         StringReader lexable;
         Yylex lexer;
         Yytoken lexed;
@@ -90,9 +90,9 @@ public class YylexTest{
 
     /** Ensures a String containing escaped characters and various unicode characters is lexable.
      * @throws IOException if the test fails.
-     * @throws DeserializationException if the test fails. */
+     * @throws JsonException if the test fails. */
     @Test
-    public void testLexingStringContainingEscapedCharacters() throws IOException, DeserializationException{
+    public void testLexingStringContainingEscapedCharacters() throws IOException, JsonException{
         StringReader lexable;
         Yylex lexer;
         Yytoken lexed;
@@ -105,9 +105,9 @@ public class YylexTest{
 
     /** Ensures that unexpected characters are a problem between expected characters.
      * @throws IOException if the test fails.
-     * @throws DeserializationException if the test fails. */
+     * @throws JsonException if the test fails. */
     @Test
-    public void testLexingUnexpectedCharacter() throws IOException, DeserializationException{
+    public void testLexingUnexpectedCharacter() throws IOException, JsonException{
         StringReader lexable;
         Yylex lexer;
         Yytoken lexed;
@@ -117,8 +117,8 @@ public class YylexTest{
         Assert.assertEquals(Yytoken.Types.LEFT_BRACE, lexed.getType());
         try{
             lexed = lexer.yylex();
-        }catch(final DeserializationException caught){
-            Assert.assertEquals(DeserializationException.Problems.UNEXPECTED_CHARACTER, caught.getProblemType());
+        }catch(final JsonException caught){
+            Assert.assertEquals(JsonException.Problems.UNEXPECTED_CHARACTER, caught.getProblemType());
             Assert.assertEquals(new Character('a'), caught.getUnexpectedObject());
             Assert.assertEquals(1, caught.getPosition());
         }
@@ -128,9 +128,9 @@ public class YylexTest{
 
     /** Ensure white space is ignored while lexing outside of Strings.
      * @throws IOException if the test fails.
-     * @throws DeserializationException if the test fails. */
+     * @throws JsonException if the test fails. */
     @Test
-    public void testLexingWhiteSpace() throws IOException, DeserializationException{
+    public void testLexingWhiteSpace() throws IOException, JsonException{
         StringReader lexable;
         Yylex lexer;
         Yytoken lexed;
@@ -145,10 +145,10 @@ public class YylexTest{
     }
     /** Ensure concatenated JSON values are lexable.
      *  @throws IOException if the test failed.
-     * @throws DeserializationException if the test failed.
+     * @throws JsonException if the test failed.
      */
     @Test
-    public void testLexingConcatenatedJsonValues() throws IOException, DeserializationException{
+    public void testLexingConcatenatedJsonValues() throws IOException, JsonException{
         StringReader lexable;
         Yylex lexer;
         Yytoken lexed;
@@ -168,15 +168,15 @@ public class YylexTest{
         Assert.assertEquals(null, lexed.getValue());
         try{
             lexed = lexer.yylex();
-        }catch(DeserializationException caught){
+        }catch(JsonException caught){
             /* Concatenated numbers don't always work well. */
-            Assert.assertEquals(DeserializationException.Problems.UNEXPECTED_EXCEPTION, caught.getProblemType());
+            Assert.assertEquals(JsonException.Problems.UNEXPECTED_EXCEPTION, caught.getProblemType());
         }
         try{
             lexed = lexer.yylex();
-        }catch(DeserializationException caught){
+        }catch(JsonException caught){
             /* Concatenated numbers don't always work well. */
-            Assert.assertEquals(DeserializationException.Problems.UNEXPECTED_CHARACTER, caught.getProblemType());
+            Assert.assertEquals(JsonException.Problems.UNEXPECTED_CHARACTER, caught.getProblemType());
             Assert.assertEquals(21, caught.getPosition());
         }
         /* Instead of the 12.3 and 3.21 concatenated together we ended up with 21! */

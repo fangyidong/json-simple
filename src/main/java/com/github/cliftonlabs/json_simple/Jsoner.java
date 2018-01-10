@@ -74,10 +74,10 @@ public class Jsoner{
 	/** Deserializes a readable stream according to the RFC 4627 JSON specification.
 	 * @param readableDeserializable representing content to be deserialized as JSON.
 	 * @return either a boolean, null, Number, String, JsonObject, or JsonArray that best represents the deserializable.
-	 * @throws DeserializationException if an unexpected token is encountered in the deserializable. To recover from a
+	 * @throws JsonException if an unexpected token is encountered in the deserializable. To recover from a
 	 *         DeserializationException: fix the deserializable
 	 *         to no longer have an unexpected token and try again. */
-	public static Object deserialize(final Reader readableDeserializable) throws DeserializationException{
+	public static Object deserialize(final Reader readableDeserializable) throws JsonException{
 		return Jsoner.deserialize(readableDeserializable, EnumSet.of(DeserializationOptions.ALLOW_JSON_ARRAYS, DeserializationOptions.ALLOW_JSON_OBJECTS, DeserializationOptions.ALLOW_JSON_DATA)).get(0);
 	}
 
@@ -85,10 +85,10 @@ public class Jsoner{
 	 * @param deserializable representing content to be deserialized as JSON.
 	 * @param flags representing the allowances and restrictions on deserialization.
 	 * @return the allowable object best represented by the deserializable.
-	 * @throws DeserializationException if a disallowed or unexpected token is encountered in the deserializable. To
+	 * @throws JsonException if a disallowed or unexpected token is encountered in the deserializable. To
 	 *         recover from a DeserializationException: fix the
 	 *         deserializable to no longer have a disallowed or unexpected token and try again. */
-	private static JsonArray deserialize(final Reader deserializable, final Set<DeserializationOptions> flags) throws DeserializationException{
+	private static JsonArray deserialize(final Reader deserializable, final Set<DeserializationOptions> flags) throws JsonException{
 		final Yylex lexer = new Yylex(deserializable);
 		Yytoken token;
 		States currentState;
@@ -121,7 +121,7 @@ public class Jsoner{
 								valueStack.addLast(token.getValue());
 								stateStack.addLast(States.DONE);
 							}else{
-								throw new DeserializationException(lexer.getPosition(), DeserializationException.Problems.DISALLOWED_TOKEN, token);
+								throw new JsonException(lexer.getPosition(), JsonException.Problems.DISALLOWED_TOKEN, token);
 							}
 							break;
 						case LEFT_BRACE:
@@ -130,7 +130,7 @@ public class Jsoner{
 								valueStack.addLast(new JsonObject());
 								stateStack.addLast(States.PARSING_OBJECT);
 							}else{
-								throw new DeserializationException(lexer.getPosition(), DeserializationException.Problems.DISALLOWED_TOKEN, token);
+								throw new JsonException(lexer.getPosition(), JsonException.Problems.DISALLOWED_TOKEN, token);
 							}
 							break;
 						case LEFT_SQUARE:
@@ -139,17 +139,17 @@ public class Jsoner{
 								valueStack.addLast(new JsonArray());
 								stateStack.addLast(States.PARSING_ARRAY);
 							}else{
-								throw new DeserializationException(lexer.getPosition(), DeserializationException.Problems.DISALLOWED_TOKEN, token);
+								throw new JsonException(lexer.getPosition(), JsonException.Problems.DISALLOWED_TOKEN, token);
 							}
 							break;
 						default:
 							/* Neither a JSON array or object was detected. */
-							throw new DeserializationException(lexer.getPosition(), DeserializationException.Problems.UNEXPECTED_TOKEN, token);
+							throw new JsonException(lexer.getPosition(), JsonException.Problems.UNEXPECTED_TOKEN, token);
 					}
 					break;
 				case PARSED_ERROR:
 					/* The parse could be in this state due to the state stack not having a state to pop off. */
-					throw new DeserializationException(lexer.getPosition(), DeserializationException.Problems.UNEXPECTED_TOKEN, token);
+					throw new JsonException(lexer.getPosition(), JsonException.Problems.UNEXPECTED_TOKEN, token);
 				case PARSING_ARRAY:
 					switch(token.getType()){
 						case COMMA:
@@ -191,7 +191,7 @@ public class Jsoner{
 							break;
 						default:
 							/* Any other token is invalid in an array. */
-							throw new DeserializationException(lexer.getPosition(), DeserializationException.Problems.UNEXPECTED_TOKEN, token);
+							throw new JsonException(lexer.getPosition(), JsonException.Problems.UNEXPECTED_TOKEN, token);
 					}
 					break;
 				case PARSING_OBJECT:
@@ -213,7 +213,7 @@ public class Jsoner{
 								stateStack.addLast(States.PARSING_ENTRY);
 							}else{
 								/* Abort! JSON keys are always strings and it wasn't a string. */
-								throw new DeserializationException(lexer.getPosition(), DeserializationException.Problems.UNEXPECTED_TOKEN, token);
+								throw new JsonException(lexer.getPosition(), JsonException.Problems.UNEXPECTED_TOKEN, token);
 							}
 							break;
 						case RIGHT_BRACE:
@@ -228,7 +228,7 @@ public class Jsoner{
 							break;
 						default:
 							/* The parse didn't detect the end of an object or a key. */
-							throw new DeserializationException(lexer.getPosition(), DeserializationException.Problems.UNEXPECTED_TOKEN, token);
+							throw new JsonException(lexer.getPosition(), JsonException.Problems.UNEXPECTED_TOKEN, token);
 					}
 					break;
 				case PARSING_ENTRY:
@@ -265,7 +265,7 @@ public class Jsoner{
 							break;
 						default:
 							/* The parse didn't find anything for the parsed pair key. */
-							throw new DeserializationException(lexer.getPosition(), DeserializationException.Problems.UNEXPECTED_TOKEN, token);
+							throw new JsonException(lexer.getPosition(), JsonException.Problems.UNEXPECTED_TOKEN, token);
 					}
 					break;
 				default:
@@ -285,12 +285,12 @@ public class Jsoner{
 	/** A convenience method that assumes a StringReader to deserialize a string.
 	 * @param deserializable representing content to be deserialized as JSON.
 	 * @return either a boolean, null, Number, String, JsonObject, or JsonArray that best represents the deserializable.
-	 * @throws DeserializationException if an unexpected token is encountered in the deserializable. To recover from a
+	 * @throws JsonException if an unexpected token is encountered in the deserializable. To recover from a
 	 *         DeserializationException: fix the deserializable
 	 *         to no longer have an unexpected token and try again.
 	 * @see Jsoner#deserialize(Reader)
 	 * @see StringReader */
-	public static Object deserialize(final String deserializable) throws DeserializationException{
+	public static Object deserialize(final String deserializable) throws JsonException{
 		Object returnable;
 		StringReader readableDeserializable = null;
 		try{
@@ -322,7 +322,7 @@ public class Jsoner{
 		try{
 			readable = new StringReader(deserializable);
 			returnable = Jsoner.deserialize(readable, EnumSet.of(DeserializationOptions.ALLOW_JSON_ARRAYS)).<JsonArray> getCollection(0);
-		}catch(NullPointerException | DeserializationException caught){
+		}catch(NullPointerException | JsonException caught){
 			/* Don't care, just return the default value. */
 			returnable = defaultValue;
 		}finally{
@@ -346,7 +346,7 @@ public class Jsoner{
 		try{
 			readable = new StringReader(deserializable);
 			returnable = Jsoner.deserialize(readable, EnumSet.of(DeserializationOptions.ALLOW_JSON_OBJECTS)).<JsonObject> getMap(0);
-		}catch(NullPointerException | DeserializationException caught){
+		}catch(NullPointerException | JsonException caught){
 			/* Don't care, just return the default value. */
 			returnable = defaultValue;
 		}finally{
@@ -376,9 +376,9 @@ public class Jsoner{
 	 * @return a JsonArray that contains each of the concatenated objects as its elements. Each concatenated element is
 	 *         either a boolean, null, Number, String, JsonArray, or JsonObject that best represents the concatenated
 	 *         content inside deserializable.
-	 * @throws DeserializationException if an unexpected token is encountered in the deserializable. To recover from a
+	 * @throws JsonException if an unexpected token is encountered in the deserializable. To recover from a
 	 *         DeserializationException: fix the deserializable to no longer have an unexpected token and try again. */
-	public static JsonArray deserializeMany(final Reader deserializable) throws DeserializationException{
+	public static JsonArray deserializeMany(final Reader deserializable) throws JsonException{
 		return Jsoner.deserialize(deserializable, EnumSet.of(DeserializationOptions.ALLOW_JSON_ARRAYS, DeserializationOptions.ALLOW_JSON_OBJECTS, DeserializationOptions.ALLOW_JSON_DATA, DeserializationOptions.ALLOW_CONCATENATED_JSON_VALUES));
 	}
 
@@ -441,14 +441,14 @@ public class Jsoner{
 	/** Processes the lexer's reader for the next token.
 	 * @param lexer represents a text processor being used in the deserialization process.
 	 * @return a token representing a meaningful element encountered by the lexer.
-	 * @throws DeserializationException if an unexpected character is encountered while processing the text. */
-	private static Yytoken lexNextToken(final Yylex lexer) throws DeserializationException{
+	 * @throws JsonException if an unexpected character is encountered while processing the text. */
+	private static Yytoken lexNextToken(final Yylex lexer) throws JsonException{
 		Yytoken returnable;
 		/* Parse through the next token. */
 		try{
 			returnable = lexer.yylex();
 		}catch(final IOException caught){
-			throw new DeserializationException(-1, DeserializationException.Problems.UNEXPECTED_EXCEPTION, caught);
+			throw new JsonException(-1, JsonException.Problems.UNEXPECTED_EXCEPTION, caught);
 		}
 		if(returnable == null){
 			/* If there isn't another token, it must be the end. */
@@ -574,7 +574,7 @@ public class Jsoner{
 				}
 				//System.out.println(lexed);
 			}while(!lexed.getType().equals(Yytoken.Types.END));
-		}catch(final DeserializationException caught){
+		}catch(final JsonException caught){
 			/* This is according to the method's contract. */
 			return null;
 		}

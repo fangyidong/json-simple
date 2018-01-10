@@ -11,7 +11,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.github.cliftonlabs.json_simple.DeserializationException;
+import com.github.cliftonlabs.json_simple.JsonException;
 import com.github.cliftonlabs.json_simple.JsonArray;
 import com.github.cliftonlabs.json_simple.JsonObject;
 import com.github.cliftonlabs.json_simple.Jsoner;
@@ -31,9 +31,9 @@ public class JsonerTest{
     }
 
     /** Ensures arrays are directly deserializable.
-     * @throws DeserializationException if the test fails. */
+     * @throws JsonException if the test fails. */
     @Test
-    public void testArrayDeserialization() throws DeserializationException{
+    public void testArrayDeserialization() throws JsonException{
         JsonArray defaultValue;
         Object deserialized;
         /* Trailing commas are common causes of wasting time debugging JSON. Allowing it in deserialization will
@@ -68,9 +68,9 @@ public class JsonerTest{
     }
 
     /** Ensures booleans are directly deserializable.
-     * @throws DeserializationException if the test fails. */
+     * @throws JsonException if the test fails. */
     @Test
-    public void testBooleanDeserialization() throws DeserializationException{
+    public void testBooleanDeserialization() throws JsonException{
         Object deserialized;
         deserialized = Jsoner.deserialize("true");
         Assert.assertEquals(true, deserialized);
@@ -104,9 +104,9 @@ public class JsonerTest{
     }
 
     /** Ensures multiple concatenated JSON values are directly deserializable.
-     * @throws DeserializationException if the test fails.*/
+     * @throws JsonException if the test fails.*/
     @Test
-    public void testDeserializationMany() throws DeserializationException{
+    public void testDeserializationMany() throws JsonException{
         final StringBuilder deserializable = new StringBuilder();
         JsonArray expected;
         Object deserialized;
@@ -160,9 +160,9 @@ public class JsonerTest{
 
     /** Ensures booleans, JsonArray, JsonObject, null, numbers, and Strings are deserializable while inside a JsonObject
      * or JsonArray.
-     * @throws DeserializationException if the test fails. */
+     * @throws JsonException if the test fails. */
     @Test
-    public void testNestedDeserialization() throws DeserializationException{
+    public void testNestedDeserialization() throws JsonException{
         JsonArray expectedArray;
         JsonObject expectedObject;
         Object deserialized;
@@ -284,9 +284,9 @@ public class JsonerTest{
     }
 
     /** Ensures null is directly deserializable.
-     * @throws DeserializationException if the test fails. */
+     * @throws JsonException if the test fails. */
     @Test
-    public void testNullDeserialization() throws DeserializationException{
+    public void testNullDeserialization() throws JsonException{
         Object deserialized;
         deserialized = Jsoner.deserialize("null");
         Assert.assertEquals(null, deserialized);
@@ -309,9 +309,9 @@ public class JsonerTest{
     }
 
     /** Ensures Numbers are directly deserializable.
-     * @throws DeserializationException if the test fails. */
+     * @throws JsonException if the test fails. */
     @Test
-    public void testNumberDeserialization() throws DeserializationException{
+    public void testNumberDeserialization() throws JsonException{
         Object deserialized;
         deserialized = Jsoner.deserialize("-1234567890987654321.01234567890987654321E-50");
         Assert.assertEquals(new BigDecimal("-1234567890987654321.01234567890987654321E-50"), deserialized);
@@ -367,9 +367,9 @@ public class JsonerTest{
     }
 
     /** Ensures objects are directly deserializable.
-     * @throws DeserializationException if the test fails. */
+     * @throws JsonException if the test fails. */
     @Test
-    public void testObjectDeserialization() throws DeserializationException{
+    public void testObjectDeserialization() throws JsonException{
         JsonObject defaultValue;
         Object deserialized;
         JsonObject expected;
@@ -435,9 +435,9 @@ public class JsonerTest{
     }
 
     /** Ensures Strings are directly deserializable.
-     * @throws DeserializationException if the test fails. */
+     * @throws JsonException if the test fails. */
     @Test
-    public void testStringDeserialization() throws DeserializationException{
+    public void testStringDeserialization() throws JsonException{
         Object deserialized;
         /* Uses typical US English and picks out characters in unicode that have a decimal representation that ends with
          * 050, like 1050, 3050, 4050, 5050, etc. */

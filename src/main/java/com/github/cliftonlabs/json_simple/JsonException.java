@@ -10,9 +10,9 @@
  * limitations under the License. */
 package com.github.cliftonlabs.json_simple;
 
-/** DeserializationException explains how and where the problem occurs in the source JSON text during deserialization.
- * @since 2.0.0 */
-public class DeserializationException extends Exception{
+/** JsonException explains how and where the problem occurs in the source JSON text during deserialization.
+ * @since 3.0.0 */
+public class JsonException extends Exception{
 	/** The kinds of exceptions that can trigger a DeserializationException. */
 	public enum Problems{
 		@SuppressWarnings("javadoc")
@@ -40,7 +40,7 @@ public class DeserializationException extends Exception{
 	 * @param position where the exception occurred.
 	 * @param problemType how the exception occurred.
 	 * @param unexpectedObject what caused the exception. */
-	public DeserializationException(final int position, final Problems problemType, final Object unexpectedObject){
+	public JsonException(final int position, final Problems problemType, final Object unexpectedObject){
 		this.position = position;
 		this.problemType = problemType;
 		this.unexpectedObject = unexpectedObject;
@@ -51,12 +51,13 @@ public class DeserializationException extends Exception{
 		}
 	}
 
+
 	@Override
 	public String getMessage(){
 		final StringBuilder sb = new StringBuilder();
 		switch(this.problemType){
 			case DISALLOWED_TOKEN:
-				sb.append("The disallowed token (").append(this.unexpectedObject).append(") was found at position ").append(this.position).append(". If this is in error, try again with a parse that allows the token instead. Otherwise, fix the parsable string and try again.");
+				sb.append("The disallowed token (").append(this.unexpectedObject).append(") was found at position ").append(this.position).append(". If this is in error, try again with a deserialization method in Jsoner that allows the token instead. Otherwise, fix the parsable string and try again.");
 				break;
 			case IOEXCEPTION:
 				sb.append("An IOException was encountered, ensure the reader is properly instantiated, isn't closed, or that it is ready before trying again.\n").append(this.unexpectedObject);
