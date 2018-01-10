@@ -1,3 +1,8 @@
+Version 3.0.0 (2018/01/*)
+* Removed all deprecated code: allowing development on case insensitive file systems.
+* Refactored: code into a java package that matches the maven artifact group and id.
+* Refactored: DeserializationException to JsonException.
+
 Version 2.3.0 (2017/10/*)
 * Deprecated the feature in Jsoner that serializes Enums to fully qualified strings, the Enums should implement Jsonable instead.
 * Deprecated getEnum and getEnumOrDefault methods in JsonArray and JsonObject.
