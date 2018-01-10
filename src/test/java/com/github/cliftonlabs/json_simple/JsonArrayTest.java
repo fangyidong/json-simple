@@ -14,9 +14,6 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.github.cliftonlabs.json_simple.JsonArray;
-import com.github.cliftonlabs.json_simple.JsonObject;
-
 /** Ensures that JsonArray hasn't regressed in functionality or breaks its API contract. */
 public class JsonArrayTest{
 	/** Called before each Test Method. */

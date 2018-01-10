@@ -51,7 +51,6 @@ public class JsonException extends Exception{
 		}
 	}
 
-
 	@Override
 	public String getMessage(){
 		final StringBuilder sb = new StringBuilder();

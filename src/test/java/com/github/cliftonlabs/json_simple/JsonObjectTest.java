@@ -15,11 +15,6 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.github.cliftonlabs.json_simple.JsonArray;
-import com.github.cliftonlabs.json_simple.JsonKey;
-import com.github.cliftonlabs.json_simple.JsonObject;
-import com.github.cliftonlabs.json_simple.Jsoner;
-
 /** Ensures that JsonObject hasn't regressed in functionality or breaks its API contract. */
 public class JsonObjectTest{
 	@SuppressWarnings("javadoc")
@@ -27,8 +22,15 @@ public class JsonObjectTest{
 		A,
 		B;
 	}
+
 	@SuppressWarnings("javadoc")
 	private static enum TestKeys implements JsonKey{
+		DNE(null),
+		DNE_BIG_DECIMAL(new BigDecimal("101")),
+		DNE_COLLECTION(new JsonArray()),
+		DNE_ENUM(JsonObjectTest.TestEnums.A),
+		DNE_MAP(new JsonObject()),
+		DNE2(null),
 		key0(null),
 		key1(null),
 		key2(null),
@@ -37,15 +39,10 @@ public class JsonObjectTest{
 		key5(null),
 		key6(null),
 		key7(null),
-		key8(null),
-		DNE(null),
-		DNE2(null),
-		DNE_BIG_DECIMAL(new BigDecimal("101")),
-		DNE_COLLECTION(new JsonArray()),
-		DNE_ENUM(JsonObjectTest.TestEnums.A),
-		DNE_MAP(new JsonObject());
+		key8(null);
 		private final Object value;
-		private TestKeys(Object value) {
+
+		private TestKeys(final Object value){
 			this.value = value;
 		}
 
@@ -89,22 +86,7 @@ public class JsonObjectTest{
 		Assert.assertTrue(json.containsValue(10));
 		Assert.assertTrue(json.containsValue(15));
 	}
-	/** Ensures that when required keys are not present the NoSuchElementException is thrown. */
-	@Test(expected = NoSuchElementException.class)
-	public void testRequiresThrows() {
-		JsonObject json = new JsonObject();
-		json.requireKeys(TestKeys.DNE, TestKeys.DNE2);
-	}
-	
-	/** Ensures that when keys are present it does not throw NoSuchElementException. */
-	public void testRequires() {
-		JsonObject json = new JsonObject();
-		json.put(TestKeys.key0.getKey(), 0);
-		json.put(TestKeys.key1.getKey(), 0);
-		json.put(TestKeys.key2.getKey(), 0);
-		json.requireKeys(TestKeys.key0, TestKeys.key1);
-	}
-	
+
 	/** Ensures a BigDecimal can be gotten if there is a BigDecimal, Number, or String at the key. */
 	@Test
 	public void testGetBigDecimal(){
@@ -127,7 +109,7 @@ public class JsonObjectTest{
 		Assert.assertEquals(new BigDecimal("0"), json.getBigDecimal(TestKeys.key7));
 		Assert.assertEquals(new BigDecimal("101"), json.getBigDecimalOrDefault(TestKeys.DNE_BIG_DECIMAL));
 	}
-	
+
 	/** Ensures a Collection can be returned from a key. */
 	@Test
 	public void testGetCollection(){
@@ -200,7 +182,7 @@ public class JsonObjectTest{
 		Assert.assertTrue(output1.containsValue(5));
 		Assert.assertEquals(new JsonObject(), json.getMapOrDefault(TestKeys.DNE_MAP));
 	}
-	
+
 	/** Ensures basic JSON values can be gotten. */
 	@Test
 	public void testOtherJsonGets(){
@@ -210,8 +192,7 @@ public class JsonObjectTest{
 		 * key2 -> number
 		 * key3 -> big decimal
 		 * key4 -> null
-		 * TestKeys need to swap values once in a while.
-		 */
+		 * TestKeys need to swap values once in a while. */
 		json.put(TestKeys.key0.getKey(), "101");
 		json.put(TestKeys.key1.getKey(), true);
 		json.put(TestKeys.key2.getKey(), 101);
@@ -289,5 +270,21 @@ public class JsonObjectTest{
 		Assert.assertEquals(null, json.getFloat(TestKeys.key4));
 		Assert.assertEquals(null, json.getDouble(TestKeys.key4));
 		Assert.assertEquals(null, json.get(TestKeys.key4));
+	}
+
+	/** Ensures that when keys are present it does not throw NoSuchElementException. */
+	public void testRequires(){
+		final JsonObject json = new JsonObject();
+		json.put(TestKeys.key0.getKey(), 0);
+		json.put(TestKeys.key1.getKey(), 0);
+		json.put(TestKeys.key2.getKey(), 0);
+		json.requireKeys(TestKeys.key0, TestKeys.key1);
+	}
+
+	/** Ensures that when required keys are not present the NoSuchElementException is thrown. */
+	@Test(expected = NoSuchElementException.class)
+	public void testRequiresThrows(){
+		final JsonObject json = new JsonObject();
+		json.requireKeys(TestKeys.DNE, TestKeys.DNE2);
 	}
 }

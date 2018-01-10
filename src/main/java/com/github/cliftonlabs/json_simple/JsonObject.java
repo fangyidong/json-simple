@@ -24,16 +24,15 @@ import java.util.Set;
 
 /** JsonObject is a common non-thread safe data format for string to data mappings. The contents of a JsonObject are
  * only validated as JSON values on serialization. Meaning all values added to a JsonObject must be recognized by the
- * Jsoner for it to be a true 'JsonObject', so it is really a JsonableHashMap that will serialize to a JsonObject if all of
- * its contents are valid JSON.
+ * Jsoner for it to be a true 'JsonObject', so it is really a JsonableHashMap that will serialize to a JsonObject if all
+ * of its contents are valid JSON.
  * @see Jsoner
  * @since 2.0.0 */
 public class JsonObject extends HashMap<String, Object> implements Jsonable{
 	/** The serialization version this class is compatible
 	 * with. This value doesn't need to be incremented if and only if the only changes to occur were updating comments,
-	 * updating javadocs, adding new
-	 * fields to the class, changing the fields from static to non-static, or changing the fields from transient to non
-	 * transient. All other changes require this number be incremented. */
+	 * updating javadocs, adding new fields to the class, changing the fields from static to non-static, or changing the
+	 * fields from transient to non transient. All other changes require this number be incremented. */
 	private static final long serialVersionUID = 2L;
 
 	/** Instantiates an empty JsonObject. */
@@ -46,30 +45,6 @@ public class JsonObject extends HashMap<String, Object> implements Jsonable{
 	 * @param map represents the mappings to produce the JsonObject with. */
 	public JsonObject(final Map<String, ?> map){
 		super(map);
-	}
-	
-	/** Ensures the given keys are present.
-	 * @param keys represents the keys that must be present.
-	 * @throws NoSuchElementException if any of the given keys are missing.
-	 * @since 2.3.0 to ensure critical keys are in the JsonObject. */
-	public void requireKeys(final JsonKey... keys){
-		/* Track all of the missing keys. */
-		final Set<JsonKey> missing = new HashSet<>();
-		for(final JsonKey k : keys){
-			if(!this.containsKey(k.getKey())){
-				missing.add(k);
-			}
-		}
-		if(!missing.isEmpty()){
-			/* Report any missing keys in the exception. */
-			final StringBuilder sb = new StringBuilder();
-			for(final JsonKey k : missing){
-				sb.append(k.getKey()).append(", ");
-			}
-			sb.setLength(sb.length() - 2);
-			final String s = missing.size() > 1 ? "s" : "";
-			throw new NoSuchElementException("A JsonObject is missing required key" + s + ": " + sb.toString());
-		}
 	}
 
 	/** A convenience method that assumes there is a BigDecimal, Number, or String at the given key. If a Number is
@@ -555,6 +530,30 @@ public class JsonObject extends HashMap<String, Object> implements Jsonable{
 			returnable = returnable.toString();
 		}
 		return (String)returnable;
+	}
+
+	/** Ensures the given keys are present.
+	 * @param keys represents the keys that must be present.
+	 * @throws NoSuchElementException if any of the given keys are missing.
+	 * @since 2.3.0 to ensure critical keys are in the JsonObject. */
+	public void requireKeys(final JsonKey... keys){
+		/* Track all of the missing keys. */
+		final Set<JsonKey> missing = new HashSet<>();
+		for(final JsonKey k : keys){
+			if(!this.containsKey(k.getKey())){
+				missing.add(k);
+			}
+		}
+		if(!missing.isEmpty()){
+			/* Report any missing keys in the exception. */
+			final StringBuilder sb = new StringBuilder();
+			for(final JsonKey k : missing){
+				sb.append(k.getKey()).append(", ");
+			}
+			sb.setLength(sb.length() - 2);
+			final String s = missing.size() > 1 ? "s" : "";
+			throw new NoSuchElementException("A JsonObject is missing required key" + s + ": " + sb.toString());
+		}
 	}
 
 	/* (non-Javadoc)
