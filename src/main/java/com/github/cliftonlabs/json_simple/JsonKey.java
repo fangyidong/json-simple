@@ -1,4 +1,4 @@
-package org.json.simple;
+package com.github.cliftonlabs.json_simple;
 
 /** Should be implemented by Enums so that keys are easily maintained.
  * @since 2.3.0 */

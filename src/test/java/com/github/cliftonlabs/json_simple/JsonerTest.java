@@ -1,5 +1,5 @@
 /* See: README for this file's copyright, terms, and conditions. */
-package org.json.simple;
+package com.github.cliftonlabs.json_simple;
 
 import java.io.IOException;
 import java.io.StringReader;
@@ -11,20 +11,13 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.github.cliftonlabs.json_simple.DeserializationException;
+import com.github.cliftonlabs.json_simple.JsonArray;
+import com.github.cliftonlabs.json_simple.JsonObject;
+import com.github.cliftonlabs.json_simple.Jsoner;
+
 /** Ensures that deserialization and serialization hasn't regressed in functionality or breaks its API contract. */
 public class JsonerTest{
-    /** @see JsonerTest#testEnumSerialization() */
-    private enum TestEnums{
-        A,
-        B;
-    }
-
-    /** @see JsonerTest#testEnumSerialization() */
-    private static enum TestStaticEnums{
-        ONE,
-        TWO;
-    }
-
     /** Called before each Test Method. */
     @Before
     public void setUp(){
@@ -111,10 +104,9 @@ public class JsonerTest{
     }
 
     /** Ensures multiple concatenated JSON values are directly deserializable.
-     * @throws DeserializationException if the test fails.
-     * @throws IOException if the test fails. */
+     * @throws DeserializationException if the test fails.*/
     @Test
-    public void testDeserializationMany() throws DeserializationException, IOException{
+    public void testDeserializationMany() throws DeserializationException{
         final StringBuilder deserializable = new StringBuilder();
         JsonArray expected;
         Object deserialized;
@@ -164,37 +156,6 @@ public class JsonerTest{
         expected.add(new JsonArray());
         deserialized = Jsoner.deserializeMany(new StringReader(deserializable.toString()));
         Assert.assertEquals(expected, deserialized);
-    }
-
-    /** Makes sure enums are serialized when appropriate.
-     * @throws IOException if the test fails. */
-    @Test
-    public void testEnumSerialization() throws IOException{
-        StringWriter serialized;
-        serialized = new StringWriter();
-        Jsoner.serialize(TestStaticEnums.ONE, serialized);
-        Assert.assertEquals("\"org.json.simple.JsonerTest$TestStaticEnums.ONE\"", serialized.toString());
-        serialized = new StringWriter();
-        try{
-            Jsoner.serializeStrictly(TestStaticEnums.ONE, serialized);
-        }catch(final IllegalArgumentException caught){
-            /* Strictly doesn't allow enums. */
-        }
-        serialized = new StringWriter();
-        Jsoner.serializeCarelessly(TestStaticEnums.ONE, serialized);
-        Assert.assertEquals(TestStaticEnums.ONE.toString(), serialized.toString());
-        serialized = new StringWriter();
-        Jsoner.serialize(TestEnums.A, serialized);
-        Assert.assertEquals("\"org.json.simple.JsonerTest$TestEnums.A\"", serialized.toString());
-        serialized = new StringWriter();
-        try{
-            Jsoner.serializeStrictly(TestEnums.A, serialized);
-        }catch(final IllegalArgumentException caught){
-            /* Strictly doesn't allow enums. */
-        }
-        serialized = new StringWriter();
-        Jsoner.serializeCarelessly(TestEnums.A, serialized);
-        Assert.assertEquals(TestEnums.A.toString(), serialized.toString());
     }
 
     /** Ensures booleans, JsonArray, JsonObject, null, numbers, and Strings are deserializable while inside a JsonObject

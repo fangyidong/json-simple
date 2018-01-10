@@ -1,5 +1,5 @@
 /* See: README for this file's copyright, terms, and conditions. */
-package org.json.simple;
+package com.github.cliftonlabs.json_simple;
 
 import java.io.IOException;
 import java.io.StringReader;
@@ -9,6 +9,10 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+
+import com.github.cliftonlabs.json_simple.DeserializationException;
+import com.github.cliftonlabs.json_simple.Yylex;
+import com.github.cliftonlabs.json_simple.Yytoken;
 
 /** Ensures the lexer hasn't regressed in functionality or breaks its API contract. */
 public class YylexTest{

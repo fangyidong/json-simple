@@ -1,4 +1,4 @@
-package org.json.simple;
+package com.github.cliftonlabs.json_simple;
 
 %%
 

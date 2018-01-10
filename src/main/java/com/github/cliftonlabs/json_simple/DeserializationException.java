@@ -8,7 +8,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License. */
-package org.json.simple;
+package com.github.cliftonlabs.json_simple;
 
 /** DeserializationException explains how and where the problem occurs in the source JSON text during deserialization.
  * @since 2.0.0 */
@@ -27,9 +27,13 @@ public class DeserializationException extends Exception{
 		UNEXPECTED_TOKEN;
 	}
 
+	@SuppressWarnings("javadoc")
 	private static final long	serialVersionUID	= 1L;
+	@SuppressWarnings("javadoc")
 	private final int			position;
+	@SuppressWarnings("javadoc")
 	private final Problems		problemType;
+	@SuppressWarnings("javadoc")
 	private final Object		unexpectedObject;
 
 	/** Instantiates a DeserializationException without assumptions.

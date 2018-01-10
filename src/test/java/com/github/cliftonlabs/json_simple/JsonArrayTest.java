@@ -1,5 +1,5 @@
 /* See: README for this file's copyright, terms, and conditions. */
-package org.json.simple;
+package com.github.cliftonlabs.json_simple;
 
 import java.math.BigDecimal;
 import java.util.HashSet;
@@ -14,18 +14,11 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.github.cliftonlabs.json_simple.JsonArray;
+import com.github.cliftonlabs.json_simple.JsonObject;
+
 /** Ensures that JsonArray hasn't regressed in functionality or breaks its API contract. */
 public class JsonArrayTest{
-	private enum TestEnums{
-		A,
-		B;
-	}
-
-	private static enum TestStaticEnums{
-		ONE,
-		TWO;
-	}
-
 	/** Called before each Test Method. */
 	@Before
 	public void setUp(){
@@ -149,18 +142,6 @@ public class JsonArrayTest{
 		Assert.assertTrue(output2.contains(35));
 		Assert.assertTrue(output2.contains(40));
 		Assert.assertTrue(output2.contains(45));
-	}
-
-	/** Ensures enums can be returned from a String value at an index.
-	 * @throws ClassNotFoundException if the test failed. */
-	@SuppressWarnings("deprecation")
-	@Test
-	public void testGetEnumDeprecated() throws ClassNotFoundException{
-		final JsonArray json = new JsonArray();
-		json.add("org.json.simple.JsonArrayTest$TestStaticEnums.ONE");
-		json.add("org.json.simple.JsonArrayTest$TestEnums.A");
-		Assert.assertEquals(JsonArrayTest.TestStaticEnums.ONE, json.getEnum(0));
-		Assert.assertEquals(JsonArrayTest.TestEnums.A, json.getEnum(1));
 	}
 
 	/** Ensure a map can be returned from an index. */

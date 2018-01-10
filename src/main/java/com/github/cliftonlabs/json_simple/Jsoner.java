@@ -8,7 +8,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License. */
-package org.json.simple;
+package com.github.cliftonlabs.json_simple;
 
 import java.io.IOException;
 import java.io.Reader;
@@ -40,12 +40,6 @@ public class Jsoner{
 
 	/** Flags to tweak the behavior of the primary serialization method. */
 	private static enum SerializationOptions{
-		/** Instead of aborting serialization on non-JSON values that are Enums it will continue serialization with the
-		 * Enums' "${PACKAGE}.${DECLARING_CLASS}.${NAME}".
-		 * @see Enum
-		 * @deprecated 2.3.0 the enum should implement Jsonable instead. */
-		@Deprecated
-		ALLOW_FULLY_QUALIFIED_ENUMERATIONS,
 		/** Instead of aborting serialization on non-JSON values it will continue serialization by serializing the
 		 * non-JSON value directly into the now invalid JSON. Be mindful that invalid JSON will not successfully
 		 * deserialize. */
@@ -53,12 +47,7 @@ public class Jsoner{
 		/** Instead of aborting serialization on non-JSON values that implement Jsonable it will continue serialization
 		 * by deferring serialization to the Jsonable.
 		 * @see Jsonable */
-		ALLOW_JSONABLES,
-		/** Instead of aborting serialization on non-JSON values it will continue serialization by using reflection to
-		 * best describe the value as a JsonObject.
-		 * @deprecated 2.3.0 there is no passive way to accomplish this contract and so will be abandoned. */
-		@Deprecated
-		ALLOW_UNDEFINEDS;
+		ALLOW_JSONABLES;
 	}
 
 	/** The possible States of a JSON deserializer. */
@@ -69,14 +58,17 @@ public class Jsoner{
 		INITIAL,
 		/** Parsing error, ParsingException should be thrown. */
 		PARSED_ERROR,
+		@SuppressWarnings("javadoc")
 		PARSING_ARRAY,
 		/** Parsing a key-value pair inside of an object. */
 		PARSING_ENTRY,
+		@SuppressWarnings("javadoc")
 		PARSING_OBJECT;
 	}
 
+	@SuppressWarnings("javadoc")
 	private Jsoner(){
-		/* Keeping it classy. */
+		/* Jsoner is purely static so instantiation is unnecessary. */
 	}
 
 	/** Deserializes a readable stream according to the RFC 4627 JSON specification.
@@ -609,20 +601,18 @@ public class Jsoner{
 	}
 
 	/** Serializes values according to the RFC 4627 JSON specification. It will also trust the serialization provided by
-	 * any Jsonables it serializes and serializes Enums that don't implement Jsonable as a string of their fully
-	 * qualified name.
+	 * any Jsonables it serializes.
 	 * @param jsonSerializable represents the object that should be serialized in JSON format.
 	 * @param writableDestination represents where the resulting JSON text is written to.
 	 * @throws IOException if the writableDestination encounters an I/O problem, like being closed while in use.
 	 * @throws IllegalArgumentException if the jsonSerializable isn't serializable in JSON. */
 	public static void serialize(final Object jsonSerializable, final Writer writableDestination) throws IOException{
-		Jsoner.serialize(jsonSerializable, writableDestination, EnumSet.of(SerializationOptions.ALLOW_JSONABLES, SerializationOptions.ALLOW_FULLY_QUALIFIED_ENUMERATIONS));
+		Jsoner.serialize(jsonSerializable, writableDestination, EnumSet.of(SerializationOptions.ALLOW_JSONABLES));
 	}
 
 	/** Serialize values to JSON and write them to the provided writer based on behavior flags.
 	 * @param jsonSerializable represents the object that should be serialized to a string in JSON format.
 	 * @param writableDestination represents where the resulting JSON text is written to.
-	 * @param replacement represents what is serialized instead of a non-JSON value when replacements are allowed.
 	 * @param flags represents the allowances and restrictions on serialization.
 	 * @throws IOException if the writableDestination encounters an I/O problem.
 	 * @throws IllegalArgumentException if the jsonSerializable isn't serializable in JSON.
@@ -634,16 +624,6 @@ public class Jsoner{
 		}else if(((jsonSerializable instanceof Jsonable) && flags.contains(SerializationOptions.ALLOW_JSONABLES))){
 			/* Writes the writable as defined by the writable. */
 			writableDestination.write(((Jsonable)jsonSerializable).toJson());
-		}else if((jsonSerializable instanceof Enum) && flags.contains(SerializationOptions.ALLOW_FULLY_QUALIFIED_ENUMERATIONS)){
-			/* Writes the enum as a special case of string. All enums (unless they implement Jsonable) will be the
-			 * string literal "${DECLARING_CLASS_NAME}.${ENUM_NAME}" as their value. */
-			@SuppressWarnings("rawtypes")
-			final Enum e = (Enum)jsonSerializable;
-			writableDestination.write('"');
-			writableDestination.write(e.getDeclaringClass().getName());
-			writableDestination.write('.');
-			writableDestination.write(e.name());
-			writableDestination.write('"');
 		}else if(jsonSerializable instanceof String){
 			/* Make sure the string is properly escaped. */
 			writableDestination.write('"');

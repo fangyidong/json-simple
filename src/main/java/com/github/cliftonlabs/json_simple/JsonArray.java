@@ -8,7 +8,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License. */
-package org.json.simple;
+package com.github.cliftonlabs.json_simple;
 
 import java.io.IOException;
 import java.io.StringWriter;
@@ -148,64 +148,6 @@ public class JsonArray extends ArrayList<Object> implements Jsonable{
 			returnable = new BigDecimal((String)returnable);
 		}
 		return ((Number)returnable).doubleValue();
-	}
-
-	/** A convenience method that assumes there is a String value at the given index representing a fully qualified name
-	 * in dot notation of an enum.
-	 * @param index representing where the value is expected to be at.
-	 * @param <T> the Enum type the value at the index is expected to belong to.
-	 * @return the enum based on the string found at the index, or null if the value at the index was null.
-	 * @throws ClassNotFoundException if the element was a String but the declaring enum type couldn't be determined
-	 *         with it.
-	 * @throws ClassCastException if the element at the index was not a String or if the fully qualified enum name is of
-	 *         the wrong type.
-	 * @throws IllegalArgumentException if an enum type was dynamically determined but it doesn't define an enum with
-	 *         the dynamically determined name.
-	 * @throws IndexOutOfBoundsException if the index is outside of the range of element indexes in the JsonArray.
-	 * @see Enum#valueOf(Class, String)
-	 * @deprecated 2.3.0 Jsoner deprecated automatically serializing enums as Strings. */
-	@Deprecated
-	@SuppressWarnings("unchecked")
-	public <T extends Enum<T>> T getEnum(final int index) throws ClassNotFoundException{
-		/* Supressing the unchecked warning because the returnType is dynamically identified and could lead to a
-		 * ClassCastException when returnType is cast to Class<T>, which is expected by the method's contract. */
-		T returnable;
-		final String element;
-		final String[] splitValues;
-		final int numberOfValues;
-		final StringBuilder returnTypeName;
-		final StringBuilder enumName;
-		final Class<T> returnType;
-		/* Make sure the element at the index is a String. */
-		element = this.getString(index);
-		if(element == null){
-			return null;
-		}
-		/* Get the package, class, and enum names. */
-		splitValues = element.split("\\.");
-		numberOfValues = splitValues.length;
-		returnTypeName = new StringBuilder();
-		enumName = new StringBuilder();
-		for(int i = 0; i < numberOfValues; i++){
-			if(i == (numberOfValues - 1)){
-				/* If it is the last split value then it should be the name of the Enum since dots are not allowed in
-				 * enum names. */
-				enumName.append(splitValues[i]);
-			}else if(i == (numberOfValues - 2)){
-				/* If it is the penultimate split value then it should be the end of the package/enum type and not need
-				 * a dot appended to it. */
-				returnTypeName.append(splitValues[i]);
-			}else{
-				/* Must be part of the package/enum type and will need a dot appended to it since they got removed in
-				 * the split. */
-				returnTypeName.append(splitValues[i]);
-				returnTypeName.append(".");
-			}
-		}
-		/* Use the package/class and enum names to get the Enum<T>. */
-		returnType = (Class<T>)Class.forName(returnTypeName.toString());
-		returnable = Enum.valueOf(returnType, enumName.toString());
-		return returnable;
 	}
 
 	/** A convenience method that assumes there is a Number or String value at the given index.

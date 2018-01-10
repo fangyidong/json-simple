@@ -8,7 +8,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License. */
-package org.json.simple;
+package com.github.cliftonlabs.json_simple;
 
 /** Represents structural entities in JSON.
  * @since 2.0.0 */
@@ -33,7 +33,9 @@ class Yytoken{
 		RIGHT_SQUARE;
 	}
 
+	@SuppressWarnings("javadoc")
 	private final Types		type;
+	@SuppressWarnings("javadoc")
 	private final Object	value;
 
 	/** @param type represents the kind of token the instantiated token will be.
@@ -71,8 +73,8 @@ class Yytoken{
 		this.type = type;
 	}
 
-	/** @return which of the Types the token is.
-	 * @see Types */
+	/** @return which of the {@link Yytoken.Types} the token is.
+	 * @see Yytoken.Types */
 	Types getType(){
 		return this.type;
 	}
