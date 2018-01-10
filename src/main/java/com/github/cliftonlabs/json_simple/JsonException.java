@@ -13,7 +13,7 @@ package com.github.cliftonlabs.json_simple;
 /** JsonException explains how and where the problem occurs in the source JSON text during deserialization.
  * @since 3.0.0 */
 public class JsonException extends Exception{
-	/** The kinds of exceptions that can trigger a DeserializationException. */
+	/** The kinds of exceptions that can trigger a JsonException. */
 	public enum Problems{
 		@SuppressWarnings("javadoc")
 		DISALLOWED_TOKEN,
@@ -36,7 +36,7 @@ public class JsonException extends Exception{
 	@SuppressWarnings("javadoc")
 	private final Object		unexpectedObject;
 
-	/** Instantiates a DeserializationException without assumptions.
+	/** Instantiates a JsonException without assumptions.
 	 * @param position where the exception occurred.
 	 * @param problemType how the exception occurred.
 	 * @param unexpectedObject what caused the exception. */

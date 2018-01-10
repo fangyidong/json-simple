@@ -29,10 +29,10 @@ import java.util.Set;
  * @see Jsoner
  * @since 2.0.0 */
 public class JsonObject extends HashMap<String, Object> implements Jsonable{
-	/** The serialization version this class is compatible
-	 * with. This value doesn't need to be incremented if and only if the only changes to occur were updating comments,
-	 * updating javadocs, adding new fields to the class, changing the fields from static to non-static, or changing the
-	 * fields from transient to non transient. All other changes require this number be incremented. */
+	/** The serialization version this class is compatible with. This value doesn't need to be incremented if and only
+	 * if the only changes to occur were updating comments, updating javadocs, adding new fields to the class, changing
+	 * the fields from static to non-static, or changing the fields from transient to non transient. All other changes
+	 * require this number be incremented. */
 	private static final long serialVersionUID = 2L;
 
 	/** Instantiates an empty JsonObject. */

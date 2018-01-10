@@ -1,6 +1,7 @@
 package com.github.cliftonlabs.json_simple;
 
-/** Should be implemented by Enums so that keys are easily maintained.
+/** Represents the key of a JsonObject. Utilizing JsonKeys allows many of the convenience methods that self document
+ * your JSON data model and make refactoring easier. It is recommended to implement JsonKeys as an enum.
  * @since 2.3.0 */
 public interface JsonKey{
 	/** The json-simple library uses a String for its keys.
