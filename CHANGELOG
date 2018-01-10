@@ -1,3 +1,6 @@
+Version 3.0.1 (2-18/01/*)
+* Corrected javadocs.
+
 Version 3.0.0 (2018/01/*)
 * Removed all deprecated code: allowing development on case insensitive file systems.
 * Refactored: code into a java package that matches the maven artifact group and id.
