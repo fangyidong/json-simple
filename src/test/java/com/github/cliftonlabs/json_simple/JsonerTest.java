@@ -60,6 +60,33 @@ public class JsonerTest{
 		serialized = new StringWriter();
 		Jsoner.serializeCarelessly(new JsonArray(), serialized);
 		Assert.assertEquals("[]", serialized.toString());
+		serialized = new StringWriter();
+		Jsoner.serialize(new boolean[] {true, false, true}, serialized);
+		Assert.assertEquals("[true,false,true]", serialized.toString());
+		serialized = new StringWriter();
+		Jsoner.serialize(new byte[] {0, 1, 2}, serialized);
+		Assert.assertEquals("[0,1,2]", serialized.toString());
+		serialized = new StringWriter();
+		Jsoner.serialize(new short[] {0, 1, 2}, serialized);
+		Assert.assertEquals("[0,1,2]", serialized.toString());
+		serialized = new StringWriter();
+		Jsoner.serialize(new int[] {0, 1, 2}, serialized);
+		Assert.assertEquals("[0,1,2]", serialized.toString());
+		serialized = new StringWriter();
+		Jsoner.serialize(new long[] {0, 1, 2}, serialized);
+		Assert.assertEquals("[0,1,2]", serialized.toString());
+		serialized = new StringWriter();
+		Jsoner.serialize(new float[] {0.0f, 1.0f, 2.0f}, serialized);
+		Assert.assertEquals("[0.0,1.0,2.0]", serialized.toString());
+		serialized = new StringWriter();
+		Jsoner.serialize(new double[] {0.0, 1.0, 2.0}, serialized);
+		Assert.assertEquals("[0.0,1.0,2.0]", serialized.toString());
+		serialized = new StringWriter();
+		Jsoner.serialize(new char[] {'a', 'b', 'c'}, serialized);
+		Assert.assertEquals("[\"a\",\"b\",\"c\"]", serialized.toString());
+		serialized = new StringWriter();
+		Jsoner.serialize(new Object[] {"a", "b", "d"}, serialized);
+		Assert.assertEquals("[\"a\",\"b\",\"d\"]", serialized.toString());
 	}
 
 	/** Ensures booleans are directly deserializable.
