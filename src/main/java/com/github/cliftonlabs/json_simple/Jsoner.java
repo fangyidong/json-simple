@@ -614,6 +614,11 @@ public class Jsoner{
 			writableDestination.write('"');
 			writableDestination.write(Jsoner.escape((String)jsonSerializable));
 			writableDestination.write('"');
+		}else if (jsonSerializable instanceof Character) {
+			/* Make sure the string is properly escaped. */
+			//writableDestination.write('"');
+			writableDestination.write(Jsoner.escape(jsonSerializable.toString()));
+			//writableDestination.write('"');
 		}else if(jsonSerializable instanceof Double){
 			if(((Double)jsonSerializable).isInfinite() || ((Double)jsonSerializable).isNaN()){
 				/* Infinite and not a number are not supported by the JSON specification, so null is used instead. */
@@ -671,8 +676,8 @@ public class Jsoner{
 			final byte[] writableArray = (byte[])jsonSerializable;
 			final int numberOfElements = writableArray.length;
 			writableDestination.write('[');
-			for(int i = 1; i <= numberOfElements; i++){
-				if(i == numberOfElements){
+			for(int i = 0; i < numberOfElements; i++){
+				if(i == numberOfElements - 1){
 					Jsoner.serialize(writableArray[i], writableDestination, flags);
 				}else{
 					Jsoner.serialize(writableArray[i], writableDestination, flags);
@@ -685,8 +690,8 @@ public class Jsoner{
 			final short[] writableArray = (short[])jsonSerializable;
 			final int numberOfElements = writableArray.length;
 			writableDestination.write('[');
-			for(int i = 1; i <= numberOfElements; i++){
-				if(i == numberOfElements){
+			for(int i = 0; i < numberOfElements; i++){
+				if(i == numberOfElements - 1){
 					Jsoner.serialize(writableArray[i], writableDestination, flags);
 				}else{
 					Jsoner.serialize(writableArray[i], writableDestination, flags);
@@ -699,8 +704,8 @@ public class Jsoner{
 			final int[] writableArray = (int[])jsonSerializable;
 			final int numberOfElements = writableArray.length;
 			writableDestination.write('[');
-			for(int i = 1; i <= numberOfElements; i++){
-				if(i == numberOfElements){
+			for(int i = 0; i < numberOfElements; i++){
+				if(i == numberOfElements - 1){
 					Jsoner.serialize(writableArray[i], writableDestination, flags);
 				}else{
 					Jsoner.serialize(writableArray[i], writableDestination, flags);
@@ -713,8 +718,8 @@ public class Jsoner{
 			final long[] writableArray = (long[])jsonSerializable;
 			final int numberOfElements = writableArray.length;
 			writableDestination.write('[');
-			for(int i = 1; i <= numberOfElements; i++){
-				if(i == numberOfElements){
+			for(int i = 0; i < numberOfElements; i++){
+				if(i == numberOfElements - 1){
 					Jsoner.serialize(writableArray[i], writableDestination, flags);
 				}else{
 					Jsoner.serialize(writableArray[i], writableDestination, flags);
@@ -727,8 +732,8 @@ public class Jsoner{
 			final float[] writableArray = (float[])jsonSerializable;
 			final int numberOfElements = writableArray.length;
 			writableDestination.write('[');
-			for(int i = 1; i <= numberOfElements; i++){
-				if(i == numberOfElements){
+			for(int i = 0; i < numberOfElements; i++){
+				if(i == numberOfElements - 1){
 					Jsoner.serialize(writableArray[i], writableDestination, flags);
 				}else{
 					Jsoner.serialize(writableArray[i], writableDestination, flags);
@@ -741,8 +746,8 @@ public class Jsoner{
 			final double[] writableArray = (double[])jsonSerializable;
 			final int numberOfElements = writableArray.length;
 			writableDestination.write('[');
-			for(int i = 1; i <= numberOfElements; i++){
-				if(i == numberOfElements){
+			for(int i = 0; i < numberOfElements; i++){
+				if(i == numberOfElements - 1){
 					Jsoner.serialize(writableArray[i], writableDestination, flags);
 				}else{
 					Jsoner.serialize(writableArray[i], writableDestination, flags);
@@ -755,8 +760,8 @@ public class Jsoner{
 			final boolean[] writableArray = (boolean[])jsonSerializable;
 			final int numberOfElements = writableArray.length;
 			writableDestination.write('[');
-			for(int i = 1; i <= numberOfElements; i++){
-				if(i == numberOfElements){
+			for(int i = 0; i < numberOfElements; i++){
+				if(i == numberOfElements - 1){
 					Jsoner.serialize(writableArray[i], writableDestination, flags);
 				}else{
 					Jsoner.serialize(writableArray[i], writableDestination, flags);
@@ -769,8 +774,8 @@ public class Jsoner{
 			final char[] writableArray = (char[])jsonSerializable;
 			final int numberOfElements = writableArray.length;
 			writableDestination.write("[\"");
-			for(int i = 1; i <= numberOfElements; i++){
-				if(i == numberOfElements){
+			for(int i = 0; i < numberOfElements; i++){
+				if(i == numberOfElements - 1){
 					Jsoner.serialize(writableArray[i], writableDestination, flags);
 				}else{
 					Jsoner.serialize(writableArray[i], writableDestination, flags);
@@ -783,8 +788,8 @@ public class Jsoner{
 			final Object[] writableArray = (Object[])jsonSerializable;
 			final int numberOfElements = writableArray.length;
 			writableDestination.write('[');
-			for(int i = 1; i <= numberOfElements; i++){
-				if(i == numberOfElements){
+			for(int i = 0; i < numberOfElements; i++){
+				if(i == numberOfElements - 1){
 					Jsoner.serialize(writableArray[i], writableDestination, flags);
 				}else{
 					Jsoner.serialize(writableArray[i], writableDestination, flags);
