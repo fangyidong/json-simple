@@ -1,3 +1,8 @@
+Version 3.0.2 (2018/01/*)
+* Bug fix: Serialization of primitive arrays no longer starts at the 2nd index with test cases.
+* Bug fix: Character or primitive char is supported and with test cases.
+* Chris (cbojar) was added to the list of Authors.
+
 Version 3.0.1 (2018/01/*)
 * Corrected javadocs.
 

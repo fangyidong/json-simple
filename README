@@ -27,6 +27,7 @@ Make the signed artifacts available to other local projects:
 mvn clean install
 
 Guided deploy of project with signed artifacts:
+Automated source cleanup.
 Update CHANGELOG.
 mvn release:clean
 mvn release:prepare
