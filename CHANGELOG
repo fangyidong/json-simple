@@ -1,3 +1,6 @@
+Version 2.3.1 (2018/2/*)
+* Bugfix: patched Chris's fix backwards for 2.*
+
 Version 2.3.0 (2017/10/*)
 * Deprecated the feature in Jsoner that serializes Enums to fully qualified strings, the Enums should implement Jsonable instead.
 * Deprecated getEnum and getEnumOrDefault methods in JsonArray and JsonObject.
