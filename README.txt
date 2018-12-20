@@ -1,2 +1,2 @@
 Please visit:
-http://code.google.com/p/json-simple/
+https://github.com/fangyidong/json-simple

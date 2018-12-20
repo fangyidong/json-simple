@@ -1,5 +1,5 @@
 <project name="json-simple" default="main" basedir=".">
-	<property name="current-version" value="1.1.1"/>
+	<property name="current-version" value="1.1.2"/>
 	<property name="targetDir" value="target"/>
 	<property name="javaSourceDir" value="src/main/java"/>
 	<property name="javaTargetDir" value="target/classes"/>
