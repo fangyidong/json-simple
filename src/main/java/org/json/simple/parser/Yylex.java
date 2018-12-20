@@ -2,6 +2,9 @@
 
 package org.json.simple.parser;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
+
 class Yylex {
 
   /** This character denotes the end of file */
@@ -603,7 +606,10 @@ int getPosition(){
           }
         case 32: break;
         case 21: 
-          { Double val=Double.valueOf(yytext()); return new Yytoken(Yytoken.TYPE_VALUE, val);
+          { 
+              //return BigDecimal otherwise it crashes if number doesn't fit into double
+              BigDecimal bd = new BigDecimal(yytext());
+              return new Yytoken(Yytoken.TYPE_VALUE, bd);
           }
         case 33: break;
         case 1: 
@@ -657,7 +663,10 @@ int getPosition(){
           }
         case 44: break;
         case 2: 
-          { Long val=Long.valueOf(yytext()); return new Yytoken(Yytoken.TYPE_VALUE, val);
+          { 
+              //return BigInteger otherwise it crashes if number doesn't fit into long
+              BigInteger bi = new BigInteger(yytext());
+              return new Yytoken(Yytoken.TYPE_VALUE, bi);
           }
         case 45: break;
         case 18: 
