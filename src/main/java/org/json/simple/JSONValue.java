@@ -7,10 +7,9 @@ package org.json.simple;
 import java.io.IOException;
 import java.io.Reader;
 import java.io.StringReader;
-import java.io.StringWriter;
 import java.io.Writer;
-import java.util.Collection;
-// import java.util.List;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 import org.json.simple.parser.JSONParser;
@@ -37,9 +36,6 @@ public class JSONValue {
 	 * 	java.lang.Boolean,
 	 * 	null
 	 * 
-	 * @deprecated this method may throw an {@code Error} instead of returning
-	 * {@code null}; please use {@link JSONValue#parseWithException(Reader)}
-	 * instead
 	 */
 	public static Object parse(Reader in){
 		try{
@@ -51,26 +47,6 @@ public class JSONValue {
 		}
 	}
 	
-	/**
-	 * Parse JSON text into java object from the given string. 
-	 * Please use parseWithException() if you don't want to ignore the exception.
-	 * 
-	 * @see org.json.simple.parser.JSONParser#parse(Reader)
-	 * @see #parseWithException(Reader)
-	 * 
-	 * @param s
-	 * @return Instance of the following:
-	 *	org.json.simple.JSONObject,
-	 * 	org.json.simple.JSONArray,
-	 * 	java.lang.String,
-	 * 	java.lang.Number,
-	 * 	java.lang.Boolean,
-	 * 	null
-	 * 
-	 * @deprecated this method may throw an {@code Error} instead of returning
-	 * {@code null}; please use {@link JSONValue#parseWithException(String)}
-	 * instead
-	 */
 	public static Object parse(String s){
 		StringReader in=new StringReader(s);
 		return parse(in);
@@ -129,7 +105,14 @@ public class JSONValue {
             out.write('\"');
 			return;
 		}
-		
+
+		if(value instanceof Character){
+			out.write('\"');
+			out.write(escape(String.valueOf(value)));
+			out.write('\"');
+			return;
+		}
+
 		if(value instanceof Double){
 			if(((Double)value).isInfinite() || ((Double)value).isNaN())
 				out.write("null");
@@ -171,54 +154,9 @@ public class JSONValue {
 			return;
 		}
 		
-		if(value instanceof Collection){
-			JSONArray.writeJSONString((Collection)value, out);
+		if(value instanceof List){
+			JSONArray.writeJSONString((List)value, out);
             return;
-		}
-		
-		if(value instanceof byte[]){
-			JSONArray.writeJSONString((byte[])value, out);
-			return;
-		}
-		
-		if(value instanceof short[]){
-			JSONArray.writeJSONString((short[])value, out);
-			return;
-		}
-		
-		if(value instanceof int[]){
-			JSONArray.writeJSONString((int[])value, out);
-			return;
-		}
-		
-		if(value instanceof long[]){
-			JSONArray.writeJSONString((long[])value, out);
-			return;
-		}
-		
-		if(value instanceof float[]){
-			JSONArray.writeJSONString((float[])value, out);
-			return;
-		}
-		
-		if(value instanceof double[]){
-			JSONArray.writeJSONString((double[])value, out);
-			return;
-		}
-		
-		if(value instanceof boolean[]){
-			JSONArray.writeJSONString((boolean[])value, out);
-			return;
-		}
-		
-		if(value instanceof char[]){
-			JSONArray.writeJSONString((char[])value, out);
-			return;
-		}
-		
-		if(value instanceof Object[]){
-			JSONArray.writeJSONString((Object[])value, out);
-			return;
 		}
 		
 		out.write(value.toString());
@@ -239,15 +177,45 @@ public class JSONValue {
 	 * @return JSON text, or "null" if value is null or it's an NaN or an INF number.
 	 */
 	public static String toJSONString(Object value){
-		final StringWriter writer = new StringWriter();
+		if(value == null)
+			return "null";
 		
-		try{
-			writeJSONString(value, writer);
-			return writer.toString();
-		} catch(IOException e){
-			// This should never happen for a StringWriter
-			throw new RuntimeException(e);
+		if(value instanceof String) {
+			return "\"" + escape((String) value) + "\"";
 		}
+		if (value instanceof Character) {
+			return "\""+escape(String.valueOf(value))+"\"";
+		}
+		if(value instanceof Double){
+			if(((Double)value).isInfinite() || ((Double)value).isNaN())
+				return "null";
+			else
+				return value.toString();
+		}
+		
+		if(value instanceof Float){
+			if(((Float)value).isInfinite() || ((Float)value).isNaN())
+				return "null";
+			else
+				return value.toString();
+		}		
+		
+		if(value instanceof Number)
+			return value.toString();
+		
+		if(value instanceof Boolean)
+			return value.toString();
+		
+		if((value instanceof JSONAware))
+			return ((JSONAware)value).toJSONString();
+		
+		if(value instanceof Map)
+			return JSONObject.toJSONString((Map)value);
+		
+		if(value instanceof List)
+			return JSONArray.toJSONString((List)value);
+		
+		return value.toString();
 	}
 
 	/**
@@ -268,8 +236,7 @@ public class JSONValue {
      * @param sb
      */
     static void escape(String s, StringBuffer sb) {
-    	final int len = s.length();
-		for(int i=0;i<len;i++){
+		for(int i=0;i<s.length();i++){
 			char ch=s.charAt(i);
 			switch(ch){
 			case '"':

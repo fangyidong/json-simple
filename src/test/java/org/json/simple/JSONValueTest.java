@@ -4,7 +4,9 @@ import java.io.IOException;
 import java.io.StringWriter;
 
 import junit.framework.TestCase;
+import org.junit.Ignore;
 
+@Ignore
 public class JSONValueTest extends TestCase {
 	public void testByteArrayToString() throws IOException {
 		assertEquals("null", JSONValue.toJSONString((byte[])null));
