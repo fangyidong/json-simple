@@ -11,6 +11,8 @@ eclipseFormatter.xml
 eclipsePreferences.epf
 elcipseTemplates.xml
 
+Code sorting should follow this priority with no preference on visibility: Types > Static Initializers > Initializers > Static Fields > Fields > Constructors > Static Methods > Methods.
+
 Generate json-simple project files for eclipse:
 mvn eclipse:eclipse
 
