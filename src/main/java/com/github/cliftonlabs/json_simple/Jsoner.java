@@ -488,6 +488,7 @@ public class Jsoner{
 	 *        recommended to use "\n", but "\r" or "/r/n" are common alternatives.
 	 * @throws IOException if the provided writer encounters an IO issue.
 	 * @throws JsonException if the provided reader encounters an IO issue.
+	 * @see Jsoner#prettyPrint(String)
 	 * @since 3.1.0 made public to allow large JSON inputs and more pretty print control. */
 	public static void prettyPrint(final Reader readable, final Writer writable, final String indentation, final String newline) throws IOException, JsonException{
 		final Yylex lexer = new Yylex(readable);

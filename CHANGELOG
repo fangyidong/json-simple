@@ -1,3 +1,11 @@
+Version 3.1.0 (2019/03/*)
+* Jsoner exposed its internal pretty print function to give the caller more control over how it indents and newlines. It also uses a Reader's input and pretty print to a Writer's output, such as for formatting a file.
+* Jsoner#prettyPrint(String, int) deprecated in favor of the exposed function.
+* Jsoner#prettyPrint(String) will be kept as a reasonable convenience method.
+* JsonArray now has add methods that can be chained for inline instantiation.
+* JsonObject now has put methods that can be chained for inline instantiation.
+* Javadocs now correctly refer to RFC 7159.
+
 Version 3.0.2 (2018/01/*)
 * Bug fix: Serialization of primitive arrays no longer starts at the 2nd index with test cases.
 * Bug fix: Character or primitive char is supported and with test cases.
