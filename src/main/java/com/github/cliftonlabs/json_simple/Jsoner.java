@@ -22,7 +22,7 @@ import java.util.LinkedList;
 import java.util.Map;
 import java.util.Set;
 
-/** Jsoner provides JSON utilities for escaping strings to be JSON compatible, thread safe parsing (RFC 4627) JSON
+/** Jsoner provides JSON utilities for escaping strings to be JSON compatible, thread safe parsing (RFC 7159) JSON
  * strings, and thread safe serializing data to strings in JSON format.
  * @since 2.0.0 */
 public class Jsoner{
@@ -71,7 +71,7 @@ public class Jsoner{
 		/* Jsoner is purely static so instantiation is unnecessary. */
 	}
 
-	/** Deserializes a readable stream according to the RFC 4627 JSON specification.
+	/** Deserializes a readable stream according to the RFC 7159 JSON specification.
 	 * @param readableDeserializable representing content to be deserialized as JSON.
 	 * @return either a boolean, null, Number, String, JsonObject, or JsonArray that best represents the deserializable.
 	 * @throws JsonException if an unexpected token is encountered in the deserializable. To recover from a
@@ -348,7 +348,7 @@ public class Jsoner{
 		return returnable;
 	}
 
-	/** A convenience method that assumes multiple RFC 4627 JSON values (except numbers) have been concatenated together
+	/** A convenience method that assumes multiple RFC 7159 JSON values (except numbers) have been concatenated together
 	 * for deserilization which will be collectively returned in a JsonArray wrapper.
 	 * There may be numbers included, they just must not be concatenated together as it is prone to
 	 * NumberFormatExceptions (thus causing a JsonException) or the numbers no longer represent their
@@ -477,16 +477,91 @@ public class Jsoner{
 		}
 	}
 
-	/** Formats the JSON string to be more easily human readable using tabs for indentation.
+	/** Makes the JSON input more easily human readable using indentation and newline of the caller's choice. This means
+	 * the validity of the JSON printed by this method is dependent on the caller's choice of indentation and newlines.
+	 * @param readable representing a JSON formatted string with out extraneous characters, like one returned from
+	 *        Jsoner#serialize(Object).
+	 * @param writable represents where the pretty printed JSON should be written to.
+	 * @param indentation representing the indentation used to format the JSON string. NOT validated as a proper
+	 *        indentation. It is recommended to use tabs ("\t"), but 3, 4, or 8 spaces are common alternatives.
+	 * @param newline representing the newline used to format the JSON string. NOT validated as a proper newline. It is
+	 *        recommended to use "\n", but "\r" or "/r/n" are common alternatives.
+	 * @throws IOException if the provided writer encounters an IO issue.
+	 * @throws JsonException if the provided reader encounters an IO issue.
+	 * @since 3.1.0 made public to allow large JSON inputs and more pretty print control. */
+	public static void prettyPrint(final Reader readable, final Writer writable, final String indentation, final String newline) throws IOException, JsonException{
+		final Yylex lexer = new Yylex(readable);
+		Yytoken lexed;
+		int level = 0;
+		do{
+			lexed = Jsoner.lexNextToken(lexer);
+			switch(lexed.getType()){
+				case COLON:
+					writable.append(lexed.getValue().toString());
+					break;
+				case COMMA:
+					writable.append(lexed.getValue().toString());
+					writable.append(newline);
+					for(int i = 0; i < level; i++){
+						writable.append(indentation);
+					}
+					break;
+				case END:
+					break;
+				case LEFT_BRACE:
+				case LEFT_SQUARE:
+					writable.append(lexed.getValue().toString());
+					writable.append(newline);
+					level++;
+					for(int i = 0; i < level; i++){
+						writable.append(indentation);
+					}
+					break;
+				case RIGHT_BRACE:
+				case RIGHT_SQUARE:
+					writable.append(newline);
+					level--;
+					for(int i = 0; i < level; i++){
+						writable.append(indentation);
+					}
+					writable.append(lexed.getValue().toString());
+					break;
+				default:
+					if(lexed.getValue() == null){
+						writable.append("null");
+					}else if(lexed.getValue() instanceof String){
+						writable.append("\"");
+						writable.append(Jsoner.escape((String)lexed.getValue()));
+						writable.append("\"");
+					}else{
+						writable.append(lexed.getValue().toString());
+					}
+					break;
+			}
+		}while(!lexed.getType().equals(Yytoken.Types.END));
+		writable.flush();
+	}
+
+	/** A convenience method to pretty print a String with tabs ("\t") and "\n" for newlines.
 	 * @param printable representing a JSON formatted string with out extraneous characters, like one returned from
 	 *        Jsoner#serialize(Object).
 	 * @return printable except it will have '\n' then '\t' characters inserted after '[', '{', ',' and before ']' '}'
 	 *         tokens in the JSON. It will return null if printable isn't a JSON string. */
 	public static String prettyPrint(final String printable){
-		return Jsoner.prettyPrint(printable, "\t");
+		final StringWriter writer = new StringWriter();
+		try{
+			Jsoner.prettyPrint(new StringReader(printable), writer, "\t", "\n");
+		}catch(final IOException caught){
+			/* See java.io.StringReader.
+			 * See java.io.StringWriter. */
+		}catch(final JsonException caught){
+			/* Would have been caused by a an IO exception while lexing, but the StringReader does not throw them. See
+			 * java.io.StringReader. */
+		}
+		return writer.toString();
 	}
 
-	/** Formats the JSON string to be more easily human readable using an arbitrary amount of spaces for indentation.
+	/** A convenience method to pretty print a String with the provided spaces count and "\n" for newlines.
 	 * @param printable representing a JSON formatted string with out extraneous characters, like one returned from
 	 *        Jsoner#serialize(Object).
 	 * @param spaces representing the amount of spaces to use for indentation. Must be between 2 and 10.
@@ -494,79 +569,29 @@ public class Jsoner{
 	 *         tokens in the JSON. It will return null if printable isn't a JSON string.
 	 * @throws IllegalArgumentException if spaces isn't between [2..10].
 	 * @see Jsoner#prettyPrint(String)
-	 * @since 2.2.0 to allow pretty printing with spaces instead of tabs. */
+	 * @since 2.2.0 to allow pretty printing with spaces instead of tabs.
+	 * @deprecated 3.1.0 in favor of Jsoner#prettyPrint(Reader, Writer, String, String) due to arbitrary limitations
+	 *             enforced by this implementation. */
+	@Deprecated
 	public static String prettyPrint(final String printable, final int spaces){
 		if((spaces > 10) || (spaces < 2)){
 			throw new IllegalArgumentException("Indentation with spaces must be between 2 and 10.");
 		}
 		final StringBuilder indentation = new StringBuilder("");
+		final StringWriter writer = new StringWriter();
 		for(int i = 0; i < spaces; i++){
 			indentation.append(" ");
 		}
-		return Jsoner.prettyPrint(printable, indentation.toString());
-	}
-
-	/** Makes the JSON string more easily human readable using indentation of the caller's choice.
-	 * @param printable representing a JSON formatted string with out extraneous characters, like one returned from
-	 *        Jsoner#serialize(Object).
-	 * @param indentation representing the indentation used to format the JSON string.
-	 * @return printable except it will have '\n' then indentation characters inserted after '[', '{', ',' and before
-	 *         ']' '}' tokens in the JSON. It will return null if printable isn't a JSON string. */
-	private static String prettyPrint(final String printable, final String indentation){
-		final Yylex lexer = new Yylex(new StringReader(printable));
-		Yytoken lexed;
-		final StringBuilder returnable = new StringBuilder();
-		int level = 0;
 		try{
-			do{
-				lexed = Jsoner.lexNextToken(lexer);
-				switch(lexed.getType()){
-					case COLON:
-						returnable.append(":");
-						break;
-					case COMMA:
-						returnable.append(lexed.getValue());
-						returnable.append("\n");
-						for(int i = 0; i < level; i++){
-							returnable.append(indentation);
-						}
-						break;
-					case END:
-						break;
-					case LEFT_BRACE:
-					case LEFT_SQUARE:
-						returnable.append(lexed.getValue());
-						returnable.append("\n");
-						level++;
-						for(int i = 0; i < level; i++){
-							returnable.append(indentation);
-						}
-						break;
-					case RIGHT_BRACE:
-					case RIGHT_SQUARE:
-						returnable.append("\n");
-						level--;
-						for(int i = 0; i < level; i++){
-							returnable.append(indentation);
-						}
-						returnable.append(lexed.getValue());
-						break;
-					default:
-						if(lexed.getValue() instanceof String){
-							returnable.append("\"");
-							returnable.append(Jsoner.escape((String)lexed.getValue()));
-							returnable.append("\"");
-						}else{
-							returnable.append(lexed.getValue());
-						}
-						break;
-				}
-			}while(!lexed.getType().equals(Yytoken.Types.END));
+			Jsoner.prettyPrint(new StringReader(printable), writer, indentation.toString(), "\n");
+		}catch(final IOException caught){
+			/* See java.io.StringReader.
+			 * See java.io.StringWriter. */
 		}catch(final JsonException caught){
-			/* This is according to the method's contract. */
-			return null;
+			/* Would have been caused by a an IO exception while lexing, but the StringReader does not throw them. See
+			 * java.io.StringReader. */
 		}
-		return returnable.toString();
+		return writer.toString();
 	}
 
 	/** A convenience method that assumes a StringWriter.
@@ -580,12 +605,12 @@ public class Jsoner{
 		try{
 			Jsoner.serialize(jsonSerializable, writableDestination);
 		}catch(final IOException caught){
-			/* See StringWriter. */
+			/* See java.io.StringWriter. */
 		}
 		return writableDestination.toString();
 	}
 
-	/** Serializes values according to the RFC 4627 JSON specification. It will also trust the serialization provided by
+	/** Serializes values according to the RFC 7159 JSON specification. It will also trust the serialization provided by
 	 * any Jsonables it serializes.
 	 * @param jsonSerializable represents the object that should be serialized in JSON format.
 	 * @param writableDestination represents where the resulting JSON text is written to.
@@ -820,7 +845,7 @@ public class Jsoner{
 		Jsoner.serialize(jsonSerializable, writableDestination, EnumSet.of(SerializationOptions.ALLOW_JSONABLES, SerializationOptions.ALLOW_INVALIDS));
 	}
 
-	/** Serializes JSON values and only JSON values according to the RFC 4627 JSON specification.
+	/** Serializes JSON values and only JSON values according to the RFC 7159 JSON specification.
 	 * @param jsonSerializable represents the object that should be serialized in JSON format.
 	 * @param writableDestination represents where the resulting JSON text is written to.
 	 * @throws IOException if the writableDestination encounters an I/O problem, like being closed while in use.
