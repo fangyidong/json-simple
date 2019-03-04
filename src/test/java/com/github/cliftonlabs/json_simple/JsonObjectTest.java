@@ -2,6 +2,7 @@
 package com.github.cliftonlabs.json_simple;
 
 import java.math.BigDecimal;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
@@ -92,12 +93,12 @@ public class JsonObjectTest{
 	public void testGetBigDecimal(){
 		final JsonObject json = new JsonObject();
 		json.put(TestKeys.key0.getKey(), new BigDecimal("0"));
-		json.put(TestKeys.key1.getKey(), new Double(0));
-		json.put(TestKeys.key2.getKey(), new Float(0));
-		json.put(TestKeys.key3.getKey(), new Long(0));
-		json.put(TestKeys.key4.getKey(), new Integer(0));
-		json.put(TestKeys.key5.getKey(), new Short((short)0));
-		json.put(TestKeys.key6.getKey(), new Byte((byte)0));
+		json.put(TestKeys.key1.getKey(), Double.valueOf(0));
+		json.put(TestKeys.key2.getKey(), Float.valueOf(0));
+		json.put(TestKeys.key3.getKey(), Long.valueOf(0));
+		json.put(TestKeys.key4.getKey(), Integer.valueOf(0));
+		json.put(TestKeys.key5.getKey(), Short.valueOf((short)0));
+		json.put(TestKeys.key6.getKey(), Byte.valueOf((byte)0));
 		json.put(TestKeys.key7.getKey(), new String("0"));
 		Assert.assertEquals(new BigDecimal("0"), json.getBigDecimal(TestKeys.key0));
 		Assert.assertEquals(new BigDecimal("0.0"), json.getBigDecimal(TestKeys.key1));
@@ -204,43 +205,43 @@ public class JsonObjectTest{
 		Assert.assertEquals(true, json.getBooleanOrDefault(Jsoner.mintJsonKey("key1", false)));
 		Assert.assertEquals(false, json.getBooleanOrDefault(Jsoner.mintJsonKey("key0", true)));
 		/* Numbers are gotten from strings. */
-		Assert.assertEquals(new Byte((byte)101), json.getByte(TestKeys.key0));
-		Assert.assertEquals(new Short((short)101), json.getShort(TestKeys.key0));
-		Assert.assertEquals(new Integer(101), json.getInteger(TestKeys.key0));
-		Assert.assertEquals(new Long(101), json.getLong(TestKeys.key0));
-		Assert.assertEquals(new Float(101), json.getFloat(TestKeys.key0));
-		Assert.assertEquals(new Double(101), json.getDouble(TestKeys.key0));
-		Assert.assertEquals(new Byte((byte)101), json.getByteOrDefault(Jsoner.mintJsonKey("key0", (byte)0)));
-		Assert.assertEquals(new Short((short)101), json.getShortOrDefault(Jsoner.mintJsonKey("key0", (short)0)));
-		Assert.assertEquals(new Integer(101), json.getIntegerOrDefault(Jsoner.mintJsonKey("key0", 0)));
-		Assert.assertEquals(new Long(101), json.getLongOrDefault(Jsoner.mintJsonKey("key0", 0)));
-		Assert.assertEquals(new Float(101), json.getFloatOrDefault(Jsoner.mintJsonKey("key0", 0)));
-		Assert.assertEquals(new Double(101), json.getDoubleOrDefault(Jsoner.mintJsonKey("key0", 0)));
+		Assert.assertEquals(Byte.valueOf((byte)101), json.getByte(TestKeys.key0));
+		Assert.assertEquals(Short.valueOf((short)101), json.getShort(TestKeys.key0));
+		Assert.assertEquals(Integer.valueOf(101), json.getInteger(TestKeys.key0));
+		Assert.assertEquals(Long.valueOf(101), json.getLong(TestKeys.key0));
+		Assert.assertEquals(Float.valueOf(101), json.getFloat(TestKeys.key0));
+		Assert.assertEquals(Double.valueOf(101), json.getDouble(TestKeys.key0));
+		Assert.assertEquals(Byte.valueOf((byte)101), json.getByteOrDefault(Jsoner.mintJsonKey("key0", (byte)0)));
+		Assert.assertEquals(Short.valueOf((short)101), json.getShortOrDefault(Jsoner.mintJsonKey("key0", (short)0)));
+		Assert.assertEquals(Integer.valueOf(101), json.getIntegerOrDefault(Jsoner.mintJsonKey("key0", 0)));
+		Assert.assertEquals(Long.valueOf(101), json.getLongOrDefault(Jsoner.mintJsonKey("key0", 0)));
+		Assert.assertEquals(Float.valueOf(101), json.getFloatOrDefault(Jsoner.mintJsonKey("key0", 0)));
+		Assert.assertEquals(Double.valueOf(101), json.getDoubleOrDefault(Jsoner.mintJsonKey("key0", 0)));
 		/* Numbers are gotten from numbers. */
-		Assert.assertEquals(new Byte((byte)101), json.getByte(TestKeys.key2));
-		Assert.assertEquals(new Short((short)101), json.getShort(TestKeys.key2));
-		Assert.assertEquals(new Integer(101), json.getInteger(TestKeys.key2));
-		Assert.assertEquals(new Long(101), json.getLong(TestKeys.key2));
-		Assert.assertEquals(new Float(101), json.getFloat(TestKeys.key2));
-		Assert.assertEquals(new Double(101), json.getDouble(TestKeys.key2));
-		Assert.assertEquals(new Byte((byte)101), json.getByteOrDefault(Jsoner.mintJsonKey("key2", (byte)0)));
-		Assert.assertEquals(new Short((short)101), json.getShortOrDefault(Jsoner.mintJsonKey("key2", (short)0)));
-		Assert.assertEquals(new Integer(101), json.getIntegerOrDefault(Jsoner.mintJsonKey("key2", 0)));
-		Assert.assertEquals(new Long(101), json.getLongOrDefault(Jsoner.mintJsonKey("key2", 0)));
-		Assert.assertEquals(new Float(101), json.getFloatOrDefault(Jsoner.mintJsonKey("key2", 0)));
-		Assert.assertEquals(new Double(101), json.getDoubleOrDefault(Jsoner.mintJsonKey("key2", 0)));
-		Assert.assertEquals(new Byte((byte)101), json.getByte(TestKeys.key3));
-		Assert.assertEquals(new Short((short)101), json.getShort(TestKeys.key3));
-		Assert.assertEquals(new Integer(101), json.getInteger(TestKeys.key3));
-		Assert.assertEquals(new Long(101), json.getLong(TestKeys.key3));
-		Assert.assertEquals(new Float(101), json.getFloat(TestKeys.key3));
-		Assert.assertEquals(new Double(101), json.getDouble(TestKeys.key3));
-		Assert.assertEquals(new Byte((byte)101), json.getByteOrDefault(Jsoner.mintJsonKey("key3", (byte)0)));
-		Assert.assertEquals(new Short((short)101), json.getShortOrDefault(Jsoner.mintJsonKey("key3", (short)0)));
-		Assert.assertEquals(new Integer(101), json.getIntegerOrDefault(Jsoner.mintJsonKey("key3", 0)));
-		Assert.assertEquals(new Long(101), json.getLongOrDefault(Jsoner.mintJsonKey("key3", 0)));
-		Assert.assertEquals(new Float(101), json.getFloatOrDefault(Jsoner.mintJsonKey("key3", 0)));
-		Assert.assertEquals(new Double(101), json.getDoubleOrDefault(Jsoner.mintJsonKey("key3", 0)));
+		Assert.assertEquals(Byte.valueOf((byte)101), json.getByte(TestKeys.key2));
+		Assert.assertEquals(Short.valueOf((short)101), json.getShort(TestKeys.key2));
+		Assert.assertEquals(Integer.valueOf(101), json.getInteger(TestKeys.key2));
+		Assert.assertEquals(Long.valueOf(101), json.getLong(TestKeys.key2));
+		Assert.assertEquals(Float.valueOf(101), json.getFloat(TestKeys.key2));
+		Assert.assertEquals(Double.valueOf(101), json.getDouble(TestKeys.key2));
+		Assert.assertEquals(Byte.valueOf((byte)101), json.getByteOrDefault(Jsoner.mintJsonKey("key2", (byte)0)));
+		Assert.assertEquals(Short.valueOf((short)101), json.getShortOrDefault(Jsoner.mintJsonKey("key2", (short)0)));
+		Assert.assertEquals(Integer.valueOf(101), json.getIntegerOrDefault(Jsoner.mintJsonKey("key2", 0)));
+		Assert.assertEquals(Long.valueOf(101), json.getLongOrDefault(Jsoner.mintJsonKey("key2", 0)));
+		Assert.assertEquals(Float.valueOf(101), json.getFloatOrDefault(Jsoner.mintJsonKey("key2", 0)));
+		Assert.assertEquals(Double.valueOf(101), json.getDoubleOrDefault(Jsoner.mintJsonKey("key2", 0)));
+		Assert.assertEquals(Byte.valueOf((byte)101), json.getByte(TestKeys.key3));
+		Assert.assertEquals(Short.valueOf((short)101), json.getShort(TestKeys.key3));
+		Assert.assertEquals(Integer.valueOf(101), json.getInteger(TestKeys.key3));
+		Assert.assertEquals(Long.valueOf(101), json.getLong(TestKeys.key3));
+		Assert.assertEquals(Float.valueOf(101), json.getFloat(TestKeys.key3));
+		Assert.assertEquals(Double.valueOf(101), json.getDouble(TestKeys.key3));
+		Assert.assertEquals(Byte.valueOf((byte)101), json.getByteOrDefault(Jsoner.mintJsonKey("key3", (byte)0)));
+		Assert.assertEquals(Short.valueOf((short)101), json.getShortOrDefault(Jsoner.mintJsonKey("key3", (short)0)));
+		Assert.assertEquals(Integer.valueOf(101), json.getIntegerOrDefault(Jsoner.mintJsonKey("key3", 0)));
+		Assert.assertEquals(Long.valueOf(101), json.getLongOrDefault(Jsoner.mintJsonKey("key3", 0)));
+		Assert.assertEquals(Float.valueOf(101), json.getFloatOrDefault(Jsoner.mintJsonKey("key3", 0)));
+		Assert.assertEquals(Double.valueOf(101), json.getDoubleOrDefault(Jsoner.mintJsonKey("key3", 0)));
 		/* Strings are gotten from booleans, numbers, and strings. */
 		Assert.assertEquals("101", json.getString(TestKeys.key0));
 		Assert.assertEquals("true", json.getString(TestKeys.key1));
@@ -272,7 +273,22 @@ public class JsonObjectTest{
 		Assert.assertEquals(null, json.get(TestKeys.key4));
 	}
 
+	/** Ensures the chain methods put entries as expected. */
+	@Test
+	public void testPutChains(){
+		final Map<String, Object> testAll = new HashMap<>();
+		testAll.put("field1", "value1");
+		testAll.put("field2", 2);
+		testAll.put("field3", "three");
+		final JsonObject json = new JsonObject();
+		final JsonObject chained = new JsonObject().putChain("field4", "4four").putAllChain(testAll);
+		json.put("field4", "4four");
+		json.putAllChain(testAll);
+		Assert.assertEquals(json, chained);
+	}
+
 	/** Ensures that when keys are present it does not throw NoSuchElementException. */
+	@Test
 	public void testRequires(){
 		final JsonObject json = new JsonObject();
 		json.put(TestKeys.key0.getKey(), 0);

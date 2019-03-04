@@ -28,6 +28,21 @@ public class JsonArrayTest{
 		/* All of the implemented tests use local variables in their own respective method. */
 	}
 
+	/** Ensures the chain methods insert elements as expected. */
+	@Test
+	public void testAddChains(){
+		final JsonArray allTest = new JsonArray();
+		allTest.add(6);
+		allTest.add("seven");
+		final JsonArray json = new JsonArray();
+		final JsonArray chained = new JsonArray().addChain("asdf").addChain(0, 1234).addAllChain(allTest).addAllChain(3, allTest);
+		json.add("asdf");
+		json.add(0, 1234);
+		json.addAll(allTest);
+		json.addAll(3, allTest);
+		Assert.assertEquals(json, chained);
+	}
+
 	/** Ensures a homogeneous JsonArray can be viewed as another collection of a specific type. */
 	@Test
 	public void testAsCollection(){
@@ -85,12 +100,12 @@ public class JsonArrayTest{
 	public void testGetBigDecimal(){
 		final JsonArray json = new JsonArray();
 		json.add(new BigDecimal("0"));
-		json.add(new Double(0));
-		json.add(new Float(0));
-		json.add(new Long(0));
-		json.add(new Integer(0));
-		json.add(new Short((short)0));
-		json.add(new Byte((byte)0));
+		json.add(Double.valueOf(0));
+		json.add(Float.valueOf(0));
+		json.add(Long.valueOf(0));
+		json.add(Integer.valueOf(0));
+		json.add(Short.valueOf((short)0));
+		json.add(Byte.valueOf((byte)0));
 		json.add(new String("0"));
 		Assert.assertEquals(new BigDecimal("0"), json.getBigDecimal(0));
 		Assert.assertEquals(new BigDecimal("0.0"), json.getBigDecimal(1));
@@ -186,25 +201,25 @@ public class JsonArrayTest{
 		Assert.assertEquals(true, json.getBoolean(1));
 		Assert.assertEquals(false, json.getBoolean(0));
 		/* Numbers are gotten from strings. */
-		Assert.assertEquals(new Byte((byte)101), json.getByte(0));
-		Assert.assertEquals(new Short((short)101), json.getShort(0));
-		Assert.assertEquals(new Integer(101), json.getInteger(0));
-		Assert.assertEquals(new Long(101), json.getLong(0));
-		Assert.assertEquals(new Float(101), json.getFloat(0));
-		Assert.assertEquals(new Double(101), json.getDouble(0));
+		Assert.assertEquals(Byte.valueOf((byte)101), json.getByte(0));
+		Assert.assertEquals(Short.valueOf((short)101), json.getShort(0));
+		Assert.assertEquals(Integer.valueOf(101), json.getInteger(0));
+		Assert.assertEquals(Long.valueOf(101), json.getLong(0));
+		Assert.assertEquals(Float.valueOf(101), json.getFloat(0));
+		Assert.assertEquals(Double.valueOf(101), json.getDouble(0));
 		/* Numbers are gotten from numbers. */
-		Assert.assertEquals(new Byte((byte)101), json.getByte(2));
-		Assert.assertEquals(new Short((short)101), json.getShort(2));
-		Assert.assertEquals(new Integer(101), json.getInteger(2));
-		Assert.assertEquals(new Long(101), json.getLong(2));
-		Assert.assertEquals(new Float(101), json.getFloat(2));
-		Assert.assertEquals(new Double(101), json.getDouble(2));
-		Assert.assertEquals(new Byte((byte)101), json.getByte(3));
-		Assert.assertEquals(new Short((short)101), json.getShort(3));
-		Assert.assertEquals(new Integer(101), json.getInteger(3));
-		Assert.assertEquals(new Long(101), json.getLong(3));
-		Assert.assertEquals(new Float(101), json.getFloat(3));
-		Assert.assertEquals(new Double(101), json.getDouble(3));
+		Assert.assertEquals(Byte.valueOf((byte)101), json.getByte(2));
+		Assert.assertEquals(Short.valueOf((short)101), json.getShort(2));
+		Assert.assertEquals(Integer.valueOf(101), json.getInteger(2));
+		Assert.assertEquals(Long.valueOf(101), json.getLong(2));
+		Assert.assertEquals(Float.valueOf(101), json.getFloat(2));
+		Assert.assertEquals(Double.valueOf(101), json.getDouble(2));
+		Assert.assertEquals(Byte.valueOf((byte)101), json.getByte(3));
+		Assert.assertEquals(Short.valueOf((short)101), json.getShort(3));
+		Assert.assertEquals(Integer.valueOf(101), json.getInteger(3));
+		Assert.assertEquals(Long.valueOf(101), json.getLong(3));
+		Assert.assertEquals(Float.valueOf(101), json.getFloat(3));
+		Assert.assertEquals(Double.valueOf(101), json.getDouble(3));
 		/* Strings are gotten from booleans, numbers, and strings. */
 		Assert.assertEquals("101", json.getString(0));
 		Assert.assertEquals("true", json.getString(1));

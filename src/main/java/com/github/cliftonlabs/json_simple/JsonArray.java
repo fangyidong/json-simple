@@ -43,6 +43,48 @@ public class JsonArray extends ArrayList<Object> implements Jsonable{
 		super(collection);
 	}
 
+	/** Calls add for the given collection of elements, but returns the JsonArray for chaining calls.
+	 * @param collection represents the items to be appended to the JsonArray.
+	 * @return the JsonArray to allow chaining calls.
+	 * @see ArrayList#addAll(Collection)
+	 * @since 3.1.0 for inline instantiation. */
+	public JsonArray addAllChain(final Collection<?> collection){
+		this.addAll(collection);
+		return this;
+	}
+
+	/** Calls add for the given index and collection, but returns the JsonArray for chaining calls.
+	 * @param index represents what index the element is added to in the JsonArray.
+	 * @param collection represents the item to be appended to the JsonArray.
+	 * @return the JsonArray to allow chaining calls.
+	 * @see ArrayList#addAll(int, Collection)
+	 * @since 3.1.0 for inline instantiation. */
+	public JsonArray addAllChain(final int index, final Collection<?> collection){
+		this.addAll(index, collection);
+		return this;
+	}
+
+	/** Calls add for the given element, but returns the JsonArray for chaining calls.
+	 * @param index represents what index the element is added to in the JsonArray.
+	 * @param element represents the item to be appended to the JsonArray.
+	 * @return the JsonArray to allow chaining calls.
+	 * @see ArrayList#add(int, Object)
+	 * @since 3.1.0 for inline instantiation. */
+	public JsonArray addChain(final int index, final Object element){
+		this.add(index, element);
+		return this;
+	}
+
+	/** Calls add for the given element, but returns the JsonArray for chaining calls.
+	 * @param element represents the item to be appended to the JsonArray.
+	 * @return the JsonArray to allow chaining calls.
+	 * @see ArrayList#add(Object)
+	 * @since 3.1.0 for inline instantiation. */
+	public JsonArray addChain(final Object element){
+		this.add(element);
+		return this;
+	}
+
 	/** A convenience method that assumes every element of the JsonArray is castable to T before adding it to a
 	 * collection of Ts.
 	 * @param <T> represents the type that all of the elements of the JsonArray should be cast to and the type the

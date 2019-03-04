@@ -532,6 +532,27 @@ public class JsonObject extends HashMap<String, Object> implements Jsonable{
 		return (String)returnable;
 	}
 
+	/** Calls putAll for the given map, but returns the JsonObject for chaining calls.
+	 * @param map represents the map to be copied into the JsonObject.
+	 * @return the JsonObject to allow chaining calls.
+	 * @see Map#putAll(Map)
+	 * @since 3.1.0 for inline instantiation. */
+	public JsonObject putAllChain(final Map<String, Object> map){
+		this.putAll(map);
+		return this;
+	}
+
+	/** Calls put for the given key and value, but returns the JsonObject for chaining calls.
+	 * @param key represents the value's association in the map.
+	 * @param value represents the key's association in the map.
+	 * @return the JsonObject to allow chaining calls.
+	 * @see Map#put(Object, Object)
+	 * @since 3.1.0 for inline instantiation. */
+	public JsonObject putChain(final String key, final Object value){
+		this.put(key, value);
+		return this;
+	}
+
 	/** Ensures the given keys are present.
 	 * @param keys represents the keys that must be present.
 	 * @throws NoSuchElementException if any of the given keys are missing.
