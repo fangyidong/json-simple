@@ -1,12 +1,12 @@
 <project>
     <modelVersion>4.0.0</modelVersion>
-    <groupId>com.googlecode.json-simple</groupId>
+    <groupId>org.json-simple</groupId>
     <artifactId>json-simple</artifactId>
     <packaging>bundle</packaging>
     <name>JSON.simple</name>
-    <version>1.1.1</version>
+    <version>1.2</version>
     <description>A simple Java toolkit for JSON</description>
-    <url>http://code.google.com/p/json-simple/</url>
+    <url>http://github.com/halfbax/json-simple/</url>
     <licenses>
         <license>
             <name>The Apache Software License, Version 2.0</name>
@@ -15,20 +15,15 @@
     </licenses>
     <developers>
         <developer>
-            <id>Yidong</id>
-            <name>Yidong Fang</name>
+            <id>Leon</id>
+            <name>Spors</name>
             <roles>
                 <role>architect</role>
                 <role>developer</role>
             </roles>
-            <timezone>+8</timezone>
+            <timezone>+1</timezone>
         </developer>
     </developers>
-    <scm>
-        <connection>scm:svn:http://json-simple.googlecode.com/svn/trunk/</connection>
-        <developerConnection>scm:svn:http://json-simple.googlecode.com/svn/trunk/</developerConnection>
-        <url>http://json-simple.googlecode.com/svn/trunk/</url>
-    </scm>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -39,25 +34,19 @@
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>4.10</version>
-	    <scope>test</scope>
+            <scope>test</scope>
         </dependency>
     </dependencies>
     
     <build>
         <plugins>
             <plugin>
-                <groupId>org.apache.felix</groupId>
-                <artifactId>maven-bundle-plugin</artifactId>
-                <version>2.3.6</version>
-                <extensions>true</extensions>
-            </plugin>
-            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>2.3.2</version>
                 <configuration>
-                  <source>1.2</source>
-                  <target>1.2</target>
+                  <source>8</source>
+                  <target>8</target>
                 </configuration>
             </plugin>
             <plugin>
@@ -73,6 +62,12 @@
                     </goals>
                   </execution>
                 </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>maven-bundle-plugin</artifactId>
+                <extensions>true</extensions> <!--add this line-->
             </plugin>
         </plugins>
     </build>
@@ -106,6 +101,5 @@
         </build>
       </profile>
     </profiles>
-
 </project>
 
