@@ -92,14 +92,14 @@ public class JsonObjectTest{
 	@Test
 	public void testGetBigDecimal(){
 		final JsonObject json = new JsonObject();
-		json.put(TestKeys.key0.getKey(), new BigDecimal("0"));
-		json.put(TestKeys.key1.getKey(), Double.valueOf(0));
-		json.put(TestKeys.key2.getKey(), Float.valueOf(0));
-		json.put(TestKeys.key3.getKey(), Long.valueOf(0));
-		json.put(TestKeys.key4.getKey(), Integer.valueOf(0));
-		json.put(TestKeys.key5.getKey(), Short.valueOf((short)0));
-		json.put(TestKeys.key6.getKey(), Byte.valueOf((byte)0));
-		json.put(TestKeys.key7.getKey(), new String("0"));
+		json.put(TestKeys.key0, new BigDecimal("0"));
+		json.put(TestKeys.key1, Double.valueOf(0));
+		json.put(TestKeys.key2, Float.valueOf(0));
+		json.put(TestKeys.key3, Long.valueOf(0));
+		json.put(TestKeys.key4, Integer.valueOf(0));
+		json.put(TestKeys.key5, Short.valueOf((short)0));
+		json.put(TestKeys.key6, Byte.valueOf((byte)0));
+		json.put(TestKeys.key7, new String("0"));
 		Assert.assertEquals(new BigDecimal("0"), json.getBigDecimal(TestKeys.key0));
 		Assert.assertEquals(new BigDecimal("0.0"), json.getBigDecimal(TestKeys.key1));
 		Assert.assertEquals(new BigDecimal("0.0"), json.getBigDecimal(TestKeys.key2));
@@ -133,9 +133,9 @@ public class JsonObjectTest{
 		array.add(35);
 		array.add(40);
 		array.add(45);
-		json.put(TestKeys.key0.getKey(), list);
-		json.put(TestKeys.key1.getKey(), set);
-		json.put(TestKeys.key2.getKey(), array);
+		json.put(TestKeys.key0, list);
+		json.put(TestKeys.key1, set);
+		json.put(TestKeys.key2, array);
 		output0 = json.getCollection(TestKeys.key0);
 		Assert.assertTrue(output0.contains(5));
 		Assert.assertTrue(output0.contains(10));
@@ -162,11 +162,11 @@ public class JsonObjectTest{
 		map.put(TestKeys.key0.getKey(), 0);
 		map.put(TestKeys.key1.getKey(), 1);
 		map.put(TestKeys.key2.getKey(), 2);
-		object.put(TestKeys.key3.getKey(), 3);
-		object.put(TestKeys.key4.getKey(), 4);
-		object.put(TestKeys.key5.getKey(), 5);
-		json.put(TestKeys.key6.getKey(), map);
-		json.put(TestKeys.key7.getKey(), object);
+		object.put(TestKeys.key3, 3);
+		object.put(TestKeys.key4, 4);
+		object.put(TestKeys.key5, 5);
+		json.put(TestKeys.key6, map);
+		json.put(TestKeys.key7, object);
 		output0 = json.<LinkedHashMap<Object, Object>> getMap(TestKeys.key6);
 		Assert.assertTrue(output0.containsKey(TestKeys.key0.getKey()));
 		Assert.assertTrue(output0.containsKey(TestKeys.key1.getKey()));
@@ -194,11 +194,11 @@ public class JsonObjectTest{
 		 * key3 -> big decimal
 		 * key4 -> null
 		 * TestKeys need to swap values once in a while. */
-		json.put(TestKeys.key0.getKey(), "101");
-		json.put(TestKeys.key1.getKey(), true);
-		json.put(TestKeys.key2.getKey(), 101);
-		json.put(TestKeys.key3.getKey(), new BigDecimal("101"));
-		json.put(TestKeys.key4.getKey(), null);
+		json.put(TestKeys.key0, "101");
+		json.put(TestKeys.key1, true);
+		json.put(TestKeys.key2, 101);
+		json.put(TestKeys.key3, new BigDecimal("101"));
+		json.put(TestKeys.key4, null);
 		/* Booleans are gotten from strings and booleans. */
 		Assert.assertEquals(true, json.getBoolean(TestKeys.key1));
 		Assert.assertEquals(false, json.getBoolean(TestKeys.key0));
@@ -291,9 +291,9 @@ public class JsonObjectTest{
 	@Test
 	public void testRequires(){
 		final JsonObject json = new JsonObject();
-		json.put(TestKeys.key0.getKey(), 0);
-		json.put(TestKeys.key1.getKey(), 0);
-		json.put(TestKeys.key2.getKey(), 0);
+		json.put(TestKeys.key0, 0);
+		json.put(TestKeys.key1, 0);
+		json.put(TestKeys.key2, 0);
 		json.requireKeys(TestKeys.key0, TestKeys.key1);
 	}
 
