@@ -532,6 +532,15 @@ public class JsonObject extends HashMap<String, Object> implements Jsonable{
 		return (String)returnable;
 	}
 
+	/** Convenience method that calls put for the given key and value.
+	 * @param key represents the JsonKey used for the value's association in the map.
+	 * @param value represents the key's association in the map.
+	 * @see Map#put(Object, Object)
+	 * @since 3.1.1 to use JsonKey instead of calling JsonKey#getKey() each time. */
+	public void put(final JsonKey key, final Object value){
+		this.put(key.getKey(), value);
+	}
+
 	/** Calls putAll for the given map, but returns the JsonObject for chaining calls.
 	 * @param map represents the map to be copied into the JsonObject.
 	 * @return the JsonObject to allow chaining calls.
@@ -539,6 +548,17 @@ public class JsonObject extends HashMap<String, Object> implements Jsonable{
 	 * @since 3.1.0 for inline instantiation. */
 	public JsonObject putAllChain(final Map<String, Object> map){
 		this.putAll(map);
+		return this;
+	}
+
+	/** Convenience method that calls put for the given key and value, but returns the JsonObject for chaining calls.
+	 * @param key represents the JsonKey used for the value's association in the map.
+	 * @param value represents the key's association in the map.
+	 * @return the JsonObject to allow chaining calls.
+	 * @see Map#put(Object, Object)
+	 * @since 3.1.1 to use JsonKey instead of calling JsonKey#getKey() each time. */
+	public JsonObject putChain(final JsonKey key, final Object value){
+		this.put(key.getKey(), value);
 		return this;
 	}
 
@@ -551,25 +571,6 @@ public class JsonObject extends HashMap<String, Object> implements Jsonable{
 	public JsonObject putChain(final String key, final Object value){
 		this.put(key, value);
 		return this;
-	}
-
-	/** Calls put for the given key and value, but returns the JsonObject for chaining calls.
-	 * @param key represents the value's association in the map.
-	 * @param value represents the key's association in the map.
-	 * @return the JsonObject to allow chaining calls.
-	 * @see Map#put(Object, Object)
-	 * @since 3.1.0 for inline instantiation. */
-	public JsonObject putChain(final JsonKey key, final Object value){
-		this.put(key.getKey(), value);
-		return this;
-	}
-
-	/** Calls put for the given key and value.
-	 * @param key represents the value's association in the map.
-	 * @param value represents the key's association in the map.
-	 * @see Map#put(Object, Object) */
-	public void put(final JsonKey key, final Object value){
-		this.put(key.getKey(), value);
 	}
 
 	/** Ensures the given keys are present.
