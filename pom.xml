@@ -22,7 +22,7 @@
         <connection>scm:git:https://github.com/cliftonlabs/json-simple.git</connection>
         <developerConnection>scm:git:https://github.com/cliftonlabs/json-simple.git</developerConnection>
         <url>https://github.com/cliftonlabs/json-simple.git</url>
-      <tag>HEAD</tag>
+        <tag>HEAD</tag>
   </scm>
     <developers>
         <developer>
@@ -121,7 +121,7 @@
                 <!-- Ensures api documentation is generated. -->
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
-                <version>3.0.1</version>
+                <version>3.1.1</version>
                 <executions>
                     <execution>
                         <id>attach-javadocs</id>
