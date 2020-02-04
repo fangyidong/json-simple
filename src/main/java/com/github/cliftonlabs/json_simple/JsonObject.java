@@ -573,6 +573,25 @@ public class JsonObject extends HashMap<String, Object> implements Jsonable{
 		return this;
 	}
 
+	/** Convenience method that calls remove for the given key.
+	 * @param key represents the value's association in the map.
+	 * @return an object representing the removed value or null if there wasn't one.
+	 * @since 3.1.1 to use JsonKey instead of calling JsonKey#getKey() each time.
+	 * @see Map#remove(Object) */
+	public Object remove(final JsonKey key){
+		return this.remove(key.getKey());
+	}
+
+	/** Convenience method that calls remove for the given key and value.
+	 * @param key represents the value's association in the map.
+	 * @param value represents the expected value at the given key.
+	 * @return a boolean, which is true if the value was removed. It is false otherwise.
+	 * @since 3.1.1 to use JsonKey instead of calling JsonKey#getKey() each time.
+	 * @see Map#remove(Object, Object) */
+	public boolean remove(final JsonKey key, final Object value){
+		return this.remove(key.getKey(), value);
+	}
+
 	/** Ensures the given keys are present.
 	 * @param keys represents the keys that must be present.
 	 * @throws NoSuchElementException if any of the given keys are missing.
