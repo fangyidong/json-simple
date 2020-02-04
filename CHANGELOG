@@ -1,5 +1,5 @@
-Version 3.1.1 (2020/01/*)
-* JsonObject now has put methods that call JsonKey#getKey() as a convenience.
+Version 3.1.1 (2020/02/*)
+* JsonObject now has put methods that call JsonKey#getKey() on the given JsonKey as a convenience.
 
 Version 3.1.0 (2019/03/*)
 * Jsoner exposed its internal pretty print function to give the caller more control over how it indents and newlines. It also uses a Reader's input and pretty print to a Writer's output, such as for formatting a file.
