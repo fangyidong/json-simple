@@ -31,6 +31,20 @@ mvn clean install
 Guided deploy of project with signed artifacts:
 Automated source cleanup.
 Update CHANGELOG.
+Acquire release keys based on guidance from: https://central.sonatype.org/pages/working-with-pgp-signatures.html
+	gpg2 --full-gen-key
+	gpg2 --keyserver hkp://pool.sks-keyservers.net --send-keys KEYHASHTOSEND
+Ensure the settings.xml file is present in the maven repostiory. For example: ~/.m2/settings.xml should have the contents:
+<settings>
+	<servers>
+		<server>
+			<id>ossrh</id>
+			<username>account_name_with_group_id_control_in_maven_central</username>
+			<password>plain_text_password_so_ensure_file_has_restricted_permissions_and_access</password>
+		</server>
+	</servers>
+</settings>
+
 mvn release:clean
 mvn release:prepare
 mvn release:perform
