@@ -634,7 +634,7 @@ public class Jsoner{
 			writableDestination.write("null");
 		}else if(((jsonSerializable instanceof Jsonable) && flags.contains(SerializationOptions.ALLOW_JSONABLES))){
 			/* Writes the writable as defined by the writable. */
-			writableDestination.write(((Jsonable)jsonSerializable).toJson());
+			((Jsonable)jsonSerializable).toJson(writableDestination);
 		}else if(jsonSerializable instanceof String){
 			/* Make sure the string is properly escaped. */
 			writableDestination.write('"');

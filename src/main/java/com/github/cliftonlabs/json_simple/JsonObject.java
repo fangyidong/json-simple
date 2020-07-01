@@ -644,9 +644,9 @@ public class JsonObject extends HashMap<String, Object> implements Jsonable{
 				writable.write(',');
 			}
 			final Map.Entry<String, Object> entry = entries.next();
-			writable.write(Jsoner.serialize(entry.getKey()));
+			Jsoner.serialize(entry.getKey(), writable);
 			writable.write(':');
-			writable.write(Jsoner.serialize(entry.getValue()));
+			Jsoner.serialize(entry.getValue(), writable);
 		}
 		writable.write('}');
 	}

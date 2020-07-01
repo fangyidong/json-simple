@@ -326,7 +326,7 @@ public class JsonArray extends ArrayList<Object> implements Jsonable{
 			}else{
 				writable.write(',');
 			}
-			writable.write(Jsoner.serialize(elements.next()));
+			Jsoner.serialize(elements.next(), writable);
 		}
 		writable.write(']');
 	}
