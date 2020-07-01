@@ -180,6 +180,24 @@ public class JsonerTest{
 		Assert.assertEquals(expected, deserialized);
 	}
 
+	/** Ensures that compiler errors won't manifest in changes to the JsonException class. */
+	@Test
+	public void testJsonExceptionHandling(){
+		final long position;
+		final JsonException.Problems problem;
+		final Object unexpectedObject;
+		try{
+			throw new JsonException(0, JsonException.Problems.UNEXPECTED_CHARACTER, new Character('a'));
+		}catch(final JsonException caught){
+			position = caught.getPosition();
+			problem = caught.getProblemType();
+			unexpectedObject = caught.getUnexpectedObject();
+		}
+		Assert.assertEquals(0, position);
+		Assert.assertEquals(JsonException.Problems.UNEXPECTED_CHARACTER, problem);
+		Assert.assertEquals(new Character('a'), unexpectedObject);
+	}
+
 	/** Ensures booleans, JsonArray, JsonObject, null, numbers, and Strings are deserializable while inside a JsonObject
 	 * or JsonArray.
 	 * @throws JsonException if the test fails. */
