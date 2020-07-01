@@ -70,8 +70,8 @@
             <plugin>
                 <!-- Produces the project's lexers. -->
                 <groupId>de.jflex</groupId>
-                <artifactId>maven-jflex-plugin</artifactId>
-                <version>1.4.3</version>
+                <artifactId>jflex-maven-plugin</artifactId>
+                <version>1.8.2</version>
                 <executions>
                     <execution>
                         <id>jlex</id>
