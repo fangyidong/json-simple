@@ -5,13 +5,13 @@ package com.github.cliftonlabs.json_simple;
 %{
 private StringBuilder sb=new StringBuilder();
 
-int getPosition(){
+long getPosition(){
 	return yychar;
 }
 
 %}
 
-%table
+%pack
 %unicode
 %state STRING_BEGIN
 

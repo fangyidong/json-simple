@@ -30,7 +30,7 @@ public class JsonException extends Exception{
 	@SuppressWarnings("javadoc")
 	private static final long	serialVersionUID	= 1L;
 	@SuppressWarnings("javadoc")
-	private final int			position;
+	private final long			position;
 	@SuppressWarnings("javadoc")
 	private final Problems		problemType;
 	@SuppressWarnings("javadoc")
@@ -40,7 +40,7 @@ public class JsonException extends Exception{
 	 * @param position where the exception occurred.
 	 * @param problemType how the exception occurred.
 	 * @param unexpectedObject what caused the exception. */
-	public JsonException(final int position, final Problems problemType, final Object unexpectedObject){
+	public JsonException(final long position, final Problems problemType, final Object unexpectedObject){
 		this.position = position;
 		this.problemType = problemType;
 		this.unexpectedObject = unexpectedObject;
@@ -79,7 +79,7 @@ public class JsonException extends Exception{
 
 	/** Helps debug the location of a problem.
 	 * @return an index of the string character the error type occurred at. */
-	public int getPosition(){
+	public long getPosition(){
 		return this.position;
 	}
 
