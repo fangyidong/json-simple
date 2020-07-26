@@ -1,6 +1,9 @@
 name: Delete oldest package version
 jobs:
   delete_oldest_package_version:
+    name: Delete oldest version
+    runs-on: ubuntu-latest
+    steps:
     - uses: actions/delete-package-versions
       with:
         package-name: 'json-simple'
