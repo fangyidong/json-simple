@@ -1,7 +1,5 @@
 name: Delete oldest package version
-on:
-  push:
-    branches: *
+on: push
 
 jobs:
   delete_oldest_package_version:
