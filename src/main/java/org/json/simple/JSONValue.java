@@ -118,6 +118,9 @@ public class JSONValue {
      * @param writer
      */
 	public static void writeJSONString(Object value, Writer out) throws IOException {
+		writeJSONString(value, 0, 0, out);
+	}
+	public static void writeJSONString(Object value, int indent, int level, Writer out) throws IOException {
 		if(value == null){
 			out.write("null");
 			return;
@@ -157,70 +160,84 @@ public class JSONValue {
 		}
 		
 		if((value instanceof JSONStreamAware)){
-			((JSONStreamAware)value).writeJSONString(out);
+//			System.err.println(" -> jsonStreamAware");
+			((JSONStreamAware)value).writeJSONString(indent, level, out);
 			return;
 		}
 		
 		if((value instanceof JSONAware)){
+//			System.err.println(" -> jsonAware");
 			out.write(((JSONAware)value).toJSONString());
 			return;
 		}
 		
 		if(value instanceof Map){
-			JSONObject.writeJSONString((Map)value, out);
+//			System.err.println(" -> next json object");
+			JSONObject.writeJSONString((Map)value, indent, level, out);
 			return;
 		}
 		
 		if(value instanceof Collection){
-			JSONArray.writeJSONString((Collection)value, out);
+//			System.err.println(" -> collection");
+			JSONArray.writeJSONString((Collection)value, indent, level, out);
             return;
 		}
 		
 		if(value instanceof byte[]){
+//			System.err.println(" -> byte[]");
 			JSONArray.writeJSONString((byte[])value, out);
 			return;
 		}
 		
 		if(value instanceof short[]){
+//			System.err.println(" -> short[]");
 			JSONArray.writeJSONString((short[])value, out);
 			return;
 		}
 		
 		if(value instanceof int[]){
+//			System.err.println(" -> int[]");
 			JSONArray.writeJSONString((int[])value, out);
 			return;
 		}
 		
 		if(value instanceof long[]){
+//			System.err.println(" -> long[]");
 			JSONArray.writeJSONString((long[])value, out);
 			return;
 		}
 		
 		if(value instanceof float[]){
+//			System.err.println(" -> float[]");
 			JSONArray.writeJSONString((float[])value, out);
 			return;
 		}
 		
 		if(value instanceof double[]){
+//			System.err.println(" -> double[]");
 			JSONArray.writeJSONString((double[])value, out);
 			return;
 		}
 		
 		if(value instanceof boolean[]){
+//			System.err.println(" -> boolean[]");
 			JSONArray.writeJSONString((boolean[])value, out);
 			return;
 		}
 		
 		if(value instanceof char[]){
+//			System.err.println(" -> char[]");
 			JSONArray.writeJSONString((char[])value, out);
 			return;
 		}
 		
 		if(value instanceof Object[]){
+//			System.err.println(" -> Object[]");
 			JSONArray.writeJSONString((Object[])value, out);
 			return;
 		}
-		
+
+//		System.err.println(" -> other");
 		out.write(value.toString());
 	}
 
@@ -242,7 +259,7 @@ public class JSONValue {
 		final StringWriter writer = new StringWriter();
 		
 		try{
-			writeJSONString(value, writer);
+			writeJSONString(value, 0, 0, writer);
 			return writer.toString();
 		} catch(IOException e){
 			// This should never happen for a StringWriter
