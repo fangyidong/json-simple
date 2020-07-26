@@ -74,7 +74,7 @@ public class JSONObject extends HashMap implements Map, JSONAware, JSONStreamAwa
             out.write(escape(String.valueOf(entry.getKey())));
             out.write('\"');
             out.write(':');
-			out.write(' ');
+			if (indent > 0) out.write(' ');
 			JSONValue.writeJSONString(entry.getValue(), indent, level+1, out);
 		}
 		out.write(prefixStr2);
