@@ -40,12 +40,15 @@ public class JSONObject extends HashMap implements Map, JSONAware, JSONStreamAwa
      * Encode a map into JSON text and write it to out.
      * If this map is also a JSONAware or JSONStreamAware, JSONAware or JSONStreamAware specific behaviours will be ignored at this top level.
      * 
-     * @see org.json.simple.JSONValue#writeJSONString(Object, Writer)
+     * @see org.json.simple.JSONValue#writeJSONString(Object, int, int, Writer)
      * 
      * @param map
      * @param out
      */
 	public static void writeJSONString(Map map, Writer out) throws IOException {
+		writeJSONString(map, 0, 0, out);
+	}
+	public static void writeJSONString(Map map, int indent, int level, Writer out) throws IOException {
 		if(map == null){
 			out.write("null");
 			return;
@@ -53,27 +56,40 @@ public class JSONObject extends HashMap implements Map, JSONAware, JSONStreamAwa
 		
 		boolean first = true;
 		Iterator iter=map.entrySet().iterator();
-		
+
+		String indentStr = ""; for (int i = 0; i < indent; i++) indentStr += " ";
+		String prefixStr1 = ""; int i = 0; while(i++ < level) prefixStr1 += indentStr;
+		String prefixStr2 = ""; i = 0; while(i++ <= level) prefixStr2 += indentStr;
+
         out.write('{');
 		while(iter.hasNext()){
             if(first)
                 first = false;
             else
                 out.write(',');
+			if (indent > 0) out.write('\n');
 			Map.Entry entry=(Map.Entry)iter.next();
-            out.write('\"');
+			out.write(prefixStr2);
+			out.write('\"');
             out.write(escape(String.valueOf(entry.getKey())));
             out.write('\"');
             out.write(':');
-			JSONValue.writeJSONString(entry.getValue(), out);
+			if (indent > 0) out.write(' ');
+			JSONValue.writeJSONString(entry.getValue(), indent, level+1, out);
 		}
+		out.write(prefixStr2);
+		if (indent > 0) out.write('\n');
+		out.write(prefixStr1);
 		out.write('}');
 	}
 
 	public void writeJSONString(Writer out) throws IOException{
-		writeJSONString(this, out);
+		writeJSONString(this, 0, 0, out);
 	}
-	
+	public void writeJSONString(int indent, int level, Writer out) throws IOException{
+		writeJSONString(this, indent, level, out);
+	}
+
 	/**
 	 * Convert a map to JSON text. The result is a JSON object. 
 	 * If this map is also a JSONAware, JSONAware specific behaviours will be omitted at this top level.
@@ -87,14 +103,29 @@ public class JSONObject extends HashMap implements Map, JSONAware, JSONStreamAwa
 		final StringWriter writer = new StringWriter();
 		
 		try {
-			writeJSONString(map, writer);
+			writeJSONString(map, 0, 0, writer);
 			return writer.toString();
 		} catch (IOException e) {
 			// This should never happen with a StringWriter
 			throw new RuntimeException(e);
 		}
 	}
-	
+
+	public static String toPrettyJSONString(Map map, int indent) {
+		StringWriter sw = new StringWriter();
+		try {
+			writeJSONString(map, indent, 0, sw);
+		} catch (IOException ex) {
+//            Logger.getLogger(JSONObject.class.getName()).log(Level.SEVERE, null, ex);
+		}
+		return sw.toString();
+	}
+
+
+	public String toPrettyJSONString(int indent){
+		return toPrettyJSONString(this, indent);
+	}
+
 	public String toJSONString(){
 		return toJSONString(this);
 	}
