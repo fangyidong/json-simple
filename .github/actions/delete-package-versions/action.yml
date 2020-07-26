@@ -1,0 +1,52 @@
+
+name: Delete Package Versions
+
+description: Deletes package versions
+
+inputs:
+
+  package-version-ids:
+    description: Comma separated string of package version ids to delete.
+    required: false
+
+  owner:
+    description: >
+      Owner of the repo containing the package version to delete.
+      Defaults to the owner of the repo running the action.
+    required: false
+
+  repo:
+    description: >
+      Repo containing the package version to delete.
+      Defaults to the repo running the action.
+    required: false
+
+  package-name:
+    description: >
+      Name of the package containing the version to delete.
+      Required if dynamically deleting oldest versions.
+    required: false
+
+  num-old-versions-to-delete:
+    description: >
+      Number of versions to delete starting with the oldest version.
+      Defaults to 1.
+    required: false
+    default: "1"
+
+  token:
+    description: >
+      Token with the necessary scopes to delete package versions.
+      If num-old-versions-to-delete is used the token also needs the read packages scope.
+      Defaults to github.token scoped to the repo running the action. To delete package versions
+      of a package outside the repo the action is running in use a Personal Access Token stored as a secret.
+    required: false
+    default: ${{ github.token }}
+
+runs:
+  using: node12
+  main: dist/index.js
+
+branding:
+  icon: package
+  color: blue
