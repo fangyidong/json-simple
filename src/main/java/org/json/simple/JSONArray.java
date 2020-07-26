@@ -10,6 +10,7 @@ import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.Map;
 
 /**
  * A JSON array. JSONObject supports java.util.List interface.
@@ -393,5 +394,15 @@ public class JSONArray extends ArrayList implements JSONAware, JSONStreamAware {
 	 */
 	public String toString() {
 		return toJSONString();
+	}
+
+	public String toPrettyJSONString(int indent) {
+		StringWriter sw = new StringWriter();
+		try {
+			writeJSONString(this, indent, 0, sw);
+		} catch (IOException ex) {
+//            Logger.getLogger(JSONObject.class.getName()).log(Level.SEVERE, null, ex);
+		}
+		return sw.toString();
 	}
 }
