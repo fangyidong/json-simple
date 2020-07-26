@@ -1,6 +1,6 @@
 name: Delete oldest package version
 jobs:
   delete_oldest_package_version:
-    - uses: actions/delete-package-versions@v1
+    - uses: actions/delete-package-versions
       with:
         package-name: 'json-simple'
