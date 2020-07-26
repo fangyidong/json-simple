@@ -10,6 +10,7 @@ import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.Map;
 
 /**
  * A JSON array. JSONObject supports java.util.List interface.
@@ -45,7 +46,7 @@ public class JSONArray extends ArrayList implements JSONAware, JSONStreamAware {
      * @param collection
      * @param out
      */
-	public static void writeJSONString(Collection collection, Writer out) throws IOException{
+	public static void writeJSONString(Collection collection, int indent, int level, Writer out) throws IOException{
 		if(collection == null){
 			out.write("null");
 			return;
@@ -53,27 +54,43 @@ public class JSONArray extends ArrayList implements JSONAware, JSONStreamAware {
 		
 		boolean first = true;
 		Iterator iter=collection.iterator();
-		
+
+		String indentStr = ""; for (int i = 0; i < indent; i++) indentStr += " ";
+		String prefixStr1 = ""; int i = 0; while(i++ < level) prefixStr1 += indentStr;
+		String prefixStr2 = ""; i = 0; while(i++ <= level) prefixStr2 += indentStr;
+
         out.write('[');
 		while(iter.hasNext()){
             if(first)
                 first = false;
             else
                 out.write(',');
-            
+
+			if (indent > 0) {
+				out.write('\n');
+				out.write(prefixStr2);
+			}
+
 			Object value=iter.next();
 			if(value == null){
 				out.write("null");
 				continue;
 			}
 			
-			JSONValue.writeJSONString(value, out);
+			JSONValue.writeJSONString(value, indent, level+1, out);
+		}
+		if (indent > 0) {
+			out.write('\n');
+			out.write(prefixStr1);
 		}
 		out.write(']');
 	}
-	
+
 	public void writeJSONString(Writer out) throws IOException{
-		writeJSONString(this, out);
+		writeJSONString(this, 0, 0, out);
+	}
+	public void writeJSONString(int indent, int level, Writer out) throws IOException{
+		writeJSONString(this, indent, level, out);
 	}
 	
 	/**
@@ -89,7 +106,7 @@ public class JSONArray extends ArrayList implements JSONAware, JSONStreamAware {
 		final StringWriter writer = new StringWriter();
 		
 		try {
-			writeJSONString(collection, writer);
+			writeJSONString(collection, 0, 0, writer);
 			return writer.toString();
 		} catch(IOException e){
 			// This should never happen for a StringWriter
@@ -377,5 +394,15 @@ public class JSONArray extends ArrayList implements JSONAware, JSONStreamAware {
 	 */
 	public String toString() {
 		return toJSONString();
+	}
+
+	public String toPrettyJSONString(int indent) {
+		StringWriter sw = new StringWriter();
+		try {
+			writeJSONString(this, indent, 0, sw);
+		} catch (IOException ex) {
+//            Logger.getLogger(JSONObject.class.getName()).log(Level.SEVERE, null, ex);
+		}
+		return sw.toString();
 	}
 }

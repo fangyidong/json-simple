@@ -11,5 +11,6 @@ public interface JSONStreamAware {
 	/**
 	 * write JSON string to out.
 	 */
+	void writeJSONString(int indent, int level, Writer out) throws IOException;
 	void writeJSONString(Writer out) throws IOException;
 }

@@ -4,7 +4,7 @@
     <artifactId>json-simple</artifactId>
     <packaging>bundle</packaging>
     <name>JSON.simple</name>
-    <version>1.1.1</version>
+    <version>1.1.2</version>
     <description>A simple Java toolkit for JSON</description>
     <url>http://code.google.com/p/json-simple/</url>
     <licenses>
@@ -106,6 +106,14 @@
         </build>
       </profile>
     </profiles>
+
+    <distributionManagement>
+        <repository>
+            <id>github</id>
+            <name>GitHub OWNER Apache Maven Packages</name>
+            <url>https://maven.pkg.github.com/ws-slink/json-simple</url>
+        </repository>
+    </distributionManagement>
 
 </project>
 
