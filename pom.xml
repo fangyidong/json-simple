@@ -6,7 +6,7 @@
     <name>JSON.simple</name>
     <description>Java 7+ toolkit to quickly develop RFC 4627 JSON compatible applications.</description>
     <url>https://cliftonlabs.github.io/json-simple/</url>
-    <version>3.1.2-SNAPSHOT</version>
+    <version>4.0.0</version>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
@@ -27,12 +27,7 @@
     <developers>
         <developer>
             <name>Davin Loegering</name>
-            <email>davin.loegering@cliftonlabs.com</email>
-            <organization>Clifton Labs</organization>
-            <organizationUrl>https://cliftonlabs.com</organizationUrl>
-        </developer>
-        <developer>
-            <name>Yidong Fang</name>
+            <url>https://github.com/loegering</url>
         </developer>
     </developers>
     <dependencies>
@@ -40,7 +35,7 @@
             <!-- For testing basic functionality of the library. -->
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.12</version>
+            <version>4.13.2</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
@@ -61,7 +56,7 @@
                 <!-- Enforces java 7 compliance. -->
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.8.0</version>
+                <version>3.8.1</version>
                 <configuration>
                     <source>1.7</source>
                     <target>1.7</target>
@@ -92,7 +87,7 @@
                 <!-- Can jar the project for local repository installs and public repository releases. Will also put the pom defined version number into the manifest. -->
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
-                <version>3.1.1</version>
+                <version>3.2.0</version>
                 <configuration>
                     <archive>
                         <manifest>
@@ -106,7 +101,7 @@
                 <!-- Ensures sources are generated. -->
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-source-plugin</artifactId>
-                <version>3.0.1</version>
+                <version>3.2.1</version>
                 <executions>
                     <execution>
                         <id>attach-sources</id>
@@ -121,7 +116,7 @@
                 <!-- Ensures api documentation is generated. -->
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
-                <version>3.1.1</version>
+                <version>3.3.0</version>
                 <executions>
                     <execution>
                         <id>attach-javadocs</id>
@@ -135,7 +130,7 @@
                 <!-- Ensures a pgp signature is used to sign the artifacts. -->
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-gpg-plugin</artifactId>
-                <version>1.6</version>
+                <version>3.0.1</version>
                 <executions>
                     <execution>
                         <id>sign-artifacts</id>
@@ -163,7 +158,7 @@
                 <!-- Helps guide the release process. -->
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-release-plugin</artifactId>
-                <version>2.5.3</version>
+                <version>3.0.0-M4</version>
                 <configuration>
                     <autoVersionSubmodules>true</autoVersionSubmodules>
                     <useReleaseProfile>true</useReleaseProfile>

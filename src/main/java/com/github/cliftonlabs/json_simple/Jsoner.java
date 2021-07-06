@@ -483,7 +483,7 @@ public class Jsoner{
 	 *        Jsoner#serialize(Object).
 	 * @param writable represents where the pretty printed JSON should be written to.
 	 * @param indentation representing the indentation used to format the JSON string. NOT validated as a proper
-	 *        indentation. It is recommended to use tabs ("\t"), but 3, 4, or 8 spaces are common alternatives.
+	 *        indentation. It is recommended to use tabs ("\t"), but 3 or 4 spaces are common alternatives.
 	 * @param newline representing the newline used to format the JSON string. NOT validated as a proper newline. It is
 	 *        recommended to use "\n", but "\r" or "/r/n" are common alternatives.
 	 * @throws IOException if the provided writer encounters an IO issue.
@@ -552,39 +552,6 @@ public class Jsoner{
 		final StringWriter writer = new StringWriter();
 		try{
 			Jsoner.prettyPrint(new StringReader(printable), writer, "\t", "\n");
-		}catch(final IOException caught){
-			/* See java.io.StringReader.
-			 * See java.io.StringWriter. */
-		}catch(final JsonException caught){
-			/* Would have been caused by a an IO exception while lexing, but the StringReader does not throw them. See
-			 * java.io.StringReader. */
-		}
-		return writer.toString();
-	}
-
-	/** A convenience method to pretty print a String with the provided spaces count and "\n" for newlines.
-	 * @param printable representing a JSON formatted string with out extraneous characters, like one returned from
-	 *        Jsoner#serialize(Object).
-	 * @param spaces representing the amount of spaces to use for indentation. Must be between 2 and 10.
-	 * @return printable except it will have '\n' then space characters inserted after '[', '{', ',' and before ']' '}'
-	 *         tokens in the JSON. It will return null if printable isn't a JSON string.
-	 * @throws IllegalArgumentException if spaces isn't between [2..10].
-	 * @see Jsoner#prettyPrint(String)
-	 * @since 2.2.0 to allow pretty printing with spaces instead of tabs.
-	 * @deprecated 3.1.0 in favor of Jsoner#prettyPrint(Reader, Writer, String, String) due to arbitrary limitations
-	 *             enforced by this implementation. */
-	@Deprecated
-	public static String prettyPrint(final String printable, final int spaces){
-		if((spaces > 10) || (spaces < 2)){
-			throw new IllegalArgumentException("Indentation with spaces must be between 2 and 10.");
-		}
-		final StringBuilder indentation = new StringBuilder("");
-		final StringWriter writer = new StringWriter();
-		for(int i = 0; i < spaces; i++){
-			indentation.append(" ");
-		}
-		try{
-			Jsoner.prettyPrint(new StringReader(printable), writer, indentation.toString(), "\n");
 		}catch(final IOException caught){
 			/* See java.io.StringReader.
 			 * See java.io.StringWriter. */
