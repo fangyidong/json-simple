@@ -496,6 +496,7 @@ public class Jsoner{
 			switch(lexed.getType()){
 				case COLON:
 					writable.append(lexed.getValue().toString());
+					writable.append(' ');
 					break;
 				case COMMA:
 					writable.append(lexed.getValue().toString());
