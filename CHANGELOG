@@ -1,5 +1,5 @@
 Version 4.0.1 (2022/03/*)
-* Forward slashes (/) are no longer escaped when serialized or pretty printed.
+* Jsoner no longer escapes forward slashes (/) when serializing or pretty printing.
 
 Version 4.0.0 (2021/07/*)
 * Jflex plugin was upgraded from 1.4.3 to 1.8.2. This resulted in JsonException#getPosition() returning a long instead of an int. If you don't do position based JsonException handling this is backwards compatible with 3.* versions of this library. If you do position based JsonException handling, just change your position variables from int to long and your project will work as expected.
