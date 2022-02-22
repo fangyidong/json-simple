@@ -406,9 +406,6 @@ public class Jsoner{
 				case '\t':
 					builder.append("\\t");
 					break;
-				case '/':
-					builder.append("\\/");
-					break;
 				default:
 					/* The many characters that get replaced are benign to software but could be mistaken by people
 					 * reading it for a JSON relevant character. */

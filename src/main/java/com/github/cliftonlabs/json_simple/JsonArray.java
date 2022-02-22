@@ -301,7 +301,7 @@ public class JsonArray extends ArrayList<Object> implements Jsonable{
 	}
 
 	/* (non-Javadoc)
-	 * @see org.json.simple.Jsonable#asJsonString() */
+	 * @see org.json.simple.Jsonable#toJson() */
 	@Override
 	public String toJson(){
 		final StringWriter writable = new StringWriter();
@@ -314,7 +314,7 @@ public class JsonArray extends ArrayList<Object> implements Jsonable{
 	}
 
 	/* (non-Javadoc)
-	 * @see org.json.simple.Jsonable#toJsonString(java.io.Writer) */
+	 * @see org.json.simple.Jsonable#toJson(java.io.Writer) */
 	@Override
 	public void toJson(final Writer writable) throws IOException{
 		boolean isFirstElement = true;
