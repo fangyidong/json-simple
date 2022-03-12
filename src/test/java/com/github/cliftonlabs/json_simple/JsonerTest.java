@@ -471,7 +471,7 @@ public class JsonerTest{
 	/** Ensures arrays and objects can be printed in an easier to read format. */
 	@Test
 	public void testPrettyPrint(){
-		Assert.assertEquals("[\n\t0,\n\t1,\n\t2,\n\t{\n\t\t\"k0\":\"v0\",\n\t\t\"k1\":\"v1\"\n\t},\n\t[\n\t\t[\n\t\t\t\"\",\n\t\t\t\"\"\n\t\t]\n\t],\n\tnull,\n\ttrue,\n\tfalse\n]", Jsoner.prettyPrint("[0,1,2,{\"k0\":\"v0\",\"k1\":\"v1\"},[[\"\",\"\"]],null,true,false]"));
+		Assert.assertEquals("[\n\t0,\n\t1,\n\t2,\n\t{\n\t\t\"k0\": \"v0\",\n\t\t\"k1\": \"v1\"\n\t},\n\t[\n\t\t[\n\t\t\t\"\",\n\t\t\t\"\"\n\t\t]\n\t],\n\tnull,\n\ttrue,\n\tfalse\n]", Jsoner.prettyPrint("[0,1,2,{\"k0\":\"v0\",\"k1\":\"v1\"},[[\"\",\"\"]],null,true,false]"));
 	}
 
 	/** Ensures Strings are directly deserializable.
@@ -494,12 +494,12 @@ public class JsonerTest{
 		 * 050, like 1050, 3050, 4050, 5050, etc. */
 		serialized = new StringWriter();
 		Jsoner.serialize("ABCDEFGHIJKLMNOPQRSTUVWXYZ<>:{}abcdefghijklmnopqrstuvwxyz,.;'[]/`123456789-=~!@#$%^&*_+()\r\b\n\t\f\\К௪ၐᎺអὲ⍚❂⼒ぐ㋺ꁐꁚꑂ\u4e2d", serialized);
-		Assert.assertEquals("\"ABCDEFGHIJKLMNOPQRSTUVWXYZ<>:{}abcdefghijklmnopqrstuvwxyz,.;'[]\\/`123456789-=~!@#$%^&*_+()\\r\\b\\n\\t\\f\\\\К௪ၐᎺអὲ⍚❂⼒ぐ㋺ꁐꁚꑂ中\"", serialized.toString());
+		Assert.assertEquals("\"ABCDEFGHIJKLMNOPQRSTUVWXYZ<>:{}abcdefghijklmnopqrstuvwxyz,.;'[]/`123456789-=~!@#$%^&*_+()\\r\\b\\n\\t\\f\\\\К௪ၐᎺអὲ⍚❂⼒ぐ㋺ꁐꁚꑂ中\"", serialized.toString());
 		serialized = new StringWriter();
 		Jsoner.serializeStrictly("ABCDEFGHIJKLMNOPQRSTUVWXYZ<>:{}abcdefghijklmnopqrstuvwxyz,.;'[]/`123456789-=~!@#$%^&*_+()\r\b\n\t\f\\К௪ၐᎺអὲ⍚❂⼒ぐ㋺ꁐꁚꑂ\u4e2d", serialized);
-		Assert.assertEquals("\"ABCDEFGHIJKLMNOPQRSTUVWXYZ<>:{}abcdefghijklmnopqrstuvwxyz,.;'[]\\/`123456789-=~!@#$%^&*_+()\\r\\b\\n\\t\\f\\\\К௪ၐᎺអὲ⍚❂⼒ぐ㋺ꁐꁚꑂ中\"", serialized.toString());
+		Assert.assertEquals("\"ABCDEFGHIJKLMNOPQRSTUVWXYZ<>:{}abcdefghijklmnopqrstuvwxyz,.;'[]/`123456789-=~!@#$%^&*_+()\\r\\b\\n\\t\\f\\\\К௪ၐᎺអὲ⍚❂⼒ぐ㋺ꁐꁚꑂ中\"", serialized.toString());
 		serialized = new StringWriter();
 		Jsoner.serializeCarelessly("ABCDEFGHIJKLMNOPQRSTUVWXYZ<>:{}abcdefghijklmnopqrstuvwxyz,.;'[]/`123456789-=~!@#$%^&*_+()\r\b\n\t\f\\К௪ၐᎺអὲ⍚❂⼒ぐ㋺ꁐꁚꑂ\u4e2d", serialized);
-		Assert.assertEquals("\"ABCDEFGHIJKLMNOPQRSTUVWXYZ<>:{}abcdefghijklmnopqrstuvwxyz,.;'[]\\/`123456789-=~!@#$%^&*_+()\\r\\b\\n\\t\\f\\\\К௪ၐᎺអὲ⍚❂⼒ぐ㋺ꁐꁚꑂ中\"", serialized.toString());
+		Assert.assertEquals("\"ABCDEFGHIJKLMNOPQRSTUVWXYZ<>:{}abcdefghijklmnopqrstuvwxyz,.;'[]/`123456789-=~!@#$%^&*_+()\\r\\b\\n\\t\\f\\\\К௪ၐᎺអὲ⍚❂⼒ぐ㋺ꁐꁚꑂ中\"", serialized.toString());
 	}
 }
