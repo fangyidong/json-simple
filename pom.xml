@@ -6,7 +6,7 @@
     <name>JSON.simple</name>
     <description>Java 7+ toolkit to quickly develop RFC 4627 JSON compatible applications.</description>
     <url>https://cliftonlabs.github.io/json-simple/</url>
-    <version>4.0.1</version>
+    <version>4.0.2-SNAPSHOT</version>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
@@ -22,7 +22,7 @@
         <connection>scm:git:git@github.com:cliftonlabs/json-simple.git</connection>
         <developerConnection>scm:git:git@github.com:cliftonlabs/json-simple.git</developerConnection>
         <url>https://github.com/cliftonlabs/json-simple.git</url>
-        <tag>json-simple-4.0.1</tag>
+        <tag>HEAD</tag>
   </scm>
     <developers>
         <developer>
