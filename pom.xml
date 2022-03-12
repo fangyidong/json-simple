@@ -19,8 +19,8 @@
     </licenses>
     <scm>
         <!-- Defines the source control the project relies on. -->
-        <connection>scm:git:https://github.com/cliftonlabs/json-simple.git</connection>
-        <developerConnection>scm:git:https://github.com/cliftonlabs/json-simple.git</developerConnection>
+        <connection>scm:git:git@github.com:cliftonlabs/json-simple.git</connection>
+        <developerConnection>scm:git:git@github.com:cliftonlabs/json-simple.git</developerConnection>
         <url>https://github.com/cliftonlabs/json-simple.git</url>
         <tag>HEAD</tag>
   </scm>
