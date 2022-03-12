@@ -41,6 +41,7 @@ public class JsonObjectTest{
 		key6(null),
 		key7(null),
 		key8(null);
+
 		private final Object value;
 
 		private TestKeys(final Object value){
