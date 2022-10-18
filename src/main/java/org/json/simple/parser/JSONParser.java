@@ -4,6 +4,7 @@
  */
 package org.json.simple.parser;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.Reader;
 import java.io.StringReader;
@@ -12,6 +13,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.json.simple.JSONArray;
+import org.json.simple.JSONAware;
 import org.json.simple.JSONObject;
 
 
@@ -71,7 +73,7 @@ public class JSONParser {
 		return lexer.getPosition();
 	}
 	
-	public Object parse(String s) throws ParseException{
+	public Object parse(String s) throws ParseException {
 		return parse(s, (ContainerFactory)null);
 	}
 	
@@ -529,5 +531,27 @@ public class JSONParser {
 		
 		status = S_IN_ERROR;
 		throw new ParseException(getPosition(), ParseException.ERROR_UNEXPECTED_TOKEN, token);
+	}
+
+	/**
+	 * Static accessor of parser for {@link String} input. Used for fast navigation through already known JSON
+	 * @param json A JSON string
+	 * @return Fast JSON navigator
+	 * @author <a href="https://github.com/SashaSemenishchev">SashaSemenishchev</a>
+	 */
+	public static ParseResult of(String json) throws IOException, ParseException {
+		return of(new StringReader(json));
+	}
+
+	/**
+	 * Static accessor of parser for {@link Reader} input. Used for fast navigation through already known JSON
+	 * @param in A {@link Reader} that represents JSON string
+	 * @return Fast JSON navigator
+	 * @author <a href="https://github.com/SashaSemenishchev">SashaSemenishchev</a>
+	 */
+	public static ParseResult of(Reader in) throws IOException, ParseException {
+		JSONParser parser = new JSONParser();
+		JSONAware result = (JSONAware) parser.parse(in);
+		return new ParseResult(result);
 	}
 }

@@ -16,10 +16,7 @@ import java.util.Map;
 
 import junit.framework.TestCase;
 
-import org.json.simple.parser.ContainerFactory;
-import org.json.simple.parser.ContentHandler;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
+import org.json.simple.parser.*;
 
 /**
  * @author FangYidong<fangyidong@yahoo.com.cn>
@@ -293,6 +290,12 @@ public class Test extends TestCase{
         catch(ParseException pe){
             pe.printStackTrace();
         }
+		ParseResult result = JSONParser.of(s);
+		assertEquals(result.get("first").asInt(), 123);
+		assertEquals(result.get("second").get(0).get("k1").get("id").asString(), "id1");
+		assertEquals(result.get("second").get(4).get("id").asInt(), 123);
+		assertEquals(result.get("second").get(1).asInt(), 4);
+		assertTrue(result.get("id").isNull());
 	}
 	
 	public void testEncode() throws Exception{
