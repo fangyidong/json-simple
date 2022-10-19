@@ -263,7 +263,7 @@ public class Test extends TestCase{
             }
         };
         
-        s = "{\"first\": 123, \"second\": [{\"k1\":{\"id\":\"id1\"}}, 4, 5, 6, {\"id\": 123}], \"third\": 789, \"id\": null}";
+        s = "{\"first\": 123, \"second\": [{\"k1\":{\"id\":\"id1\"}}, 4, 5, 6, {\"id\": 123}], \"third\": 789, \"id\": null, \"fourth\": {\"id1\": 987, \"id2\": 1000, \"id3\": false}}";
         parser.reset();
         KeyFinder keyFinder = new KeyFinder();
         keyFinder.setMatchKey("id");
@@ -291,11 +291,16 @@ public class Test extends TestCase{
             pe.printStackTrace();
         }
 		ParseResult result = JSONParser.of(s);
+
 		assertEquals(result.get("first").asInt(), 123);
 		assertEquals(result.get("second").get(0).get("k1").get("id").asString(), "id1");
 		assertEquals(result.get("second").get(4).get("id").asInt(), 123);
 		assertEquals(result.get("second").get(1).asInt(), 4);
 		assertTrue(result.get("id").isNull());
+		ParseResult fourth = result.get("fourth").fixate();
+		assertEquals(fourth.get("id1").asInt(), 987);
+		assertEquals(fourth.get("id2").asInt(), 1000);
+		assertFalse(fourth.get("id3").asBoolean());
 	}
 	
 	public void testEncode() throws Exception{

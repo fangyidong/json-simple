@@ -118,6 +118,21 @@ public class ParseResult implements Accessor {
             return (long) init;
         }
 
+        public boolean asBoolean() {
+            try {
+                return (boolean) init;
+            } catch (ClassCastException exception) {
+                String val = init.toString();
+                if(val.equalsIgnoreCase("true")) {
+                    return true;
+                } else if(val.equals("false")) {
+                    return false;
+                } else {
+                    throw new ClassCastException("Invalid boolean literal at " + ((JSONAware) init).toJSONString());
+                }
+            }
+        }
+
         public String asString() {
             return init.toString();
         }
