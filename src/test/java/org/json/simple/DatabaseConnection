@@ -1,0 +1,172 @@
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+
+import java.io.Reader;
+import java.io.StringReader;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.text.ParseException;
+
+public class DatabaseConnection {
+    private static volatile DatabaseConnection instance;
+    private JSONObject connectionInfo;
+
+    private DatabaseConnection() {
+        loadConfig();
+    }
+
+    public static DatabaseConnection getInstance() {
+        if (instance == null) {
+            synchronized (DatabaseConnection.class) {
+                if (instance == null) {
+                    instance = new DatabaseConnection();
+                }
+            }
+        }
+        return instance;
+    }
+
+    private void loadConfig() {
+        // Загрузка конфигурации из файла JSON
+        // Пример:
+        String jsonConfig = "{ \"hostname\": \"localhost\", \"username\": \"my_user\", \"password\": \"my_password\", \"database\": \"my_database\" }";
+        JSONParser parser = new JSONParser();
+        try {
+            Reader reader = new StringReader(jsonConfig);
+            JSONObject config = (JSONObject) parser.parse(reader);
+            setConnectionInfo(config);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
+
+    public Connection establishConnection() throws SQLException {
+        String url = "jdbc:mysql://" + connectionInfo.get("hostname") + "/" + connectionInfo.get("database");
+        String username = (String) connectionInfo.get("username");
+        String password = (String) connectionInfo.get("password");
+        return DriverManager.getConnection(url, username, password);
+    }
+    public void setConnectionInfo(JSONObject connectionInfo) {
+        this.connectionInfo = connectionInfo;
+    }
+
+    public JSONObject getConnectionInfo() {
+        return connectionInfo;
+    }
+
+    public void executeQuery(String sql) {
+        try (Connection conn = establishConnection();
+             Statement statement = conn.createStatement()) {
+            statement.execute(sql);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+}
+
+please redo this code so that there is no cheating in accordance with this criteria
+
+Singleton Pattern
+Implement a Database Connection Singleton class for a software system.
+
+The Database Connection class should have the following responsibilities:
+
+Establish a connection to a database.
+Provide methods for executing SQL queries and retrieving the results.
+Store the database connection information (e.g. hostname, username, password, database name) in memory.
+Provide a method to retrieve the database connection information.
+Ensure that only one instance of the Database Connection class is created and used by the software system.
+Your implementation should meet the following requirements:
+
+The Database Connection class should have a private constructor to prevent instantiation from outside the class.
+The Database Connection class should have a private static instance variable to hold the only instance of the class.
+The Database Connection class should have a public static method to return the only instance of the class. If the instance does not exist, the method should create it.
+The Database Connection class should be thread-safe.
+The Database Connection class should use the Singleton pattern.
+The database connection information should be loaded from a configuration file (e.g. XML, JSON, or YAML).
+The configuration file should be stored in a specific location (e.g. in the user's home directory).
+        Write a test program to verify your implementation.
+        Edit
+
+        Sure, I can help you refactor the code to meet the requirements. Here's the updated code:
+
+                                                                        java
+                                                                        Edit
+                                                                        Full Screen
+                                                                        Copy code
+                                                                        import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+
+import java.io.FileReader;
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.text.ParseException;
+
+public class DatabaseConnection {
+    private static volatile DatabaseConnection instance;
+    private JSONObject connectionInfo;
+
+    private DatabaseConnection() {
+        loadConfig();
+    }
+
+    public static DatabaseConnection getInstance() {
+        if (instance == null) {
+            synchronized (DatabaseConnection.class) {
+                if (instance == null) {
+                    instance = new DatabaseConnection();
+                }
+            }
+        }
+        return instance;
+    }
+
+    private void loadConfig() {
+        // Load configuration from a JSON file
+        JSONParser parser = new JSONParser();
+        try {
+            FileReader reader = new FileReader("config.json");
+            JSONObject config = (JSONObject) parser.parse(reader);
+            setConnectionInfo(config);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public Connection establishConnection() throws SQLException {
+        String url = "jdbc:mysql://" + connectionInfo.get("hostname") + "/" + connectionInfo.get("database");
+        String username = (String) connectionInfo.get("username");
+        String password = (String) connectionInfo.get("password");
+        return DriverManager.getConnection(url, username, password);
+    }
+
+    public void setConnectionInfo(JSONObject connectionInfo) {
+        this.connectionInfo = connectionInfo;
+    }
+
+    public JSONObject getConnectionInfo() {
+        return connectionInfo;
+    }
+
+    public void executeQuery(String sql) {
+        try (Connection conn = establishConnection();
+             Statement statement = conn.createStatement()) {
+            statement.execute(sql);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+}
