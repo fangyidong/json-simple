@@ -1,0 +1,14 @@
+import DatabaseConnection.DatabaseConnection;
+import org.json.simple.JSONObject;
+
+public class TestDatabaseConnection {
+    public static void main(String[] args) {
+        DatabaseConnection dbConnection = DatabaseConnection.getInstance();
+
+        // Execute some queries or operations
+
+        // Get connection info
+        JSONObject connectionInfo = dbConnection.getConnectionInfo();
+        System.out.println("Connection Info: " + connectionInfo);
+    }
+}
