@@ -253,4 +253,28 @@ public class JSONValueTest extends TestCase {
 		JSONValue.writeJSONString(nestedStringArray, writer);
 		assertEquals(expectedNestedStringString, writer.toString());
 	}
+	
+	public void testNonFiniteNumbersInPrimitiveArrays() throws IOException {
+		assertEquals("[null,null,1.5]", JSONValue.toJSONString(new float[] { Float.NaN, Float.POSITIVE_INFINITY, 1.5f }));
+		assertEquals("[null,null,-2.5]", JSONValue.toJSONString(new double[] { Double.NEGATIVE_INFINITY, Double.NaN, -2.5 }));
+		
+		StringWriter writer = new StringWriter();
+		JSONValue.writeJSONString(new float[] { Float.NaN, Float.NEGATIVE_INFINITY, 1.5f }, writer);
+		assertEquals("[null,null,1.5]", writer.toString());
+		
+		writer = new StringWriter();
+		JSONValue.writeJSONString(new double[] { Double.NaN, Double.POSITIVE_INFINITY, -2.5 }, writer);
+		assertEquals("[null,null,-2.5]", writer.toString());
+	}
+	
+	public void testCharArrayEscaping() throws IOException {
+		final char[] chars = new char[] { '"', '\\', '\n' };
+		final String expected = "[\"\\\"\",\"\\\\\",\"\\n\"]";
+		
+		assertEquals(expected, JSONValue.toJSONString(chars));
+		
+		StringWriter writer = new StringWriter();
+		JSONValue.writeJSONString(chars, writer);
+		assertEquals(expected, writer.toString());
+	}
 }

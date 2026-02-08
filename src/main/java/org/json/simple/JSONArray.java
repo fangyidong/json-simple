@@ -7,6 +7,7 @@ package org.json.simple;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.io.Writer;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
@@ -97,274 +98,120 @@ public class JSONArray extends ArrayList implements JSONAware, JSONStreamAware {
 		}
 	}
 
-	public static void writeJSONString(byte[] array, Writer out) throws IOException{
+	private static void writeArray(Object array, Writer out) throws IOException{
 		if(array == null){
 			out.write("null");
-		} else if(array.length == 0) {
-			out.write("[]");
-		} else {
-			out.write("[");
-			out.write(String.valueOf(array[0]));
-			
-			for(int i = 1; i < array.length; i++){
-				out.write(",");
-				out.write(String.valueOf(array[i]));
-			}
-			
-			out.write("]");
+			return;
 		}
+		
+		final int length = Array.getLength(array);
+		if(length == 0){
+			out.write("[]");
+			return;
+		}
+		
+		out.write('[');
+		writeArrayElement(array, 0, out);
+		for(int i = 1; i < length; i++){
+			out.write(',');
+			writeArrayElement(array, i, out);
+		}
+		out.write(']');
+	}
+	
+	private static void writeArrayElement(Object array, int index, Writer out) throws IOException{
+		Object value = Array.get(array, index);
+		
+		if(value instanceof Character){
+			JSONValue.writeJSONString(String.valueOf(value), out);
+			return;
+		}
+		
+		JSONValue.writeJSONString(value, out);
+	}
+	
+	private static String toJSONStringInternal(Object array){
+		final StringWriter writer = new StringWriter();
+		
+		try {
+			writeArray(array, writer);
+			return writer.toString();
+		} catch(IOException e){
+			// This should never happen for a StringWriter
+			throw new RuntimeException(e);
+		}
+	}
+
+	public static void writeJSONString(byte[] array, Writer out) throws IOException{
+		writeArray(array, out);
 	}
 	
 	public static String toJSONString(byte[] array){
-		final StringWriter writer = new StringWriter();
-		
-		try {
-			writeJSONString(array, writer);
-			return writer.toString();
-		} catch(IOException e){
-			// This should never happen for a StringWriter
-			throw new RuntimeException(e);
-		}
+		return toJSONStringInternal(array);
 	}
 	
 	public static void writeJSONString(short[] array, Writer out) throws IOException{
-		if(array == null){
-			out.write("null");
-		} else if(array.length == 0) {
-			out.write("[]");
-		} else {
-			out.write("[");
-			out.write(String.valueOf(array[0]));
-			
-			for(int i = 1; i < array.length; i++){
-				out.write(",");
-				out.write(String.valueOf(array[i]));
-			}
-			
-			out.write("]");
-		}
+		writeArray(array, out);
 	}
 	
 	public static String toJSONString(short[] array){
-		final StringWriter writer = new StringWriter();
-		
-		try {
-			writeJSONString(array, writer);
-			return writer.toString();
-		} catch(IOException e){
-			// This should never happen for a StringWriter
-			throw new RuntimeException(e);
-		}
+		return toJSONStringInternal(array);
 	}
 	
 	public static void writeJSONString(int[] array, Writer out) throws IOException{
-		if(array == null){
-			out.write("null");
-		} else if(array.length == 0) {
-			out.write("[]");
-		} else {
-			out.write("[");
-			out.write(String.valueOf(array[0]));
-			
-			for(int i = 1; i < array.length; i++){
-				out.write(",");
-				out.write(String.valueOf(array[i]));
-			}
-			
-			out.write("]");
-		}
+		writeArray(array, out);
 	}
 	
 	public static String toJSONString(int[] array){
-		final StringWriter writer = new StringWriter();
-		
-		try {
-			writeJSONString(array, writer);
-			return writer.toString();
-		} catch(IOException e){
-			// This should never happen for a StringWriter
-			throw new RuntimeException(e);
-		}
+		return toJSONStringInternal(array);
 	}
 	
 	public static void writeJSONString(long[] array, Writer out) throws IOException{
-		if(array == null){
-			out.write("null");
-		} else if(array.length == 0) {
-			out.write("[]");
-		} else {
-			out.write("[");
-			out.write(String.valueOf(array[0]));
-			
-			for(int i = 1; i < array.length; i++){
-				out.write(",");
-				out.write(String.valueOf(array[i]));
-			}
-			
-			out.write("]");
-		}
+		writeArray(array, out);
 	}
 	
 	public static String toJSONString(long[] array){
-		final StringWriter writer = new StringWriter();
-		
-		try {
-			writeJSONString(array, writer);
-			return writer.toString();
-		} catch(IOException e){
-			// This should never happen for a StringWriter
-			throw new RuntimeException(e);
-		}
+		return toJSONStringInternal(array);
 	}
 	
 	public static void writeJSONString(float[] array, Writer out) throws IOException{
-		if(array == null){
-			out.write("null");
-		} else if(array.length == 0) {
-			out.write("[]");
-		} else {
-			out.write("[");
-			out.write(String.valueOf(array[0]));
-			
-			for(int i = 1; i < array.length; i++){
-				out.write(",");
-				out.write(String.valueOf(array[i]));
-			}
-			
-			out.write("]");
-		}
+		writeArray(array, out);
 	}
 	
 	public static String toJSONString(float[] array){
-		final StringWriter writer = new StringWriter();
-		
-		try {
-			writeJSONString(array, writer);
-			return writer.toString();
-		} catch(IOException e){
-			// This should never happen for a StringWriter
-			throw new RuntimeException(e);
-		}
+		return toJSONStringInternal(array);
 	}
 	
 	public static void writeJSONString(double[] array, Writer out) throws IOException{
-		if(array == null){
-			out.write("null");
-		} else if(array.length == 0) {
-			out.write("[]");
-		} else {
-			out.write("[");
-			out.write(String.valueOf(array[0]));
-			
-			for(int i = 1; i < array.length; i++){
-				out.write(",");
-				out.write(String.valueOf(array[i]));
-			}
-			
-			out.write("]");
-		}
+		writeArray(array, out);
 	}
 	
 	public static String toJSONString(double[] array){
-		final StringWriter writer = new StringWriter();
-		
-		try {
-			writeJSONString(array, writer);
-			return writer.toString();
-		} catch(IOException e){
-			// This should never happen for a StringWriter
-			throw new RuntimeException(e);
-		}
+		return toJSONStringInternal(array);
 	}
 	
 	public static void writeJSONString(boolean[] array, Writer out) throws IOException{
-		if(array == null){
-			out.write("null");
-		} else if(array.length == 0) {
-			out.write("[]");
-		} else {
-			out.write("[");
-			out.write(String.valueOf(array[0]));
-			
-			for(int i = 1; i < array.length; i++){
-				out.write(",");
-				out.write(String.valueOf(array[i]));
-			}
-			
-			out.write("]");
-		}
+		writeArray(array, out);
 	}
 	
 	public static String toJSONString(boolean[] array){
-		final StringWriter writer = new StringWriter();
-		
-		try {
-			writeJSONString(array, writer);
-			return writer.toString();
-		} catch(IOException e){
-			// This should never happen for a StringWriter
-			throw new RuntimeException(e);
-		}
+		return toJSONStringInternal(array);
 	}
 	
 	public static void writeJSONString(char[] array, Writer out) throws IOException{
-		if(array == null){
-			out.write("null");
-		} else if(array.length == 0) {
-			out.write("[]");
-		} else {
-			out.write("[\"");
-			out.write(String.valueOf(array[0]));
-			
-			for(int i = 1; i < array.length; i++){
-				out.write("\",\"");
-				out.write(String.valueOf(array[i]));
-			}
-			
-			out.write("\"]");
-		}
+		writeArray(array, out);
 	}
 	
 	public static String toJSONString(char[] array){
-		final StringWriter writer = new StringWriter();
-		
-		try {
-			writeJSONString(array, writer);
-			return writer.toString();
-		} catch(IOException e){
-			// This should never happen for a StringWriter
-			throw new RuntimeException(e);
-		}
+		return toJSONStringInternal(array);
 	}
 	
 	public static void writeJSONString(Object[] array, Writer out) throws IOException{
-		if(array == null){
-			out.write("null");
-		} else if(array.length == 0) {
-			out.write("[]");
-		} else {
-			out.write("[");
-			JSONValue.writeJSONString(array[0], out);
-			
-			for(int i = 1; i < array.length; i++){
-				out.write(",");
-				JSONValue.writeJSONString(array[i], out);
-			}
-			
-			out.write("]");
-		}
+		writeArray(array, out);
 	}
 	
 	public static String toJSONString(Object[] array){
-		final StringWriter writer = new StringWriter();
-		
-		try {
-			writeJSONString(array, writer);
-			return writer.toString();
-		} catch(IOException e){
-			// This should never happen for a StringWriter
-			throw new RuntimeException(e);
-		}
+		return toJSONStringInternal(array);
 	}
 	
 	public String toJSONString(){
