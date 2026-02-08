@@ -16,7 +16,7 @@ import java.util.StringTokenizer;
  */
 public class ItemList {
 	private String sp=",";
-	List items=new ArrayList();
+	private final List items=new ArrayList();
 	
 	
 	public ItemList(){}
@@ -27,11 +27,12 @@ public class ItemList {
 	}
 	
 	public ItemList(String s,String sp){
-		this.sp=s;
+		this.sp=sp;
 		this.split(s,sp,items);
 	}
 	
 	public ItemList(String s,String sp,boolean isMultiToken){
+		this.sp=sp;
 		split(s,sp,items,isMultiToken);
 	}
 	
@@ -40,7 +41,7 @@ public class ItemList {
 	}
 	
 	public String[] getArray(){
-		return (String[])this.items.toArray();
+		return (String[])this.items.toArray(new String[this.items.size()]);
 	}
 	
 	public void split(String s,String sp,List append,boolean isMultiToken){
@@ -123,14 +124,14 @@ public class ItemList {
 	
 	public String toString(String sp){
 		StringBuffer sb=new StringBuffer();
+		boolean first=true;
 		
 		for(int i=0;i<items.size();i++){
-			if(i==0)
-				sb.append(items.get(i));
-			else{
+			if(!first){
 				sb.append(sp);
-				sb.append(items.get(i));
 			}
+			sb.append(items.get(i));
+			first=false;
 		}
 		return sb.toString();
 
